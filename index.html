@@ -9,7 +9,10 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-transparent">
   <meta name="theme-color" content="#0d9488">
   <title>Super Survival Adventure</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏝️</text></svg>">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <link rel="manifest" href="manifest.json">
   <style>
     :root {
       --teal: #0d9488;
@@ -560,6 +563,46 @@
       100% { transform: translateY(110vh) rotate(540deg); opacity: .9; }
     }
 
+    #app.theme-math { background: linear-gradient(180deg, #a5f3fc 0%, #c4b5fd 45%, #fde68a 100%); }
+    .math-q {
+      margin-top: 14px;
+      text-align: center;
+      font-size: 2.6rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      line-height: 1.2;
+      color: #0f766e;
+    }
+    .math-progress {
+      margin-top: 8px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      color: #0f766e;
+    }
+    .actions.math-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+    }
+    .actions.math-grid button.math-ans {
+      font-size: 1.8rem;
+      min-height: 64px;
+      padding: 12px 8px;
+    }
+    .math-hero {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 72px;
+      text-align: center;
+      line-height: 1;
+      animation: pop .45s ease;
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: 0.01ms !important;
@@ -573,7 +616,7 @@
   <div id="app" class="theme-title"></div>
   <script>
   (function () {
-    const SAVE_KEY = "superSurvivalAdventure_v1";
+    const SAVE_KEY = "superSurvivalAdventure_v2";
     const ISLAND_SECONDS = 120;
     const app = document.getElementById("app");
 
@@ -595,7 +638,10 @@
       nightChoice: "",
       tsunamiChoice: "",
       hint: "",
-      shaking: false
+      shaking: false,
+      mathBank: null,
+      mathIndex: 0,
+      math: null
     });
 
     let state = initial();
@@ -629,6 +675,81 @@
 
     function addStars(n) {
       state.stars += n;
+    }
+
+    function randInt(lo, hi) {
+      return lo + Math.floor(Math.random() * (hi - lo + 1));
+    }
+    function shuffle(arr) {
+      const a = arr.slice();
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+      }
+      return a;
+    }
+    function makeProblem(op, used) {
+      for (let tries = 0; tries < 80; tries++) {
+        let a, b, answer, symbol;
+        if (op === "+") {
+          a = randInt(0, 20);
+          b = randInt(0, 20 - a);
+          answer = a + b;
+          symbol = "+";
+        } else {
+          a = randInt(0, 20);
+          b = randInt(0, a);
+          answer = a - b;
+          symbol = "−";
+        }
+        if (a === 0 && b === 0) continue;
+        if (answer < 0 || answer > 20) continue;
+        const key = a + symbol + b;
+        if (used.has(key)) continue;
+        used.add(key);
+        const wrong = new Set();
+        let guard = 0;
+        while (wrong.size < 2 && guard++ < 40) {
+          const delta = randInt(1, 5) * (Math.random() < 0.5 ? 1 : -1);
+          const n = answer + delta;
+          if (n >= 0 && n <= 20 && n !== answer) wrong.add(n);
+        }
+        for (let n = 0; n <= 20 && wrong.size < 2; n++) {
+          if (n !== answer) wrong.add(n);
+        }
+        return { a, b, op: symbol, answer, choices: shuffle([answer].concat(Array.from(wrong)).slice(0, 3)), key };
+      }
+      if (op === "+") return { a: 8, b: 7, op: "+", answer: 15, choices: [13, 15, 17], key: "8+7" };
+      return { a: 14, b: 6, op: "−", answer: 8, choices: [6, 8, 10], key: "14−6" };
+    }
+    function makeMathBank() {
+      const used = new Set();
+      const bank = [];
+      for (let g = 0; g < 3; g++) {
+        shuffle(["+", "-"]).forEach((op) => bank.push(makeProblem(op, used)));
+      }
+      return bank;
+    }
+    function ensureMathBank() {
+      if (!state.mathBank || !state.mathBank.length) {
+        state.mathBank = makeMathBank();
+        state.mathIndex = 0;
+      }
+    }
+    function startMath(nextScene, count, title, blurb) {
+      ensureMathBank();
+      const items = state.mathBank.slice(state.mathIndex, state.mathIndex + count);
+      state.mathIndex += items.length;
+      state.math = { items: items, i: 0, nextScene: nextScene, title: title, blurb: blurb };
+      clearHint();
+      state.scene = "math";
+      state.shaking = false;
+      sfx("tap");
+      save();
+      render();
+    }
+    function mathSceneHtml() {
+      return `<div class="scene" aria-hidden="true"><div class="math-hero">🧒🧮</div></div>`;
     }
 
     function playTone(freq, dur, type) {
@@ -726,7 +847,8 @@
     }
 
     function actionsHtml(btns) {
-      const grid = btns.length >= 4 ? " grid" : "";
+      const isMath = btns.length && btns.every((b) => (b.cls || "").indexOf("math-ans") !== -1);
+      const grid = isMath ? " math-grid" : (btns.length >= 4 ? " grid" : "");
       return `<div class="actions${grid}">${btns.map((b) =>
         `<button type="button" class="${b.cls || ""}" data-act="${b.act}" ${b.disabled ? "disabled" : ""}>${b.label}</button>`
       ).join("")}</div>`;
@@ -814,13 +936,20 @@
         quake: "theme-quake",
         quakeCover: "theme-quake",
         quakeAfter: "theme-quake",
-        complete: "theme-win"
+        complete: "theme-win",
+        math: "theme-math"
       };
       return map[scene] || "theme-island";
     }
 
     function levelFor(scene) {
       if (scene === "title") return 0;
+      if (scene === "math") {
+        const n = state.math && state.math.nextScene;
+        if (n === "tornado") return 2;
+        if (n === "quake" || n === "complete") return 3;
+        return 1;
+      }
       if (["island", "shipArrive", "shipNight", "shipBreakfast", "tsunami"].includes(scene)) return 1;
       if (String(scene).startsWith("tornado")) return 2;
       if (String(scene).startsWith("quake") || scene === "complete") return 3;
@@ -860,7 +989,7 @@
       if (sc === "title") {
         scene = titleSceneHtml();
         story = storyBox("🏝️ Super Survival Adventure",
-          "Help the hero stay safe through 3 wild levels: a tiny island, a spinny tornado, and a wobbly earthquake. It's all a game — you'll be okay, and you'll have fun!");
+          "Help the hero stay safe through 3 wild levels: a tiny island, a spinny tornado, and a wobbly earthquake. Along the way, solve addition and subtraction puzzles — all numbers stay within 0–20. It's all a game — you'll be okay, and you'll have fun!");
         actions = [{ label: "▶️ Play", act: "newGame", cls: "primary" }];
         if (hasContinue()) actions.push({ label: "↪️ Continue", act: "continue" });
       }
@@ -1017,10 +1146,24 @@
         ];
       }
 
+      else if (sc === "math") {
+        const m = state.math;
+        const p = m && m.items[m.i];
+        scene = mathSceneHtml();
+        if (p) {
+          const extra = `<div class="math-q" aria-live="polite">${p.a} ${p.op} ${p.b} = ?</div>` +
+            `<div class="math-progress">Puzzle ${m.i + 1} of ${m.items.length}</div>`;
+          story = storyBox(m.title || "Math power!",
+            m.blurb || "Solve this puzzle to keep going!",
+            extra);
+          actions = p.choices.map((n) => ({ label: String(n), act: "ans_" + n, cls: "math-ans" }));
+        }
+      }
+
       else if (sc === "complete") {
         scene = winSceneHtml();
         story = storyBox("🎉 You survived all 3 levels!",
-          "You're a safety champion! You expanded an island, rode out a wild wave, stayed safe in a tornado, and used Drop, Cover, and Hold On in an earthquake. Stars earned: ⭐ " + state.stars + ".");
+          "You're a safety champion! You expanded an island, rode out a wild wave, stayed safe in a tornado, used Drop, Cover, and Hold On in an earthquake, and solved addition and subtraction puzzles. Stars earned: ⭐ " + state.stars + ".");
         actions = [{ label: "🔁 Play again", act: "newGame", cls: "primary" }];
       }
 
@@ -1085,6 +1228,8 @@
           state = initial();
           state.scene = "island";
           state.level = 1;
+          state.mathBank = makeMathBank();
+          state.mathIndex = 0;
           clearSave();
           save();
           sfx("good");
@@ -1209,8 +1354,7 @@
           save(); render();
           break;
         case "toTornado":
-          sfx("good");
-          go("tornado");
+          startMath("tornado", 2, "Math power!", "Before the next adventure, solve 2 puzzles. Some are addition, some are subtraction.");
           break;
         case "goBasement":
           sfx("good");
@@ -1253,8 +1397,7 @@
           gentleHint("Keep the door closed and cover your head. You can do this!", btn);
           break;
         case "toQuake":
-          sfx("good");
-          go("quake");
+          startMath("quake", 2, "Math power!", "Nice surviving! Warm up your brain with 2 more puzzles, then it's time for Level 3.");
           break;
         case "dropCover":
           sfx("good");
@@ -1281,11 +1424,10 @@
           gentleHint("Heavy things can tip during a quake. Cover under a sturdy table, away from windows!", btn);
           break;
         case "checkHazards":
-          sfx("win");
           state.safety = 3;
           state.shaking = false;
           addStars(3);
-          go("complete");
+          startMath("complete", 2, "One last math challenge!", "The shaking is over. Solve 2 last puzzles to finish your adventure!");
           break;
         case "useElevator":
           gentleHint("Skip elevators after a quake. Stay put a moment, then look for hazards like fallen objects.", btn);
@@ -1294,6 +1436,28 @@
           gentleHint("Look first — things may have shifted. Stay put a moment, then check for hazards.", btn);
           break;
         default:
+          if (act && act.indexOf("ans_") === 0) {
+            const n = Number(act.slice(4));
+            const m = state.math;
+            const p = m && m.items[m.i];
+            if (!p || !isFinite(n)) break;
+            if (n === p.answer) {
+              sfx("good");
+              addStars(2);
+              clearHint();
+              m.i += 1;
+              if (m.i >= m.items.length) {
+                const next = m.nextScene;
+                state.math = null;
+                go(next, 0);
+              } else {
+                save();
+                render();
+              }
+            } else {
+              gentleHint("Not quite! Try another number. You can do it!", btn);
+            }
+          }
           break;
       }
     }
@@ -1328,6 +1492,13 @@
       startNew() { handle("newGame"); },
       goto(scene) { go(scene); },
       handle,
+      makeMathBank,
+      solveCurrentMath() {
+        const p = state.math && state.math.items[state.math.i];
+        if (!p) return false;
+        handle("ans_" + p.answer);
+        return true;
+      },
       ISLAND_SECONDS
     };
 
