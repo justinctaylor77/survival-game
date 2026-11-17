@@ -274,21 +274,19 @@
     tooth: "#fff7ed",
     mouth: "#1a0a22",
     spike: "#32145a",
-    outline: "#1c1028",
+    outline: "#2d1848",
     shoe: "#241036",
     shoeSole: "#5a3a1a"
   };
   const SKIN = {
-    base: "#efc2a0",
-    mid: "#e8b089",
-    shade: "#d89a72",
-    blush: "rgba(232,120,130,0.38)",
-    lip: "#d4797a",
-    hair: "#4a2c14",
-    hairDark: "#2e1a0c",
-    brow: "#3a2414",
-    iris: "#4a2e18",
-    outline: "#3a2418"
+    base: "#f3c8aa",
+    mid: "#e8b392",
+    blush: "rgba(255,150,155,0.36)",
+    hair: "#6b3e22",
+    hairDark: "#4a2a16",
+    brow: "#4a2a16",
+    iris: "#4c3218",
+    outline: "#5a3a28"
   };
 
 
@@ -964,8 +962,8 @@
   }
 
   /* Full-body boy — feet at (x,y), drawn upward.
-     ~7-year-old proportions (head about 1/5.5 of height) in a shadow-pal onesie.
-     Hood is DOWN, draped behind the neck. Costume colors live in SUIT. */
+     Stylized 7-year-old, ~5 heads tall, clean flat vector.
+     Hood is DOWN: a small, soft fabric hood (head-sized or smaller). */
   function drawBoy(ctx, x, y, scale, pose, t, extras) {
     extras = extras || {};
     ctx.save();
@@ -974,17 +972,17 @@
     const S = SUIT;
     const K = SKIN;
 
-    let bob = Math.sin(t * 3.1) * 1.5;
-    if (pose === "cheer") bob = -Math.abs(Math.sin(t * 7)) * 7;
-    const crouch = pose === "brace" ? 11 : 0;
+    let bob = Math.sin(t * 3.1) * 1.1;
+    if (pose === "cheer") bob = -Math.abs(Math.sin(t * 7)) * 5;
+    const crouch = pose === "brace" ? 6 : 0;
     ctx.translate(0, bob);
 
     ctx.lineJoin = "round";
     ctx.lineCap = "round";
 
-    ctx.fillStyle = "rgba(0,0,0,0.22)";
+    ctx.fillStyle = "rgba(0,0,0,0.16)";
     ctx.beginPath();
-    ctx.ellipse(0, 5, 20, 5.2, 0, 0, Math.PI * 2);
+    ctx.ellipse(0, 2.8, 12, 3.2, 0, 0, Math.PI * 2);
     ctx.fill();
 
     function capsule(x1, y1, x2, y2, width, fill, strokeCol, lw) {
@@ -994,350 +992,361 @@
       ctx.rotate(Math.atan2(dy, dx));
       ctx.fillStyle = fill;
       ctx.strokeStyle = strokeCol || S.outline;
-      ctx.lineWidth = lw == null ? 2.5 : lw;
+      ctx.lineWidth = lw == null ? 2 : lw;
       fillRound(ctx, 0, -width / 2, len, width, width / 2);
       ctx.fill(); ctx.stroke();
       ctx.restore();
     }
 
+    /* 5-heads-tall child: head ~20, total height 100. */
+    const hy = -90 + crouch * 0.08;
+    const neckY = -80 + crouch * 0.1;
+    const shY = -75 + crouch * 0.16;
+    const hipY = -40 + crouch * 0.4;
     const footY = 0;
-    const hipY = -70 + crouch * 0.45;
-    const shY = -114 + crouch * 0.18;
-    const neckY = -121 + crouch * 0.12;
-    const hy = -135 + crouch * 0.08;
+    const legSpread = pose === "cheer" ? 7 : (pose === "brace" ? 8 : 5.5);
 
-    const legSpread = pose === "cheer" ? 11 : (pose === "brace" ? 12 : 8);
-
-    /* Hood DOWN — draped behind the neck, ears and face visible. */
+    /* Small hood, draped behind the neck and left shoulder. */
     (function drawHoodDown() {
-      const H = S;
-      ctx.fillStyle = H.hood;
-      ctx.strokeStyle = H.outline;
-      ctx.lineWidth = 2.5;
+      ctx.fillStyle = S.hood;
+      ctx.strokeStyle = S.outline;
+      ctx.lineWidth = 1.8;
 
+      /* Short ear points on a small nape cowl. */
       ctx.beginPath();
-      ctx.moveTo(10, -138);
-      ctx.lineTo(21, -158);
-      ctx.lineTo(7, -135);
+      ctx.moveTo(-6.4, -80);
+      ctx.lineTo(-8.6, -86.5);
+      ctx.lineTo(-3.4, -79.5);
       ctx.closePath();
       ctx.fill(); ctx.stroke();
 
       ctx.beginPath();
-      ctx.moveTo(-14, -140);
-      ctx.lineTo(-33, -163);
-      ctx.lineTo(-21, -135);
-      ctx.closePath();
-      ctx.fill(); ctx.stroke();
-      ctx.fillStyle = H.hoodLight;
-      ctx.beginPath();
-      ctx.moveTo(-18, -140);
-      ctx.lineTo(-29, -157);
-      ctx.lineTo(-22, -137);
-      ctx.fill();
-
-      ctx.fillStyle = H.hood;
-      ctx.beginPath();
-      ctx.moveTo(8, -120);
-      ctx.quadraticCurveTo(14, -136, 6, -140);
-      ctx.quadraticCurveTo(-2, -150, -12, -138);
-      ctx.quadraticCurveTo(-28, -134, -38, -116);
-      ctx.quadraticCurveTo(-42, -100, -34, -86);
-      ctx.quadraticCurveTo(-20, -78, -6, -84);
-      ctx.quadraticCurveTo(10, -92, 12, -108);
-      ctx.quadraticCurveTo(12, -116, 8, -120);
+      ctx.moveTo(3.4, -79.5);
+      ctx.lineTo(6.8, -85.5);
+      ctx.lineTo(5.8, -78.5);
       ctx.closePath();
       ctx.fill(); ctx.stroke();
 
-      ctx.fillStyle = "rgba(139,92,196,0.3)";
+      ctx.fillStyle = S.hoodLight;
       ctx.beginPath();
-      ctx.ellipse(-22, -118, 10, 12, -0.3, 0, Math.PI * 2);
+      ctx.moveTo(-5.8, -80);
+      ctx.lineTo(-7.6, -85);
+      ctx.lineTo(-4.4, -79.5);
       ctx.fill();
 
-      function hoodEye(ex, ey, tilt) {
-        ctx.save();
-        ctx.translate(ex, ey);
-        ctx.rotate(tilt);
-        ctx.fillStyle = H.eye;
-        ctx.beginPath();
-        ctx.ellipse(0, 0, 5.2, 3.6, 0, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.fillStyle = H.eyeGlow;
-        ctx.beginPath();
-        ctx.ellipse(-1.4, -1, 1.6, 1.2, 0, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
-      }
-      hoodEye(-28, -118, -0.25);
-      hoodEye(-14, -120, 0.15);
-
-      ctx.fillStyle = H.mouth;
+      /* Soft hood, smaller than the head, draped at the neck / left shoulder. */
+      ctx.fillStyle = S.hood;
       ctx.beginPath();
-      ctx.ellipse(-21, -104, 12, 6, -0.1, 0, Math.PI * 2);
+      ctx.ellipse(-4, -72, 9.4, 8, -0.08, 0, Math.PI * 2);
+      ctx.fill(); ctx.stroke();
+
+      ctx.fillStyle = "rgba(139,92,196,0.35)";
+      ctx.beginPath();
+      ctx.ellipse(-7, -73, 4, 4.8, -0.15, 0, Math.PI * 2);
       ctx.fill();
-      ctx.fillStyle = H.tooth;
-      const teeth = [-30, -26, -22, -18, -14];
-      teeth.forEach(function (tx, i) {
-        const ty = -108 + Math.abs(i - 2) * 0.8;
-        ctx.beginPath();
-        ctx.moveTo(tx - 2.2, ty);
-        ctx.lineTo(tx, ty + 6);
-        ctx.lineTo(tx + 2.2, ty);
-        ctx.closePath();
-        ctx.fill();
-      });
+
+      /* Tiny stitched face on the visible left of the hood. */
+      ctx.fillStyle = S.eye;
+      ctx.beginPath(); ctx.ellipse(-8.8, -73.6, 1.45, 1.05, -0.15, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(-4.2, -74, 1.45, 1.05, 0.12, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = S.eyeGlow;
+      ctx.beginPath(); ctx.arc(-9.2, -73.9, 0.4, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(-4.5, -74.3, 0.4, 0, Math.PI * 2); ctx.fill();
+
+      ctx.fillStyle = S.mouth;
+      ctx.beginPath();
+      ctx.ellipse(-6.5, -69.6, 3.6, 1.7, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = S.tooth;
+      ctx.fillRect(-8.4, -70.4, 1.2, 1.3);
+      ctx.fillRect(-6.9, -70.5, 1.2, 1.3);
+      ctx.fillRect(-5.4, -70.4, 1.2, 1.3);
     })();
 
-    /* Back spikes peeking from the right side. */
+    /* Tiny back spikes along the right side. */
     ctx.fillStyle = S.spike;
     ctx.strokeStyle = S.outline;
-    ctx.lineWidth = 2;
-    [[16, -108, 10], [17, -94, 9], [16, -81, 7]].forEach(function (sp) {
+    ctx.lineWidth = 1.5;
+    [[9, -70, 3.2], [9.2, -65, 2.8], [9, -60, 2.4]].forEach(function (sp) {
       ctx.beginPath();
-      ctx.moveTo(10, sp[1] - 3);
+      ctx.moveTo(6, sp[1] - 2);
       ctx.lineTo(sp[0] + sp[2], sp[1]);
-      ctx.lineTo(10, sp[1] + 3);
+      ctx.lineTo(6, sp[1] + 2);
       ctx.closePath();
       ctx.fill(); ctx.stroke();
     });
 
-    capsule(-legSpread, hipY, -legSpread, footY - 10, 11, S.body, S.outline, 2.5);
-    capsule(legSpread, hipY, legSpread, footY - 10, 11, S.body, S.outline, 2.5);
+    /* Legs + booties + ankle cuffs. */
+    capsule(-legSpread, hipY, -legSpread, footY - 7, 7.2, S.body, S.outline, 2);
+    capsule(legSpread, hipY, legSpread, footY - 7, 7.2, S.body, S.outline, 2);
 
     function shoeAt(sx, flip) {
       ctx.fillStyle = S.cuff;
       ctx.strokeStyle = S.outline;
-      ctx.lineWidth = 2;
-      fillRound(ctx, sx - 7, footY - 15, 14, 7, 3);
+      ctx.lineWidth = 1.7;
+      fillRound(ctx, sx - 4.4, footY - 10, 8.8, 4.4, 2);
       ctx.fill(); ctx.stroke();
       ctx.fillStyle = S.shoe;
-      ctx.lineWidth = 2.4;
+      ctx.lineWidth = 1.8;
       ctx.beginPath();
-      ctx.ellipse(sx + flip * 4, footY - 4, 9.5, 5.2, 0, 0, Math.PI * 2);
+      ctx.ellipse(sx + flip * 2.2, footY - 2.4, 6.2, 3.4, 0, 0, Math.PI * 2);
       ctx.fill(); ctx.stroke();
       ctx.fillStyle = S.shoeSole;
       ctx.beginPath();
-      ctx.ellipse(sx + flip * 3.5, footY + 1, 9, 2.2, 0, 0, Math.PI * 2);
+      ctx.ellipse(sx + flip * 2, footY + 0.6, 5.6, 1.4, 0, 0, Math.PI * 2);
       ctx.fill();
     }
     shoeAt(-legSpread, -1);
     shoeAt(legSpread, 1);
 
+    /* Hips + short torso. */
     ctx.fillStyle = S.body;
     ctx.strokeStyle = S.outline;
-    ctx.lineWidth = 2.5;
-    fillRound(ctx, -15, hipY - 6, 30, 16, 8);
+    ctx.lineWidth = 2;
+    fillRound(ctx, -10, hipY - 4, 20, 11, 5.5);
     ctx.fill(); ctx.stroke();
 
-    const torsoH = (hipY + 8) - (shY - 4);
-    fillRound(ctx, -16, shY - 4, 32, torsoH, 11);
+    const torsoH = (hipY + 5) - (shY - 2);
+    fillRound(ctx, -10.5, shY - 2, 21, torsoH, 8);
     ctx.fill(); ctx.stroke();
-    ctx.fillStyle = "rgba(139,92,196,0.35)";
-    fillRound(ctx, -11, shY + 8, 14, 28, 8);
+    /* Soft shading only — no noisy texture. */
+    ctx.fillStyle = "rgba(155,110,210,0.32)";
+    fillRound(ctx, -7, shY + 4, 8, 16, 5);
     ctx.fill();
-    ctx.fillStyle = "rgba(40,16,70,0.28)";
-    fillRound(ctx, 6, shY + 6, 10, 32, 6);
+    ctx.fillStyle = "rgba(40,16,70,0.18)";
+    fillRound(ctx, 3.5, shY + 5, 5.5, 18, 4);
     ctx.fill();
+
+    /* Zipper line down the chest. */
+    ctx.strokeStyle = "#d4b8ec";
+    ctx.lineWidth = 1.3;
+    ctx.beginPath();
+    ctx.moveTo(0, shY + 1);
+    ctx.lineTo(0, hipY - 2);
+    ctx.stroke();
+    ctx.fillStyle = "#e8d4f8";
+    ctx.strokeStyle = S.outline;
+    ctx.lineWidth = 1.3;
+    fillRound(ctx, -1.5, shY + 0.5, 3, 4, 1);
+    ctx.fill(); ctx.stroke();
 
     if (extras.lifeJacket) {
       ctx.fillStyle = "#facc15";
       ctx.strokeStyle = S.outline;
-      ctx.lineWidth = 2.5;
-      fillRound(ctx, -21, shY + 4, 42, 28, 8);
+      ctx.lineWidth = 2;
+      fillRound(ctx, -12.5, shY + 2, 25, 18, 5);
       ctx.fill(); ctx.stroke();
       ctx.fillStyle = "#dc2626";
-      ctx.fillRect(-6, shY + 6, 12, 24);
-      ctx.strokeRect(-6, shY + 6, 12, 24);
+      ctx.fillRect(-3.5, shY + 3.5, 7, 15);
+      ctx.strokeRect(-3.5, shY + 3.5, 7, 15);
     }
 
-    const swing = Math.sin(t * 3.1) * 7;
+    const swing = Math.sin(t * 3.1) * 1.6;
     let lHand, rHand;
     if (pose === "cheer") {
-      lHand = [-26, shY - 48];
-      rHand = [26, shY - 48];
+      lHand = [-16, shY - 28];
+      rHand = [16, shY - 28];
     } else if (pose === "brace") {
-      lHand = [-11, hy - 6];
-      rHand = [11, hy - 6];
+      lHand = [-11, hy - 4];
+      rHand = [11, hy - 4];
     } else if (pose === "work") {
-      lHand = [-28, hipY + 6 + swing];
-      rHand = [26, hipY - 8 - swing];
+      lHand = [-17, hipY + 4 + swing];
+      rHand = [16, hipY - 4 - swing];
     } else {
-      lHand = [-22, hipY + 4 + swing];
-      rHand = [22, hipY + 4 - swing];
+      lHand = [-14, hipY + 3 + swing];
+      rHand = [14, hipY + 3 - swing];
     }
-    const lSh = [-17, shY + 4], rSh = [17, shY + 4];
-    const lEl = [(lSh[0] + lHand[0]) / 2 - (pose === "idle" ? 5 : 2), (lSh[1] + lHand[1]) / 2 + (pose === "idle" ? 8 : 2)];
-    const rEl = [(rSh[0] + rHand[0]) / 2 + (pose === "idle" ? 5 : 2), (rSh[1] + rHand[1]) / 2 + (pose === "idle" ? 8 : 2)];
-    capsule(lSh[0], lSh[1], lEl[0], lEl[1], 10, S.body, S.outline, 2.5);
-    capsule(rSh[0], rSh[1], rEl[0], rEl[1], 10, S.body, S.outline, 2.5);
-    capsule(lEl[0], lEl[1], lHand[0], lHand[1], 8.5, S.body, S.outline, 2.5);
-    capsule(rEl[0], rEl[1], rHand[0], rHand[1], 8.5, S.body, S.outline, 2.5);
+    const lSh = [-10, shY + 3], rSh = [10, shY + 3];
+    const idleBend = (pose === "idle" || pose === "work") ? 1 : 0;
+    const lEl = [(lSh[0] + lHand[0]) / 2 - 3 * idleBend, (lSh[1] + lHand[1]) / 2 + 5 * idleBend];
+    const rEl = [(rSh[0] + rHand[0]) / 2 + 3 * idleBend, (rSh[1] + rHand[1]) / 2 + 5 * idleBend];
+    capsule(lSh[0], lSh[1], lEl[0], lEl[1], 6.4, S.body, S.outline, 2);
+    capsule(rSh[0], rSh[1], rEl[0], rEl[1], 6.4, S.body, S.outline, 2);
+    capsule(lEl[0], lEl[1], lHand[0], lHand[1], 5.6, S.body, S.outline, 2);
+    capsule(rEl[0], rEl[1], rHand[0], rHand[1], 5.6, S.body, S.outline, 2);
 
     function cuffAt(cx, cy) {
       ctx.fillStyle = S.cuff;
       ctx.strokeStyle = S.outline;
-      ctx.lineWidth = 2;
-      ctx.beginPath(); ctx.arc(cx, cy, 7, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.lineWidth = 1.6;
+      ctx.beginPath(); ctx.arc(cx, cy, 4.2, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
     }
-    const lCuff = [(lEl[0] + lHand[0]) / 2, (lEl[1] + lHand[1]) / 2];
-    const rCuff = [(rEl[0] + rHand[0]) / 2, (rEl[1] + rHand[1]) / 2];
-    cuffAt(lCuff[0], lCuff[1]);
-    cuffAt(rCuff[0], rCuff[1]);
+    cuffAt((lEl[0] + lHand[0]) / 2, (lEl[1] + lHand[1]) / 2);
+    cuffAt((rEl[0] + rHand[0]) / 2, (rEl[1] + rHand[1]) / 2);
 
-    function handAt(hx, hy, flip) {
+    /* Matching mitten hands — same rounded shape on both sides. */
+    function mitten(mx, my) {
       ctx.fillStyle = K.base;
       ctx.strokeStyle = K.outline;
-      ctx.lineWidth = 2.2;
-      ctx.beginPath(); ctx.arc(hx, hy, 6, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.lineWidth = 1.7;
       ctx.beginPath();
-      ctx.ellipse(hx + flip * 5, hy - 2, 2.4, 3.2, flip * -0.5, 0, Math.PI * 2);
+      ctx.arc(mx, my, 3.8, 0, Math.PI * 2);
       ctx.fill(); ctx.stroke();
     }
-    handAt(lHand[0], lHand[1], -1);
-    handAt(rHand[0], rHand[1], 1);
+    mitten(lHand[0], lHand[1]);
+    mitten(rHand[0], rHand[1]);
 
+    /* Short neck. */
     ctx.fillStyle = K.base;
-    ctx.strokeStyle = K.outline;
-    ctx.lineWidth = 2.3;
-    fillRound(ctx, -5, neckY - 2, 10, 10, 3);
+    ctx.strokeStyle = "#c17a58";
+    ctx.lineWidth = 1.5;
+    fillRound(ctx, -3.6, neckY - 1.2, 7.2, 7, 2.4);
     ctx.fill(); ctx.stroke();
 
+    /* Hair sits on TOP of the skull only. The face is as wide as the hair
+       and extends lower, so no brown can wrap the jaw. */
     ctx.fillStyle = K.hair;
+    ctx.beginPath();
+    ctx.ellipse(0, hy - 4.4, 10.3, 10.6, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    /* Clean face — skin-toned outline, no dark jaw ring. */
+    const faceLine = "#c17a58";
+    ctx.fillStyle = K.base;
+    ctx.strokeStyle = faceLine;
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.ellipse(0, hy + 0.8, 10.4, 10.4, 0, 0, Math.PI * 2);
+    ctx.fill(); ctx.stroke();
+
+    /* Little ears at the sides, not covered in hair. */
+    ctx.fillStyle = K.base;
+    ctx.strokeStyle = faceLine;
+    ctx.beginPath(); ctx.ellipse(-10.0, hy + 1.4, 2.2, 2.9, -0.15, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    ctx.beginPath(); ctx.ellipse(10.0, hy + 1.4, 2.2, 2.9, 0.15, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+
+    /* Smooth short bangs — forehead only. */
+    ctx.fillStyle = K.hair;
+    ctx.beginPath();
+    ctx.moveTo(-9.6, hy - 4.2);
+    ctx.quadraticCurveTo(-5.8, hy - 3.2, -2.8, hy - 6.2);
+    ctx.quadraticCurveTo(0, hy - 3.8, 2.8, hy - 6.2);
+    ctx.quadraticCurveTo(5.8, hy - 3.2, 9.6, hy - 4.2);
+    ctx.quadraticCurveTo(10.0, hy - 10.6, 0, hy - 14.6);
+    ctx.quadraticCurveTo(-10.0, hy - 10.6, -9.6, hy - 4.2);
+    ctx.fill();
+    /* Tiny temple hair, stopping well above the cheeks. */
+    ctx.beginPath();
+    ctx.moveTo(-9.8, hy - 3.4);
+    ctx.quadraticCurveTo(-10.4, hy - 1.0, -9.2, hy + 0.2);
+    ctx.quadraticCurveTo(-9.6, hy - 1.6, -9.4, hy - 3.0);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(9.8, hy - 3.4);
+    ctx.quadraticCurveTo(10.4, hy - 1.0, 9.2, hy + 0.2);
+    ctx.quadraticCurveTo(9.6, hy - 1.6, 9.4, hy - 3.0);
+    ctx.fill();
+    /* Hair outline along the top only. */
     ctx.strokeStyle = K.hairDark;
-    ctx.lineWidth = 2.3;
+    ctx.lineWidth = 1.6;
     ctx.beginPath();
-    ctx.moveTo(-13.8, hy + 3);
-    ctx.quadraticCurveTo(-16.5, hy - 6, -12, hy - 15);
-    ctx.quadraticCurveTo(-6, hy - 20.5, 0, hy - 19);
-    ctx.quadraticCurveTo(7, hy - 20.5, 12, hy - 15);
-    ctx.quadraticCurveTo(16.5, hy - 6, 13.8, hy + 3);
-    ctx.quadraticCurveTo(0, hy - 8, -13.8, hy + 3);
-    ctx.fill();
-    ctx.beginPath();
-    ctx.moveTo(1, hy - 18);
-    ctx.quadraticCurveTo(4, hy - 22, 8, hy - 17);
-    ctx.quadraticCurveTo(5, hy - 19, 2, hy - 17);
-    ctx.fill();
-
-    ctx.fillStyle = K.base;
-    ctx.strokeStyle = K.outline;
-    ctx.lineWidth = 2.4;
-    ctx.beginPath();
-    ctx.ellipse(0, hy, 13.5, 15.2, 0, 0, Math.PI * 2);
-    ctx.fill(); ctx.stroke();
-
-    ctx.beginPath(); ctx.ellipse(-14, hy + 1, 3.6, 5, -0.15, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
-    ctx.beginPath(); ctx.ellipse(14, hy + 1, 3.6, 5, 0.15, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
-    ctx.fillStyle = K.mid;
-    ctx.beginPath(); ctx.ellipse(-14, hy + 1, 1.6, 2.4, -0.15, 0, Math.PI * 2); ctx.fill();
-    ctx.beginPath(); ctx.ellipse(14, hy + 1, 1.6, 2.4, 0.15, 0, Math.PI * 2); ctx.fill();
-
-    ctx.fillStyle = "rgba(216,154,114,0.35)";
-    ctx.beginPath(); ctx.ellipse(6, hy + 6, 7, 6, 0.2, 0, Math.PI * 2); ctx.fill();
-
-    ctx.fillStyle = K.hair;
-    ctx.beginPath();
-    ctx.moveTo(-13, hy - 6);
-    ctx.quadraticCurveTo(-8, hy - 2, -3, hy - 8);
-    ctx.quadraticCurveTo(2, hy - 1, 8, hy - 7);
-    ctx.quadraticCurveTo(13, hy - 3, 14, hy - 6);
-    ctx.quadraticCurveTo(12, hy - 16, 0, hy - 18);
-    ctx.quadraticCurveTo(-12, hy - 16, -13, hy - 6);
-    ctx.fill();
-    ctx.beginPath();
-    ctx.moveTo(-13, hy - 4);
-    ctx.quadraticCurveTo(-15, hy + 2, -12, hy + 6);
-    ctx.lineTo(-11, hy + 1);
-    ctx.fill();
-    ctx.beginPath();
-    ctx.moveTo(13, hy - 4);
-    ctx.quadraticCurveTo(15, hy + 2, 12, hy + 6);
-    ctx.lineTo(11, hy + 1);
-    ctx.fill();
+    ctx.ellipse(0, hy - 4.4, 10.3, 10.6, 0, Math.PI * 1.08, Math.PI * 1.92, false);
+    ctx.stroke();
 
     const blinkT = t % 5;
     const blink = !REDUCE && blinkT > 4.86 && blinkT < 4.96;
-    const eyeY = hy - 1;
+    const eyeY = hy + 0.5;
     if (!blink) {
-      function eye(ex, lookX) {
+      function eye(ex) {
         ctx.fillStyle = "#fff";
         ctx.strokeStyle = K.outline;
-        ctx.lineWidth = 1.6;
+        ctx.lineWidth = 1.25;
         ctx.beginPath();
-        ctx.ellipse(ex, eyeY, 3.5, 4.0, 0, 0, Math.PI * 2);
+        ctx.ellipse(ex, eyeY, 2.15, 2.3, 0, 0, Math.PI * 2);
         ctx.fill(); ctx.stroke();
         ctx.fillStyle = K.iris;
-        ctx.beginPath(); ctx.arc(ex + lookX, eyeY + 0.4, 2.0, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.arc(ex + 0.12, eyeY + 0.15, 1.25, 0, Math.PI * 2); ctx.fill();
         ctx.fillStyle = "#1a1008";
-        ctx.beginPath(); ctx.arc(ex + lookX, eyeY + 0.4, 1.05, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.arc(ex + 0.12, eyeY + 0.15, 0.62, 0, Math.PI * 2); ctx.fill();
         ctx.fillStyle = "#fff";
-        ctx.beginPath(); ctx.arc(ex + lookX + 0.7, eyeY - 0.5, 0.85, 0, Math.PI * 2); ctx.fill();
-        ctx.beginPath(); ctx.arc(ex + lookX - 0.8, eyeY + 1.2, 0.4, 0, Math.PI * 2); ctx.fill();
-        ctx.strokeStyle = K.brow;
-        ctx.lineWidth = 1.8;
-        ctx.beginPath();
-        ctx.ellipse(ex, eyeY, 3.5, 4.0, 0, Math.PI * 1.1, Math.PI * 1.9);
-        ctx.stroke();
+        ctx.beginPath(); ctx.arc(ex + 0.55, eyeY - 0.4, 0.48, 0, Math.PI * 2); ctx.fill();
       }
-      eye(-5.5, 0.6);
-      eye(5.5, 0.6);
+      eye(-3.8);
+      eye(3.8);
     } else {
       ctx.strokeStyle = K.outline;
-      ctx.lineWidth = 1.8;
-      ctx.beginPath(); ctx.moveTo(-9, eyeY); ctx.quadraticCurveTo(-5.5, eyeY + 1, -2, eyeY); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(2, eyeY); ctx.quadraticCurveTo(5.5, eyeY + 1, 9, eyeY); ctx.stroke();
+      ctx.lineWidth = 1.4;
+      ctx.beginPath(); ctx.moveTo(-6.2, eyeY); ctx.quadraticCurveTo(-3.8, eyeY + 0.7, -1.4, eyeY); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(1.4, eyeY); ctx.quadraticCurveTo(3.8, eyeY + 0.7, 6.2, eyeY); ctx.stroke();
     }
 
+    /* Simple eyebrows. */
     ctx.strokeStyle = K.brow;
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 1.15;
     if (pose === "brace") {
-      ctx.beginPath(); ctx.moveTo(-10, eyeY - 8); ctx.lineTo(-3, eyeY - 6); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(10, eyeY - 8); ctx.lineTo(3, eyeY - 6); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(-6.0, eyeY - 4.8); ctx.lineTo(-2.4, eyeY - 4.0); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(6.0, eyeY - 4.8); ctx.lineTo(2.4, eyeY - 4.0); ctx.stroke();
     } else {
-      ctx.beginPath(); ctx.moveTo(-10, eyeY - 7); ctx.quadraticCurveTo(-6, eyeY - 9, -3, eyeY - 7); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(3, eyeY - 7); ctx.quadraticCurveTo(6, eyeY - 9, 10, eyeY - 7); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(-6.0, eyeY - 4.6); ctx.quadraticCurveTo(-4.0, eyeY - 5.5, -2.4, eyeY - 4.6); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(2.4, eyeY - 4.6); ctx.quadraticCurveTo(4.0, eyeY - 5.5, 6.0, eyeY - 4.6); ctx.stroke();
     }
 
-    ctx.strokeStyle = K.shade;
-    ctx.lineWidth = 1.6;
+    /* Tiny nose — a short, light tick. No jaw shading. */
+    ctx.strokeStyle = "rgba(74,48,32,0.5)";
+    ctx.lineWidth = 1.15;
     ctx.beginPath();
-    ctx.moveTo(0.5, hy + 3);
-    ctx.quadraticCurveTo(2.2, hy + 7, 0, hy + 8);
+    ctx.moveTo(0, hy + 4.0);
+    ctx.quadraticCurveTo(0.9, hy + 5.5, 0, hy + 5.7);
     ctx.stroke();
-    ctx.fillStyle = "rgba(216,154,114,0.5)";
-    ctx.beginPath(); ctx.ellipse(0, hy + 8, 2.2, 1.3, 0, 0, Math.PI * 2); ctx.fill();
 
-    ctx.strokeStyle = K.outline;
-    ctx.lineWidth = 1.7;
+    /* Simple friendly mouth. No second lip line. */
+    ctx.strokeStyle = "#a85a48";
+    ctx.lineWidth = 1.3;
     if (pose === "cheer") {
-      ctx.fillStyle = "#7a2e32";
+      ctx.fillStyle = "#c46a6e";
       ctx.beginPath();
-      ctx.arc(0, hy + 11.2, 5.4, 0.15, Math.PI - 0.15);
-      ctx.lineTo(0, hy + 11.2);
-      ctx.closePath();
+      ctx.arc(0, hy + 7.2, 3.2, 0.15, Math.PI - 0.15);
       ctx.fill();
       ctx.stroke();
-      ctx.fillStyle = "#fff";
-      ctx.fillRect(-3.6, hy + 11.15, 7.2, 1.7);
     } else if (pose === "brace") {
       ctx.beginPath();
-      ctx.arc(0, hy + 14, 3.2, 0.2, Math.PI - 0.2);
+      ctx.arc(0, hy + 8.4, 2.2, 0.25, Math.PI - 0.25);
       ctx.stroke();
     } else {
       ctx.beginPath();
-      ctx.arc(0, hy + 11.5, 4.2, 0.15, Math.PI - 0.15);
-      ctx.stroke();
-      ctx.strokeStyle = K.lip;
-      ctx.lineWidth = 1.2;
-      ctx.beginPath();
-      ctx.arc(0, hy + 11.8, 4.0, 0.2, Math.PI - 0.2);
+      ctx.arc(0, hy + 7.0, 3.0, 0.18, Math.PI - 0.18);
       ctx.stroke();
     }
 
+    /* Soft blush, no outline. */
     ctx.fillStyle = K.blush;
-    ctx.beginPath(); ctx.ellipse(-9.5, hy + 8, 3.5, 2, 0, 0, Math.PI * 2); ctx.fill();
-    ctx.beginPath(); ctx.ellipse(9.5, hy + 8, 3.5, 2, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(-6.4, hy + 5.4, 2.4, 1.4, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(6.4, hy + 5.4, 2.4, 1.4, 0, 0, Math.PI * 2); ctx.fill();
 
     ctx.restore();
+  }
+
+
+  function drawBoyPortraitScene(ctx, w, h, t) {
+    const g = ctx.createLinearGradient(0, 0, 0, h);
+    g.addColorStop(0, "#e0f2fe");
+    g.addColorStop(1, "#fef3c7");
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, w, h);
+    const ground = h * 0.88;
+    ctx.fillStyle = "#fde68a";
+    ctx.fillRect(0, ground, w, h - ground);
+    const s = Math.min(w, h) / 145;
+    drawBoy(ctx, w * 0.5, ground - 8, s, "idle", t, {});
+  }
+
+  function drawBoyCloseScene(ctx, w, h, t) {
+    const g = ctx.createLinearGradient(0, 0, 0, h);
+    g.addColorStop(0, "#dbeafe");
+    g.addColorStop(1, "#fef9c3");
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, w, h);
+    const ground = h * 0.82;
+    ctx.fillStyle = "#fde68a";
+    ctx.fillRect(0, ground, w, h - ground);
+    ctx.fillStyle = "#fcd34d";
+    ctx.beginPath();
+    ctx.ellipse(w * 0.5, ground + 4, w * 0.42, 10, 0, 0, Math.PI * 2);
+    ctx.fill();
+    const s = Math.min(w, h) / 150;
+    drawBoy(ctx, w * 0.20, ground - 6, s, "idle", t, {});
+    drawBoy(ctx, w * 0.50, ground - 6, s, "cheer", t, {});
+    drawBoy(ctx, w * 0.80, ground - 6, s, "brace", t, {});
   }
 
   /* Original lookalike props — no official art, logos, or names on screen. */
@@ -2030,11 +2039,11 @@
     drawBubbles(ctx, ix + 80 * isc, waterY + 14, t + 2, 4);
     if (state.island.food || teaser) drawFish(ctx, ix + 100 * isc, waterY + 18, t);
 
-    const boyX = ix - 36 * isc;
+    const boyX = ix - 32 * isc;
     const boyY = iy - 6 * isc;
     const pose = teaser ? "idle" : effectivePose();
-    drawBoy(ctx, boyX, boyY, isc * 0.92, pose, t, {});
-    drawYellowBuddy(ctx, boyX - 30 * isc, boyY + 2 * isc, isc * 0.4, pose === "cheer" ? "cheer" : "idle", t);
+    drawBoy(ctx, boyX, boyY, isc * 0.34, pose, t, {});
+    drawYellowBuddy(ctx, boyX - 20 * isc, boyY + 1 * isc, isc * 0.2, pose === "cheer" ? "cheer" : "idle", t);
 
     if (!teaser && state.island.ship >= 1) {
       const sx = state.island.ship >= 2 ? w * 0.22 : w * 0.14;
@@ -2089,7 +2098,7 @@
     drawSpotCap(ctx, sx - 18 * sc, sy + 4 * sc + bob, sc * 0.36);
     drawJellyfish(ctx, w * 0.12, waterY + 22, sc * 0.4, t, 0.8);
     drawBubbles(ctx, w * 0.18, waterY + 8, t, 5);
-    drawBoy(ctx, boyX, boyY, sc * 1.0, effectivePose(), t, { lifeJacket: state.ship.jackets > 0 });
+    drawBoy(ctx, boyX, boyY, sc * 0.70, effectivePose(), t, { lifeJacket: state.ship.jackets > 0 });
 
     if (state.ship.breakfast >= 1) {
       // little breakfast plate near boy
@@ -2122,7 +2131,7 @@
     drawShip(ctx, sx, sy, sc, t, false);
     drawSmoke(ctx, t, sx, sy, sc);
     const boyX = sx - 58 * sc, boyY = sy - 2 * sc;
-    drawBoy(ctx, boyX, boyY, sc * 1.0, "brace", t, { lifeJacket: true });
+    drawBoy(ctx, boyX, boyY, sc * 0.66, "brace", t, { lifeJacket: true });
     ctx.restore();
 
     // approaching wave — closer with steps and danger
@@ -2333,9 +2342,9 @@
     drawQuestionBlock(ctx, hx + 58 * hs, ground - 18 * hs, hs * 0.4, t);
 
     if (cutaway) {
-      drawBoy(ctx, hx - 6 * hs, hy + 100 * hs, hs * 0.48, "brace", t, {});
+      drawBoy(ctx, hx - 6 * hs, hy + 104 * hs, hs * 0.56, "brace", t, {});
     } else {
-      drawBoy(ctx, hx - 95 * hs, hy - 2 * hs, hs * 0.98, effectivePose(), t, {});
+      drawBoy(ctx, hx - 95 * hs, hy - 2 * hs, hs * 0.70, effectivePose(), t, {});
     }
   }
 
@@ -2464,7 +2473,7 @@
     drawPixelBlock(ctx, w * 0.08, h * 0.7, 16, 16, "#c4a36a", "#8b5a2b");
 
     // boy under table — feet on the floor, head under the tabletop
-    drawBoy(ctx, tblX, tblY - 2, ts * 0.68, "brace", t, {});
+    drawBoy(ctx, tblX, tblY - 2, ts * 0.95, "brace", t, {});
 
     ctx.restore();
   }
@@ -2488,8 +2497,8 @@
     drawBlockMob(ctx, w * 0.68, ground, cs / 420, t);
     drawSpotCap(ctx, w * 0.62, ground, cs / 400);
     drawCatchBall(ctx, w * 0.33, ground - 4, 9, t);
-    drawBoy(ctx, w * 0.46, ground - 4, cs / 250, "cheer", t, {});
-    drawYellowBuddy(ctx, w * 0.33, ground - 2, cs / 380, "cheer", t);
+    drawBoy(ctx, w * 0.46, ground - 4, cs / 500, "cheer", t, {});
+    drawYellowBuddy(ctx, w * 0.34, ground - 2, cs / 620, "cheer", t);
     // trophy
     ctx.save();
     ctx.translate(w * 0.58, ground - 8);
@@ -2532,6 +2541,8 @@
     else if (sc === "tornado") drawTornadoScene(ctx, w, h, t);
     else if (sc === "quake") drawQuakeScene(ctx, w, h, t);
     else if (sc === "complete") drawCompleteScene(ctx, w, h, t);
+    else if (sc === "boyclose") drawBoyCloseScene(ctx, w, h, t);
+    else if (sc === "boyportrait") drawBoyPortraitScene(ctx, w, h, t);
     else drawIslandScene(ctx, w, h, t, true);
     requestAnimationFrame(tick);
   }
@@ -2585,6 +2596,12 @@
       state.stars = 40;
       state.pose = "cheer";
       burstConfetti();
+    } else if (name === "boy-close") {
+      state.scene = "boyclose";
+      state.pose = "idle";
+    } else if (name === "boy-portrait") {
+      state.scene = "boyportrait";
+      state.pose = "idle";
     }
     resetParticles(state.scene);
     renderUI();
