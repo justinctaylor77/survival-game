@@ -17,28 +17,17 @@
     :root {
       --teal: #0d9488;
       --teal-dark: #0f766e;
-      --sky: #7dd3fc;
-      --sand: #fde7c3;
       --ink: #134e4a;
       --card: #fffdf8;
       --good: #16a34a;
-      --warn: #d97706;
-      --btn-shadow: 0 5px 0 #0f766e;
-      --radius: 22px;
       --safe-top: env(safe-area-inset-top, 0px);
       --safe-bot: env(safe-area-inset-bottom, 0px);
     }
-
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
     html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      height: 100vh;
-      height: 100dvh;
-      min-height: 100vh;
-      min-height: -webkit-fill-available;
+      margin: 0; padding: 0; width: 100%;
+      height: 100%; height: 100vh; height: 100dvh;
+      min-height: 100vh; min-height: -webkit-fill-available;
       overflow: hidden;
       font-family: "Trebuchet MS", "Segoe UI", "Avenir Next", system-ui, sans-serif;
       color: var(--ink);
@@ -46,64 +35,45 @@
       overscroll-behavior: none;
     }
     body {
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       user-select: none;
       -webkit-user-select: none;
       -webkit-touch-callout: none;
     }
-
     #app {
       width: 100%;
       max-width: 430px;
-      height: 100%;
-      height: 100vh;
-      height: 100dvh;
-      height: 100svh;
+      height: 100%; height: 100vh; height: 100dvh; height: 100svh;
       min-height: -webkit-fill-available;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
       position: relative;
       overflow: hidden;
-      background: linear-gradient(180deg, #7dd3fc 0%, #22d3ee 40%, #14b8a6 100%);
-      box-shadow: 0 0 0 1px rgba(0,0,0,.08);
+      background: #0e7490;
     }
-    @media (min-width: 700px) {
-      #app { max-width: 560px; }
-    }
-    #app.theme-title { background: linear-gradient(180deg, #67e8f9 0%, #2dd4bf 45%, #14b8a6 100%); }
-    #app.theme-island { background: linear-gradient(180deg, #7dd3fc 0%, #38bdf8 35%, #22d3ee 100%); }
-    #app.theme-night { background: linear-gradient(180deg, #0f172a 0%, #1e3a5f 55%, #164e63 100%); color: #f8fafc; }
-    #app.theme-morning { background: linear-gradient(180deg, #fde68a 0%, #fdba74 40%, #38bdf8 100%); }
-    #app.theme-tsunami { background: linear-gradient(180deg, #1e3a5f 0%, #0e7490 40%, #0369a1 100%); color: #f8fafc; }
-    #app.theme-tornado { background: linear-gradient(180deg, #64748b 0%, #94a3b8 40%, #cbd5e1 100%); }
-    #app.theme-quake { background: linear-gradient(180deg, #fdba74 0%, #fbbf24 35%, #fde68a 100%); }
-    #app.theme-win { background: linear-gradient(180deg, #f472b6 0%, #fbbf24 40%, #34d399 100%); }
+    @media (min-width: 700px) { #app { max-width: 560px; } }
+
+    #app.theme-title, #app.theme-island { background: linear-gradient(180deg, #7dd3fc, #14b8a6); }
+    #app.theme-night { background: linear-gradient(180deg, #0f172a, #164e63); color: #f8fafc; }
+    #app.theme-morning { background: linear-gradient(180deg, #fde68a, #38bdf8); }
+    #app.theme-tsunami { background: linear-gradient(180deg, #1e3a5f, #0369a1); color: #f8fafc; }
+    #app.theme-tornado { background: linear-gradient(180deg, #475569, #94a3b8); }
+    #app.theme-quake { background: linear-gradient(180deg, #fdba74, #fde68a); }
+    #app.theme-win { background: linear-gradient(180deg, #f472b6, #fbbf24, #34d399); }
 
     .header {
       flex: 0 0 auto;
-      padding: calc(10px + var(--safe-top)) 14px 8px;
+      padding: calc(8px + var(--safe-top)) 12px 6px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 6px;
       z-index: 5;
     }
-    .top-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-    }
-    .brand {
-      font-weight: 800;
-      font-size: 13px;
-      letter-spacing: .04em;
-      text-transform: uppercase;
-      opacity: .85;
-    }
+    .top-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .brand { font-weight: 800; font-size: 12px; letter-spacing: .04em; text-transform: uppercase; opacity: .85; }
     .stars {
-      background: rgba(255,255,255,.85);
+      background: rgba(255,255,255,.88);
       border-radius: 999px;
       padding: 4px 10px;
       font-weight: 800;
@@ -112,77 +82,35 @@
       box-shadow: 0 2px 0 rgba(0,0,0,.08);
     }
     .theme-night .stars, .theme-tsunami .stars { background: rgba(15,23,42,.7); color: #fde68a; }
-
     .progress {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
       background: rgba(255,255,255,.78);
-      border-radius: 999px;
-      padding: 6px 10px;
+      border-radius: 999px; padding: 5px 10px;
       box-shadow: 0 2px 0 rgba(0,0,0,.08);
     }
     .theme-night .progress, .theme-tsunami .progress { background: rgba(15,23,42,.7); }
     .badge {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      line-height: 1;
-      background: #e2e8f0;
-      border: 3px solid #94a3b8;
-      opacity: .55;
-      position: relative;
-      transition: transform .25s ease, opacity .25s ease, border-color .25s ease, background .25s ease;
+      width: 42px; height: 42px; border-radius: 50%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      font-size: 16px; line-height: 1;
+      background: #e2e8f0; border: 3px solid #94a3b8; opacity: .55;
     }
-    .badge span {
-      font-size: 9px;
-      font-weight: 800;
-      color: #334155;
-      margin-top: -1px;
-    }
-    .badge.on {
-      opacity: 1;
-      background: #fef9c3;
-      border-color: #f59e0b;
-      transform: scale(1.08);
-      box-shadow: 0 0 0 3px rgba(245,158,11,.25);
-    }
-    .badge.done {
-      opacity: 1;
-      background: #bbf7d0;
-      border-color: #16a34a;
-    }
-    .pbar {
-      width: 28px;
-      height: 6px;
-      border-radius: 99px;
-      background: #cbd5e1;
-      overflow: hidden;
-    }
-    .pbar i {
-      display: block;
-      height: 100%;
-      width: 0;
-      background: #16a34a;
-      border-radius: 99px;
-      transition: width .4s ease;
-    }
+    .badge span { font-size: 9px; font-weight: 800; color: #334155; }
+    .badge.on { opacity: 1; background: #fef9c3; border-color: #f59e0b; transform: scale(1.08); box-shadow: 0 0 0 3px rgba(245,158,11,.25); }
+    .badge.done { opacity: 1; background: #bbf7d0; border-color: #16a34a; }
+    .pbar { width: 26px; height: 6px; border-radius: 99px; background: #cbd5e1; overflow: hidden; }
+    .pbar i { display: block; height: 100%; width: 0; background: #16a34a; border-radius: 99px; }
     .pbar.fill i { width: 100%; }
 
-    .scene {
+    .scene-wrap {
       flex: 0 0 auto;
-      height: 28vh;
-      min-height: 168px;
-      max-height: 250px;
+      height: 40vh;
+      min-height: 210px;
+      max-height: 400px;
       position: relative;
       overflow: hidden;
     }
+    #scene { width: 100%; height: 100%; display: block; }
 
     .story-wrap {
       flex: 1 1 auto;
@@ -193,28 +121,19 @@
       justify-content: flex-start;
     }
     .story {
-      margin: 0 14px;
+      margin: 0 12px;
       background: var(--card);
       color: var(--ink);
-      border-radius: var(--radius);
-      padding: 14px 16px 12px;
-      box-shadow: 0 8px 0 rgba(15,118,110,.18);
+      border-radius: 20px;
+      padding: 12px 14px 10px;
+      box-shadow: 0 7px 0 rgba(15,118,110,.18);
       flex: 0 1 auto;
       overflow-y: auto;
       min-height: 0;
       max-height: 100%;
     }
-    .story h1, .story h2 {
-      margin: 0 0 8px;
-      line-height: 1.15;
-      font-size: 1.45rem;
-    }
-    .story p {
-      margin: 0;
-      font-size: 1.05rem;
-      line-height: 1.4;
-    }
-    .story h1, .story h2 { color: #134e4a; }
+    .story h2 { margin: 0 0 6px; line-height: 1.15; font-size: 1.25rem; color: #134e4a; }
+    .story p { margin: 0; font-size: 1.02rem; line-height: 1.35; }
     .hint {
       margin-top: 8px;
       background: #fef3c7;
@@ -222,385 +141,95 @@
       padding: 8px 10px;
       font-weight: 700;
       color: #92400e;
-      font-size: 0.98rem;
-      animation: pop .35s ease;
+      font-size: 0.95rem;
     }
-    .meter-wrap {
-      margin-top: 12px;
-    }
+    .meter-wrap { margin-top: 10px; }
     .meter-label {
-      display: flex;
-      justify-content: space-between;
-      font-size: 12px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: .04em;
-      margin-bottom: 4px;
-      color: #0f766e;
+      display: flex; justify-content: space-between;
+      font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em;
+      margin-bottom: 4px; color: #0f766e;
     }
-    .meter {
-      height: 16px;
-      background: #e2e8f0;
-      border-radius: 99px;
-      overflow: hidden;
-      border: 2px solid #0f766e;
-    }
-    .meter > i {
-      display: block;
-      height: 100%;
-      width: 0;
-      background: linear-gradient(90deg, #34d399, #16a34a);
-      border-radius: 99px;
-      transition: width .45s ease;
-    }
-    .timer {
+    .meter { height: 14px; background: #e2e8f0; border-radius: 99px; overflow: hidden; border: 2px solid #0f766e; }
+    .meter > i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #34d399, #16a34a); border-radius: 99px; transition: width .4s ease; }
+    .math-q {
       margin-top: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
+      text-align: center;
+      font-size: 2.5rem;
       font-weight: 800;
+      letter-spacing: .04em;
+      line-height: 1.15;
       color: #0f766e;
-      font-size: 1rem;
-    }
-    .timer .clock {
-      background: #ccfbf1;
-      border-radius: 999px;
-      padding: 4px 10px;
     }
 
     .actions {
       flex: 0 0 auto;
-      padding: 10px 14px calc(14px + var(--safe-bot));
+      padding: 10px 12px calc(14px + var(--safe-bot));
       display: flex;
       flex-direction: column;
       gap: 10px;
-    }
-    .actions.grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-    .actions.grid button.primary,
-    .actions.grid button.ghost,
-    .actions.grid button.span2 {
-      grid-column: 1 / -1;
-    }
-    button {
-      font-family: inherit;
-      font-weight: 800;
-      font-size: 1.12rem;
-      line-height: 1.2;
-      border: 3px solid var(--teal-dark);
-      background: #fff;
-      color: var(--teal-dark);
-      border-radius: 18px;
-      min-height: 56px;
-      padding: 12px 14px;
-      box-shadow: var(--btn-shadow);
-      cursor: pointer;
-      appearance: none;
-      width: 100%;
-      transition: transform .08s ease, box-shadow .08s ease;
-    }
-    button:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--teal-dark); }
-    button.primary {
-      background: #fbbf24;
-      border-color: #b45309;
-      color: #78350f;
-      box-shadow: 0 5px 0 #b45309;
-      font-size: 1.25rem;
-    }
-    button.primary:active { box-shadow: 0 1px 0 #b45309; }
-    button.good {
-      background: #bbf7d0;
-      border-color: #15803d;
-      color: #14532d;
-      box-shadow: 0 5px 0 #15803d;
-    }
-    button.good:active { box-shadow: 0 1px 0 #15803d; }
-    button.ghost {
-      background: rgba(255,255,255,.7);
-      border-color: #0f766e;
-      font-size: .95rem;
-      min-height: 44px;
-      box-shadow: 0 3px 0 #0f766e;
-    }
-    button:disabled { opacity: .55; pointer-events: none; }
-    button.shake-btn { animation: wiggle .4s ease; }
-
-    /* Scenes */
-    .sky, .layer { position: absolute; inset: 0; pointer-events: none; }
-    .sun {
-      position: absolute;
-      top: 12px;
-      right: 24px;
-      font-size: 48px;
-      animation: bob 3s ease-in-out infinite;
-      filter: drop-shadow(0 0 12px #fde047);
-    }
-    .cloud {
-      position: absolute;
-      font-size: 36px;
-      animation: drift 10s linear infinite;
-      opacity: .9;
-    }
-    .cloud.c2 { top: 36px; animation-duration: 14s; animation-delay: -4s; font-size: 28px; }
-    .island-wrap {
-      position: absolute;
-      left: 50%;
-      bottom: 38px;
-      transform: translateX(-50%);
-      transform-origin: center bottom;
-      transition: transform .6s ease;
-    }
-    .island-visual { position: relative; width: 220px; height: 120px; text-align: center; }
-    .palms { position: absolute; left: 0; right: 0; bottom: 42px; font-size: 42px; letter-spacing: -8px; }
-    .hut { position: absolute; left: 50%; bottom: 40px; transform: translateX(-10px); font-size: 44px; }
-    .woodpile { position: absolute; left: 12px; bottom: 36px; font-size: 22px; }
-    .fishies { position: absolute; right: -16px; bottom: 20px; font-size: 22px; animation: bob 2s ease-in-out infinite; z-index: 3; }
-    .sand {
-      position: absolute;
-      left: 50%;
-      bottom: 0;
-      transform: translateX(-50%);
-      width: 200px;
-      height: 54px;
-      background: radial-gradient(ellipse at center, #fde68a 0%, #f4b942 70%, #d97706 100%);
-      border-radius: 50% 50% 40% 40%;
-      box-shadow: 0 8px 0 rgba(14,116,144,.25);
-    }
-    .hero {
-      position: absolute;
-      left: 50%;
-      bottom: 46px;
-      transform: translateX(-50%);
-      font-size: 36px;
-      animation: bob 2.4s ease-in-out infinite;
-      z-index: 2;
-    }
-    .waves {
-      position: absolute;
-      left: -10%;
-      right: -10%;
-      bottom: -8px;
-      height: 54px;
-      background:
-        radial-gradient(ellipse at 20% 0, #38bdf8 0 40%, transparent 42%) 0 10px / 80px 40px repeat-x,
-        radial-gradient(ellipse at 20% 0, #0ea5e9 0 40%, transparent 42%) 40px 18px / 80px 40px repeat-x,
-        #0284c7;
-      animation: wave 3s linear infinite;
-      border-radius: 100% 100% 0 0;
-    }
-    .ship {
-      position: absolute;
-      bottom: 28px;
-      left: -40%;
-      font-size: 72px;
-      animation: sail-in 2.2s ease forwards;
-      filter: drop-shadow(0 6px 0 rgba(0,0,0,.15));
-      z-index: 3;
-    }
-    .stars-sky span {
-      position: absolute;
-      color: #fef08a;
-      animation: twinkle 2s ease-in-out infinite;
-      font-size: 16px;
-    }
-    .moon { position: absolute; top: 16px; right: 28px; font-size: 48px; }
-    .deck {
-      position: absolute;
-      left: 50%;
-      bottom: 10px;
-      transform: translateX(-50%);
-      font-size: 88px;
-      text-align: center;
-      width: 180px;
-      height: 140px;
-    }
-    .deck .big-ship { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); }
-    .deck .night-hero {
-      position: absolute;
-      left: 50%;
-      bottom: 44px;
-      transform: translateX(-50%);
-      font-size: 40px;
-      z-index: 2;
-    }
-    .breakfast {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 84px;
-      animation: pop .45s ease;
-    }
-    .tsunami-wave {
-      position: absolute;
-      right: -20%;
-      bottom: 0;
-      font-size: 140px;
-      animation: crash 1.8s ease-in-out infinite;
-      z-index: 4;
-    }
-    .ship-tilt {
-      position: absolute;
-      left: 18%;
-      bottom: 30px;
-      font-size: 80px;
-      animation: tilt 1.6s ease-in-out infinite;
-      z-index: 3;
-    }
-    .tornado {
-      position: absolute;
-      left: 50%;
-      top: 18px;
-      transform: translateX(-50%);
-      font-size: 100px;
-      animation: spin 1.1s linear infinite, storm-drift 2.8s ease-in-out infinite;
-      filter: drop-shadow(0 8px 0 rgba(15,23,42,.2));
-    }
-    .house {
-      position: absolute;
-      left: 50%;
-      bottom: 16px;
-      transform: translateX(-50%);
-      font-size: 90px;
-    }
-    .house.hidden-up { opacity: .35; filter: grayscale(.3); }
-    .basement-icon {
-      position: absolute;
-      left: 50%;
-      bottom: 10px;
-      transform: translateX(-50%);
-      font-size: 70px;
-    }
-    .shake .scene, #app.shaking .scene, #app.shaking .story {
-      animation: quake .35s linear infinite;
-    }
-    .confetti-piece {
-      position: absolute;
-      top: -12px;
-      width: 10px;
-      height: 16px;
-      border-radius: 2px;
-      animation: fall linear forwards;
-      z-index: 20;
-      pointer-events: none;
-    }
-    .win-burst {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 112px;
-      animation: pop .5s ease;
-      filter: drop-shadow(0 6px 0 rgba(0,0,0,.18)) drop-shadow(0 0 18px #fde047);
-    }
-    .supplies {
-      position: absolute;
-      left: 50%;
-      bottom: 18px;
-      transform: translateX(-50%);
-      font-size: 42px;
-      letter-spacing: 2px;
-      white-space: nowrap;
-    }
-
-    @keyframes bob {
-      0%,100% { transform: translateX(-50%) translateY(0); }
-      50% { transform: translateX(-50%) translateY(-8px); }
-    }
-    @keyframes drift {
-      0% { transform: translateX(-40px); }
-      100% { transform: translateX(320px); }
-    }
-    @keyframes wave {
-      0% { background-position: 0 10px, 40px 18px, 0 0; }
-      100% { background-position: 80px 10px, 120px 18px, 0 0; }
-    }
-    @keyframes sail-in {
-      0% { left: 6%; transform: translateY(12px) rotate(-6deg); }
-      100% { left: 20%; transform: translateY(0) rotate(0); }
-    }
-    @keyframes twinkle {
-      0%,100% { opacity: .3; transform: scale(.8); }
-      50% { opacity: 1; transform: scale(1.2); }
-    }
-    @keyframes crash {
-      0%,100% { transform: translateX(0) translateY(8px) rotate(-8deg); }
-      50% { transform: translateX(-30px) translateY(-6px) rotate(-2deg); }
-    }
-    @keyframes tilt {
-      0%,100% { transform: rotate(-12deg); }
-      50% { transform: rotate(10deg) translateY(8px); }
-    }
-    @keyframes spin { to { transform: translateX(-50%) rotate(360deg); } }
-    @keyframes storm-drift {
-      0%,100% { margin-left: -20px; }
-      50% { margin-left: 20px; }
-    }
-    @keyframes quake {
-      0%,100% { transform: translate(0,0) rotate(0); }
-      20% { transform: translate(-7px, 3px) rotate(-1deg); }
-      40% { transform: translate(6px, -2px) rotate(1deg); }
-      60% { transform: translate(-4px, -3px) rotate(0deg); }
-      80% { transform: translate(5px, 2px) rotate(1deg); }
-    }
-    @keyframes pop {
-      0% { transform: scale(.9); }
-      100% { transform: scale(1); }
-    }
-    .story h1, .story h2 { animation: pop .35s ease; }
-    @keyframes wiggle {
-      0%,100% { transform: translateX(0); }
-      25% { transform: translateX(-8px); }
-      75% { transform: translateX(8px); }
-    }
-    @keyframes fall {
-      0% { transform: translateY(0) rotate(0); opacity: 1; }
-      100% { transform: translateY(110vh) rotate(540deg); opacity: .9; }
-    }
-
-    #app.theme-math { background: linear-gradient(180deg, #a5f3fc 0%, #c4b5fd 45%, #fde68a 100%); }
-    .math-q {
-      margin-top: 14px;
-      text-align: center;
-      font-size: 2.6rem;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-      line-height: 1.2;
-      color: #0f766e;
-    }
-    .math-progress {
-      margin-top: 8px;
-      text-align: center;
-      font-size: 13px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: .04em;
-      color: #0f766e;
     }
     .actions.math-grid {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       gap: 10px;
     }
-    .actions.math-grid button.math-ans {
-      font-size: 1.8rem;
-      min-height: 64px;
-      padding: 12px 8px;
+    button {
+      font-family: inherit;
+      font-weight: 800;
+      font-size: 1.12rem;
+      line-height: 1.2;
+      border: 3px solid #0f766e;
+      background: #fff;
+      color: #0f766e;
+      border-radius: 18px;
+      min-height: 56px;
+      padding: 12px 14px;
+      box-shadow: 0 5px 0 #0f766e;
+      cursor: pointer;
+      appearance: none;
+      width: 100%;
     }
-    .math-hero {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 72px;
-      text-align: center;
-      line-height: 1;
-      animation: pop .45s ease;
+    button:active { transform: translateY(4px); box-shadow: 0 1px 0 #0f766e; }
+    button.primary {
+      background: #fbbf24; border-color: #b45309; color: #78350f; box-shadow: 0 5px 0 #b45309; font-size: 1.25rem;
+    }
+    button.primary:active { box-shadow: 0 1px 0 #b45309; }
+    button.math-ans { font-size: 1.85rem; min-height: 64px; padding: 12px 8px; }
+    button.shake-btn { animation: wiggle .4s ease; }
+    @keyframes wiggle {
+      0%,100% { transform: translateX(0); }
+      25% { transform: translateX(-8px); }
+      75% { transform: translateX(8px); }
+    }
+    @keyframes pop {
+      0% { transform: scale(.9); }
+      100% { transform: scale(1); }
+    }
+    .story h2 { animation: pop .3s ease; }
+
+    @media (orientation: landscape) and (max-height: 900px) {
+      #app {
+        max-width: none;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1.15fr 1fr;
+        grid-template-rows: auto 1fr auto;
+        grid-template-areas:
+          "header header"
+          "scene story"
+          "scene actions";
+      }
+      .header { grid-area: header; padding-top: calc(6px + var(--safe-top)); }
+      .scene-wrap {
+        grid-area: scene;
+        height: auto;
+        max-height: none;
+        min-height: 0;
+        align-self: stretch;
+      }
+      .story-wrap { grid-area: story; }
+      .actions { grid-area: actions; padding-bottom: calc(10px + var(--safe-bot)); }
+      .math-q { font-size: 2.1rem; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -613,897 +242,1688 @@
   </style>
 </head>
 <body>
-  <div id="app" class="theme-title"></div>
+  <div id="app" class="theme-title">
+    <div class="header" id="header"></div>
+    <div class="scene-wrap"><canvas id="scene" aria-hidden="true"></canvas></div>
+    <div class="story-wrap" id="story-wrap"></div>
+    <div class="actions" id="actions"></div>
+  </div>
   <script>
-  (function () {
-    const SAVE_KEY = "superSurvivalAdventure_v2";
-    const ISLAND_SECONDS = 120;
-    const app = document.getElementById("app");
+(function () {
+  const SAVE_KEY = "superSurvivalAdventure_v3";
+  const REDUCE = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const app = document.getElementById("app");
+  const headerEl = document.getElementById("header");
+  const storyWrap = document.getElementById("story-wrap");
+  const actionsEl = document.getElementById("actions");
+  const canvas = document.getElementById("scene");
+  const ctx = canvas.getContext("2d");
 
-    const LEVELS = [
-      { id: 1, icon: "🏝️", name: "Island" },
-      { id: 2, icon: "🌪️", name: "Tornado" },
-      { id: 3, icon: "🏠", name: "Quake" }
-    ];
+  const LEVEL_META = [
+    { id: 1, icon: "🏝️", name: "Island" },
+    { id: 2, icon: "🌪️", name: "Tornado" },
+    { id: 3, icon: "🏠", name: "Quake" }
+  ];
 
-    const initial = () => ({
+  const STEPS = {
+    island: [
+      { id: "wood1", title: "Level 1 · Island", text: "You're on a tiny island. Let's gather wood for a cozy hut!" },
+      { id: "wood2", title: "Level 1 · Island", text: "Nice find! Grab some more sturdy driftwood." },
+      { id: "hut1", title: "Level 1 · Island", text: "Time to build. First, the floor and wooden posts." },
+      { id: "hut2", title: "Level 1 · Island", text: "The frame is up. Let's add walls and a doorway." },
+      { id: "hut3", title: "Level 1 · Island", text: "Almost a real house! Put on a sturdy roof." },
+      { id: "board", title: "Level 1 · Island", text: "Look! A ship is sailing in to pick you up. Solve this to climb aboard!" }
+    ],
+    ship: [
+      { id: "jackets", title: "Night on the ship", text: "It's nighttime on the ship. Put on a life jacket so you're ready." },
+      { id: "ropes", title: "Night on the ship", text: "Now secure the ropes on deck so everything stays safe." },
+      { id: "breakfast", title: "Good morning!", text: "The sun is up. It's breakfast time — fuel up for the day!" }
+    ],
+    tsunami: [
+      { id: "wave1", title: "Lunchtime surprise!", text: "A giant wave is rolling in! Hold on tight and keep thinking." },
+      { id: "wave2", title: "Ride the wave!", text: "The wave whooshes closer. Hang on — you've got this!" },
+      { id: "wave3", title: "Almost to land!", text: "One more puzzle and you'll ride this wave safely to shore!" }
+    ],
+    tornado: [
+      { id: "windows", title: "Level 2 · Tornado", text: "A spinny tornado is swirling near the house! Board up the windows." },
+      { id: "supplies", title: "Level 2 · Tornado", text: "Grab a flashlight, water, and a blanket for the basement." },
+      { id: "basement", title: "Level 2 · Tornado", text: "Get down to the basement — it's a safer, lower spot." },
+      { id: "hold", title: "Level 2 · Tornado", text: "The tornado is roaring outside. Cover your head and hold on!" }
+    ],
+    quake: [
+      { id: "drop", title: "Level 3 · Earthquake", text: "The ground is shaking! Drop, Cover, and Hold On under a sturdy table." },
+      { id: "holdq", title: "Level 3 · Earthquake", text: "Keep holding on, away from the windows, until the wiggles settle." },
+      { id: "secure", title: "Level 3 · Earthquake", text: "Stay low and think through securing loose items so they don't fall." },
+      { id: "hazards", title: "Level 3 · Earthquake", text: "The shaking slowed down. Check for hazards before you move around." }
+    ]
+  };
+
+  const WRONG_HINT = {
+    island: "Not quite! Try another number. The tide is creeping a little closer.",
+    ship: "Not quite! Try another number. You can still do this!",
+    tsunami: "Not quite! Try another number. The wave rolls a little closer — you can still do this!",
+    tornado: "Not quite! Try another number. The storm swirls a little closer.",
+    quake: "Not quite! Try another number. The wiggles get a tiny bit stronger."
+  };
+
+  function initial() {
+    return {
       scene: "title",
-      level: 0,
+      step: 0,
       stars: 0,
-      safety: 0,
-      island: { wood: 0, palms: 0, hut: false, fish: 0 },
-      islandTimeLeft: ISLAND_SECONDS,
-      supplies: [],
-      breakfast: "",
-      nightChoice: "",
-      tsunamiChoice: "",
+      survival: 0,
+      danger: 0,
       hint: "",
-      shaking: false,
-      mathBank: null,
-      mathIndex: 0,
-      math: null
-    });
+      pose: "idle",
+      poseUntil: 0,
+      problem: null,
+      problems: [],
+      island: { wood: 0, hut: 0, food: 0, ship: 0, palms: 1 },
+      ship: { jackets: 0, ropes: 0, breakfast: 0 },
+      tornado: { windows: 0, supplies: 0, basement: 0 },
+      quake: { underTable: 0, secured: 0, checked: 0 }
+    };
+  }
 
-    let state = initial();
-    let islandTimer = null;
-    let confettiTimer = null;
+  let state = initial();
+  let particles = [];
+  let debris = [];
+  let rain = [];
+  let confetti = [];
+  let lastScene = "";
+  let startTime = performance.now();
 
-    const $ = (html) => html;
+  function now() { return performance.now() / 1000; }
+  function animT() { return REDUCE ? 0 : now(); }
 
-    function save() {
-      try {
-        const copy = { ...state, hint: "", shaking: false };
-        localStorage.setItem(SAVE_KEY, JSON.stringify(copy));
-      } catch (e) { /* ignore */ }
+  function randInt(lo, hi) { return lo + Math.floor(Math.random() * (hi - lo + 1)); }
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const tmp = a[i]; a[i] = a[j]; a[j] = tmp;
     }
-    function loadSave() {
-      try {
-        const raw = localStorage.getItem(SAVE_KEY);
-        if (!raw) return null;
-        const data = JSON.parse(raw);
-        if (!data || !data.scene) return null;
-        return data;
-      } catch (e) { return null; }
-    }
-    function clearSave() {
-      try { localStorage.removeItem(SAVE_KEY); } catch (e) { /* ignore */ }
-    }
-    function hasContinue() {
-      const s = loadSave();
-      return s && s.scene && s.scene !== "title" && s.scene !== "complete";
-    }
+    return a;
+  }
 
-    function addStars(n) {
-      state.stars += n;
-    }
-
-    function randInt(lo, hi) {
-      return lo + Math.floor(Math.random() * (hi - lo + 1));
-    }
-    function shuffle(arr) {
-      const a = arr.slice();
-      for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        const tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+  function makeProblem(op, used) {
+    for (let tries = 0; tries < 80; tries++) {
+      let a, b, answer, symbol;
+      if (op === "+") {
+        a = randInt(1, 19);
+        b = randInt(1, 20 - a);
+        answer = a + b;
+        symbol = "+";
+      } else {
+        a = randInt(2, 20);
+        b = randInt(1, a - 1);
+        answer = a - b;
+        symbol = "−";
       }
-      return a;
-    }
-    function makeProblem(op, used) {
-      for (let tries = 0; tries < 80; tries++) {
-        let a, b, answer, symbol;
-        if (op === "+") {
-          a = randInt(0, 20);
-          b = randInt(0, 20 - a);
-          answer = a + b;
-          symbol = "+";
-        } else {
-          a = randInt(0, 20);
-          b = randInt(0, a);
-          answer = a - b;
-          symbol = "−";
-        }
-        if (a === 0 && b === 0) continue;
-        if (answer < 0 || answer > 20) continue;
-        const key = a + symbol + b;
-        if (used.has(key)) continue;
-        used.add(key);
-        const wrong = new Set();
-        let guard = 0;
-        while (wrong.size < 2 && guard++ < 40) {
-          const delta = randInt(1, 5) * (Math.random() < 0.5 ? 1 : -1);
-          const n = answer + delta;
-          if (n >= 0 && n <= 20 && n !== answer) wrong.add(n);
-        }
-        for (let n = 0; n <= 20 && wrong.size < 2; n++) {
-          if (n !== answer) wrong.add(n);
-        }
-        return { a, b, op: symbol, answer, choices: shuffle([answer].concat(Array.from(wrong)).slice(0, 3)), key };
+      if (b < 1) continue;
+      if (answer < 0 || answer > 20) continue;
+      const key = a + symbol + b;
+      if (used.has(key)) continue;
+      used.add(key);
+      const wrong = new Set();
+      let guard = 0;
+      while (wrong.size < 2 && guard++ < 40) {
+        const delta = randInt(1, 5) * (Math.random() < 0.5 ? 1 : -1);
+        const n = answer + delta;
+        if (n >= 0 && n <= 20 && n !== answer) wrong.add(n);
       }
-      if (op === "+") return { a: 8, b: 7, op: "+", answer: 15, choices: [13, 15, 17], key: "8+7" };
-      return { a: 14, b: 6, op: "−", answer: 8, choices: [6, 8, 10], key: "14−6" };
+      for (let n = 0; n <= 20 && wrong.size < 2; n++) if (n !== answer) wrong.add(n);
+      return { a, b, op: symbol, answer, choices: shuffle([answer].concat(Array.from(wrong)).slice(0, 3)), key };
     }
-    function makeMathBank() {
-      const used = new Set();
-      const bank = [];
-      for (let g = 0; g < 3; g++) {
-        shuffle(["+", "-"]).forEach((op) => bank.push(makeProblem(op, used)));
-      }
-      return bank;
-    }
-    function ensureMathBank() {
-      if (!state.mathBank || !state.mathBank.length) {
-        state.mathBank = makeMathBank();
-        state.mathIndex = 0;
-      }
-    }
-    function startMath(nextScene, count, title, blurb) {
-      ensureMathBank();
-      const items = state.mathBank.slice(state.mathIndex, state.mathIndex + count);
-      state.mathIndex += items.length;
-      state.math = { items: items, i: 0, nextScene: nextScene, title: title, blurb: blurb };
-      clearHint();
-      state.scene = "math";
-      state.shaking = false;
-      sfx("tap");
-      save();
-      render();
-    }
-    function mathSceneHtml() {
-      return `<div class="scene" aria-hidden="true"><div class="math-hero">🧒🧮</div></div>`;
-    }
+    return op === "+"
+      ? { a: 8, b: 7, op: "+", answer: 15, choices: [13, 15, 17], key: "8+7" }
+      : { a: 14, b: 6, op: "−", answer: 8, choices: [6, 8, 10], key: "14−6" };
+  }
 
-    function playTone(freq, dur, type) {
-      try {
-        const Ctx = window.AudioContext || window.webkitAudioContext;
-        if (!Ctx) return;
-        if (!playTone.ctx || playTone.ctx.state === "closed") {
-          playTone.ctx = new Ctx();
-        }
-        const ctx = playTone.ctx;
-        const beep = () => {
-          try {
-            if (ctx.state === "closed") return;
-            const o = ctx.createOscillator();
-            const g = ctx.createGain();
-            o.type = type || "triangle";
-            o.frequency.value = freq;
-            g.gain.setValueAtTime(0.0001, ctx.currentTime);
-            g.gain.exponentialRampToValueAtTime(0.08, ctx.currentTime + 0.02);
-            g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + dur);
-            o.connect(g); g.connect(ctx.destination);
-            o.start();
-            o.stop(ctx.currentTime + dur + 0.02);
-          } catch (err) { /* ignore audio device errors */ }
-        };
-        if (ctx.state === "suspended") {
-          ctx.resume().then(beep).catch(() => {});
-        } else {
-          beep();
-        }
-      } catch (e) { /* ignore */ }
-    }
-    function sfx(kind) {
-      if (kind === "tap") playTone(520, 0.08, "triangle");
-      if (kind === "good") { playTone(660, 0.1); setTimeout(() => playTone(880, 0.14), 90); }
-      if (kind === "bad") playTone(240, 0.16, "sine");
-      if (kind === "win") {
-        [523, 659, 784, 1046].forEach((f, i) => setTimeout(() => playTone(f, 0.18), i * 120));
-      }
-    }
+  function makeProblems(count) {
+    const types = shuffle([].concat(
+      Array(Math.ceil(count / 2)).fill("+"),
+      Array(Math.floor(count / 2)).fill("-")
+    ));
+    const used = new Set();
+    return types.map((op) => makeProblem(op, used));
+  }
 
-    function formatTime(sec) {
-      const s = Math.max(0, Math.ceil(sec));
-      const m = Math.floor(s / 60);
-      const r = s % 60;
-      return m + ":" + String(r).padStart(2, "0");
-    }
+  function meterMax() {
+    const s = STEPS[state.scene];
+    return s ? s.length : 0;
+  }
+  function currentStep() {
+    const s = STEPS[state.scene];
+    return s ? s[state.step] : null;
+  }
+  function levelNum() {
+    const sc = state.scene;
+    if (sc === "title") return 0;
+    if (sc === "island" || sc === "ship" || sc === "tsunami") return 1;
+    if (sc === "tornado") return 2;
+    if (sc === "quake" || sc === "complete") return sc === "complete" ? 4 : 3;
+    return 0;
+  }
 
-    function startIslandTimer() {
-      stopIslandTimer();
-      const started = Date.now();
-      const remainingAtStart = state.islandTimeLeft;
-      islandTimer = setInterval(() => {
-        const elapsed = (Date.now() - started) / 1000;
-        state.islandTimeLeft = Math.max(0, remainingAtStart - elapsed);
-        const clock = document.getElementById("island-clock");
-        if (clock) clock.textContent = "⏱️ " + formatTime(state.islandTimeLeft);
-        if (state.islandTimeLeft <= 0) {
-          stopIslandTimer();
-          go("shipArrive");
-        }
-      }, 200);
-    }
-    function stopIslandTimer() {
-      if (islandTimer) { clearInterval(islandTimer); islandTimer = null; }
-    }
+  function save() {
+    try {
+      const copy = Object.assign({}, state, { hint: "", pose: "idle", poseUntil: 0 });
+      localStorage.setItem(SAVE_KEY, JSON.stringify(copy));
+    } catch (e) { /* ignore */ }
+  }
+  function loadSave() {
+    try {
+      const data = JSON.parse(localStorage.getItem(SAVE_KEY) || "null");
+      if (!data || !data.scene) return null;
+      return data;
+    } catch (e) { return null; }
+  }
+  function clearSave() { try { localStorage.removeItem(SAVE_KEY); } catch (e) { /* ignore */ } }
+  function hasContinue() {
+    const s = loadSave();
+    return s && s.scene && s.scene !== "title" && s.scene !== "complete";
+  }
 
-    function islandScale() {
-      const i = state.island;
-      const s = 0.72 + i.palms * 0.08 + (i.hut ? 0.12 : 0) + Math.min(i.wood, 6) * 0.03 + Math.min(i.fish, 4) * 0.02;
-      return Math.min(1.35, s);
-    }
-
-    function progressHtml() {
-      const lvl = state.level;
-      const b = (n) => {
-        let cls = "badge";
-        if (lvl > n) cls += " done";
-        else if (lvl === n) cls += " on";
-        return `<div class="${cls}" data-level="${n}" title="${LEVELS[n-1].name}">${LEVELS[n-1].icon}<span>${n}</span></div>`;
+  function playTone(freq, dur, type) {
+    try {
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      if (!Ctx) return;
+      if (!playTone.ctx || playTone.ctx.state === "closed") playTone.ctx = new Ctx();
+      const c = playTone.ctx;
+      const beep = () => {
+        try {
+          if (c.state === "closed") return;
+          const o = c.createOscillator();
+          const g = c.createGain();
+          o.type = type || "triangle";
+          o.frequency.value = freq;
+          g.gain.setValueAtTime(0.0001, c.currentTime);
+          g.gain.exponentialRampToValueAtTime(0.08, c.currentTime + 0.02);
+          g.gain.exponentialRampToValueAtTime(0.0001, c.currentTime + dur);
+          o.connect(g); g.connect(c.destination);
+          o.start();
+          o.stop(c.currentTime + dur + 0.02);
+        } catch (err) { /* ignore */ }
       };
-      const bar = (n) => `<div class="pbar${lvl > n ? " fill" : ""}"><i></i></div>`;
-      return `<div class="progress" role="navigation" aria-label="Level progress">${b(1)}${bar(1)}${b(2)}${bar(2)}${b(3)}</div>`;
-    }
+      if (c.state === "suspended") c.resume().then(beep).catch(function () {});
+      else beep();
+    } catch (e) { /* ignore */ }
+  }
+  function sfx(kind) {
+    if (kind === "tap") playTone(520, 0.08);
+    if (kind === "good") { playTone(660, 0.1); setTimeout(function () { playTone(880, 0.14); }, 90); }
+    if (kind === "bad") playTone(240, 0.16, "sine");
+    if (kind === "win") [523, 659, 784, 1046].forEach(function (f, i) { setTimeout(function () { playTone(f, 0.18); }, i * 120); });
+  }
 
-    function headerHtml() {
-      if (state.scene === "title") {
-        return `<div class="header"><div class="top-row"><div class="brand">Adventure Game</div><div class="stars">⭐ 0</div></div>${progressHtml()}</div>`;
+  function enterStep() {
+    const sc = state.scene;
+    const id = currentStep() && currentStep().id;
+    if (sc === "island") {
+      if (id === "board") state.island.ship = 1;
+    }
+    if (sc === "ship") {
+      if (id === "jackets") state.ship.jackets = 1;
+      if (id === "ropes") state.ship.ropes = 1;
+      if (id === "breakfast") state.ship.breakfast = 1;
+    }
+    if (sc === "tornado") {
+      if (id === "windows") state.tornado.windows = 1;
+      if (id === "supplies") state.tornado.supplies = 1;
+      if (id === "basement") state.tornado.basement = 1;
+      if (id === "hold") state.pose = "brace";
+    }
+    if (sc === "quake") {
+      state.pose = "brace";
+      if (id === "drop" || id === "holdq") state.quake.underTable = 1;
+      if (id === "secure") state.quake.secured = 1;
+      if (id === "hazards") state.quake.checked = 1;
+    }
+    if (sc === "tsunami" || (sc === "tornado" && id === "hold") || sc === "quake") {
+      if (state.poseUntil < performance.now() || sc !== "island") {
+        if (sc !== "island" && sc !== "ship") state.pose = "brace";
       }
-      return `<div class="header"><div class="top-row"><div class="brand">Super Survival</div><div class="stars" aria-label="Stars">⭐ ${state.stars}</div></div>${progressHtml()}</div>`;
     }
+  }
 
-    function storyBox(title, body, extra) {
-      return `<div class="story-wrap"><div class="story">${title ? `<h2>${title}</h2>` : ""}<p>${body}</p>${extra || ""}${state.hint ? `<div class="hint" role="status">${state.hint}</div>` : ""}</div></div>`;
+  function applyCorrect() {
+    const sc = state.scene;
+    const id = currentStep() && currentStep().id;
+    if (sc === "island") {
+      if (id === "wood1" || id === "wood2") state.island.wood += 1;
+      if (id === "hut1") state.island.hut = Math.max(state.island.hut, 1);
+      if (id === "hut2") state.island.hut = Math.max(state.island.hut, 2);
+      if (id === "hut3") { state.island.hut = 3; state.island.food = 1; state.island.palms = 2; }
+      if (id === "board") state.island.ship = 2;
     }
+    if (sc === "ship") {
+      if (id === "jackets") state.ship.jackets = 2;
+      if (id === "ropes") state.ship.ropes = 2;
+      if (id === "breakfast") state.ship.breakfast = 2;
+    }
+    if (sc === "tornado") {
+      if (id === "windows") state.tornado.windows = 2;
+      if (id === "supplies") state.tornado.supplies = 2;
+      if (id === "basement") state.tornado.basement = 2;
+    }
+    if (sc === "quake") {
+      if (id === "secure") state.quake.secured = 2;
+      if (id === "hazards") state.quake.checked = 2;
+    }
+  }
 
-    function actionsHtml(btns) {
-      const isMath = btns.length && btns.every((b) => (b.cls || "").indexOf("math-ans") !== -1);
-      const grid = isMath ? " math-grid" : (btns.length >= 4 ? " grid" : "");
-      return `<div class="actions${grid}">${btns.map((b) =>
-        `<button type="button" class="${b.cls || ""}" data-act="${b.act}" ${b.disabled ? "disabled" : ""}>${b.label}</button>`
-      ).join("")}</div>`;
-    }
+  function nextSceneAfter(sc) {
+    if (sc === "island") return "ship";
+    if (sc === "ship") return "tsunami";
+    if (sc === "tsunami") return "tornado";
+    if (sc === "tornado") return "quake";
+    if (sc === "quake") return "complete";
+    return "complete";
+  }
 
-    function meterHtml(label, value, max) {
-      const pct = Math.max(0, Math.min(100, (value / max) * 100));
-      return `<div class="meter-wrap"><div class="meter-label"><span>${label}</span><span>${value}/${max}</span></div><div class="meter" role="meter" aria-valuenow="${value}" aria-valuemin="0" aria-valuemax="${max}"><i style="width:${pct}%"></i></div></div>`;
+  function beginScene(scene) {
+    state.scene = scene;
+    state.step = 0;
+    state.survival = 0;
+    state.hint = "";
+    if (scene === "complete") {
+      state.pose = "cheer";
+      state.poseUntil = performance.now() + 20000;
+      burstConfetti();
+      sfx("win");
+      state.problem = null;
+      state.problems = [];
+    } else if (STEPS[scene]) {
+      state.problems = makeProblems(STEPS[scene].length);
+      state.problem = state.problems[0];
+      state.pose = scene === "quake" || scene === "tsunami" ? "brace" : "idle";
+      enterStep();
     }
+    if (scene !== lastScene) {
+      resetParticles(scene);
+      lastScene = scene;
+    }
+    save();
+    renderUI();
+  }
 
-    function islandSceneHtml() {
-      const i = state.island;
-      const palms = "🌴".repeat(Math.max(1, i.palms)) + (i.palms === 0 ? "" : "");
-      return `
-        <div class="scene" aria-hidden="true">
-          <div class="sun">☀️</div>
-          <div class="cloud" style="top:8px">☁️</div>
-          <div class="cloud c2" style="top:48px">☁️</div>
-          <div class="island-wrap" style="transform: translateX(-50%) scale(${islandScale()})">
-            <div class="island-visual">
-              <div class="palms">${i.palms > 0 ? "🌴".repeat(Math.min(i.palms, 5)) : "🌱"}</div>
-              ${i.hut ? `<div class="hut">🛖</div>` : ""}
-              ${i.wood > 0 ? `<div class="woodpile">${"🪵".repeat(Math.min(i.wood, 3))}</div>` : ""}
-              ${i.fish > 0 ? `<div class="fishies">${"🐟".repeat(Math.min(i.fish, 3))}</div>` : ""}
-              <div class="hero">🧒</div>
-              <div class="sand"></div>
-            </div>
-          </div>
-          <div class="waves"></div>
-        </div>`;
-    }
+  function startNew() {
+    sfx("tap");
+    state = initial();
+    state.scene = "island";
+    state.problems = makeProblems(STEPS.island.length);
+    state.problem = state.problems[0];
+    lastScene = "";
+    resetParticles("island");
+    clearSave();
+    enterStep();
+    sfx("good");
+    save();
+    renderUI();
+  }
 
-    function shipArriveHtml() {
-      return `<div class="scene"><div class="sun">☀️</div><div class="cloud">☁️</div><div class="ship">🛳️</div><div class="waves"></div></div>`;
+  function continueGame() {
+    const saved = loadSave();
+    if (!saved) return startNew();
+    state = Object.assign(initial(), saved);
+    if (!state.problem && STEPS[state.scene]) {
+      state.problems = makeProblems(STEPS[state.scene].length);
+      state.problem = state.problems[Math.min(state.step, state.problems.length - 1)];
     }
-    function nightHtml() {
-      const stars = Array.from({ length: 12 }, (_, i) => {
-        const left = 8 + (i * 7.5) % 90;
-        const top = 8 + (i * 13) % 55;
-        const delay = (i * 0.2).toFixed(1);
-        return `<span style="left:${left}%;top:${top}%;animation-delay:${delay}s">✨</span>`;
-      }).join("");
-      return `<div class="scene"><div class="stars-sky">${stars}</div><div class="moon">🌙</div><div class="deck"><span class="big-ship">🛳️</span><span class="night-hero">🧒</span></div></div>`;
-    }
-    function morningHtml(food) {
-      return `<div class="scene"><div class="sun">☀️</div><div class="cloud">☁️</div><div class="breakfast">${food || "🥞"}</div><div class="waves" style="height:36px;opacity:.7"></div></div>`;
-    }
-    function tsunamiHtml() {
-      return `<div class="scene"><div class="ship-tilt">🛳️</div><div class="tsunami-wave">🌊</div><div class="waves"></div></div>`;
-    }
-    function tornadoHtml(inBasement) {
-      return `<div class="scene"><div class="tornado">🌪️</div>${inBasement ? `<div class="basement-icon">🧒📦</div>` : `<div class="house">🏠</div>`}<div class="supplies">${state.supplies.join(" ")}</div></div>`;
-    }
-    function quakeHtml() {
-      return `<div class="scene"><div class="house">🏠</div><div class="hero" style="bottom:28px;font-size:48px">🧒</div></div>`;
-    }
-    function titleSceneHtml() {
-      return `<div class="scene"><div class="sun">☀️</div><div class="cloud">☁️</div><div class="cloud c2">☁️</div>
-        <div class="island-wrap" style="transform:translateX(-50%) scale(1.05)">
-          <div class="island-visual">
-            <div class="palms">🌴🌴</div>
-            <div class="hut">🛖</div>
-            <div class="hero">🧒</div>
-            <div class="sand"></div>
-          </div>
-        </div>
-        <div class="waves"></div></div>`;
-    }
-    function winSceneHtml() {
-      return `<div class="scene"><div class="win-burst">🏆</div></div>`;
-    }
+    lastScene = "";
+    resetParticles(state.scene);
+    renderUI();
+  }
 
-    function themeFor(scene) {
-      const map = {
-        title: "theme-title",
-        island: "theme-island",
-        shipArrive: "theme-island",
-        shipNight: "theme-night",
-        shipBreakfast: "theme-morning",
-        tsunami: "theme-tsunami",
-        tornado: "theme-tornado",
-        tornadoBasement: "theme-tornado",
-        tornadoCover: "theme-tornado",
-        tornadoDone: "theme-tornado",
-        quake: "theme-quake",
-        quakeCover: "theme-quake",
-        quakeAfter: "theme-quake",
-        complete: "theme-win",
-        math: "theme-math"
-      };
-      return map[scene] || "theme-island";
-    }
+  function setPose(pose, ms) {
+    state.pose = pose;
+    state.poseUntil = performance.now() + (ms || 900);
+  }
 
-    function levelFor(scene) {
-      if (scene === "title") return 0;
-      if (scene === "math") {
-        const n = state.math && state.math.nextScene;
-        if (n === "tornado") return 2;
-        if (n === "quake" || n === "complete") return 3;
-        return 1;
-      }
-      if (["island", "shipArrive", "shipNight", "shipBreakfast", "tsunami"].includes(scene)) return 1;
-      if (String(scene).startsWith("tornado")) return 2;
-      if (String(scene).startsWith("quake") || scene === "complete") return 3;
-      return 0;
-    }
-
-    function bindTap(el, fn) {
-      let fromTouch = false;
-      el.addEventListener("touchend", (ev) => {
-        if (el.disabled) return;
-        ev.preventDefault();
-        fromTouch = true;
-        fn(ev);
-        setTimeout(() => { fromTouch = false; }, 400);
-      }, { passive: false });
-      el.addEventListener("click", (ev) => {
-        if (el.disabled) return;
-        if (fromTouch) {
-          ev.preventDefault();
-          fromTouch = false;
-          return;
-        }
-        fn(ev);
-      });
-    }
-
-    function render() {
-      stopConfetti();
+  function onAnswer(n, btn) {
+    const p = state.problem;
+    if (!p) return;
+    if (n === p.answer) {
+      sfx("good");
+      state.stars += 2;
+      state.survival += 1;
+      state.hint = "";
+      state.danger = Math.max(0, state.danger - 0.06);
+      applyCorrect();
+      const cheerScenes = { island: 1, ship: 1 };
+      setPose(cheerScenes[state.scene] ? "cheer" : (state.scene === "tsunami" || state.scene === "tornado" || state.scene === "quake" ? "brace" : "cheer"), 800);
       const sc = state.scene;
-      state.level = sc === "complete" ? 4 : levelFor(sc);
-      app.className = themeFor(sc) + (state.shaking ? " shaking" : "");
-
-      let scene = "";
-      let story = "";
-      let actions = [];
-
-      if (sc === "title") {
-        scene = titleSceneHtml();
-        story = storyBox("🏝️ Super Survival Adventure",
-          "Help the hero stay safe through 3 wild levels: a tiny island, a spinny tornado, and a wobbly earthquake. Along the way, solve addition and subtraction puzzles — all numbers stay within 0–20. It's all a game — you'll be okay, and you'll have fun!");
-        actions = [{ label: "▶️ Play", act: "newGame", cls: "primary" }];
-        if (hasContinue()) actions.push({ label: "↪️ Continue", act: "continue" });
+      if (state.step + 1 >= STEPS[sc].length) {
+        save();
+        renderUI();
+        setTimeout(function () { beginScene(nextSceneAfter(sc)); }, 700);
+      } else {
+        state.step += 1;
+        state.problem = state.problems[state.step];
+        enterStep();
+        save();
+        renderUI();
       }
-
-      else if (sc === "island") {
-        scene = islandSceneHtml();
-        const i = state.island;
-        const extra = meterHtml("Island cozy-meter", Math.min(10, i.wood + i.palms + i.fish + (i.hut ? 3 : 0)), 10) +
-          `<div class="timer"><span>The rescue ship is on the way!</span><span class="clock" id="island-clock">⏱️ ${formatTime(state.islandTimeLeft)}</span></div>`;
-        story = storyBox("Level 1 · Island",
-          "You are on a tiny island. Let's make it bigger and cozier while you wait for a ship to pick you up!",
-          extra);
-        actions = [
-          { label: "🪵 Gather wood", act: "gatherWood" },
-          { label: "🛖 Build a hut" + (i.hut ? " ✓" : " (needs 2 wood)"), act: "buildHut", disabled: i.hut },
-          { label: "🌴 Plant a palm", act: "plantPalm" },
-          { label: "🎣 Go fishing", act: "fish" },
-          { label: "⏭️ Skip ahead", act: "skipIsland", cls: "ghost" }
-        ];
-      }
-
-      else if (sc === "shipArrive") {
-        scene = shipArriveHtml();
-        story = storyBox("A ship is here!",
-          "Look! A giant ship sails in to pick you up. You did a great job on the island. All aboard!");
-        actions = [{ label: "🛳️ Climb aboard!", act: "boardShip", cls: "primary" }];
-      }
-
-      else if (sc === "shipNight") {
-        scene = nightHtml();
-        story = storyBox("Nighttime on the ship",
-          "The sky turns sparkly and dark. You stay on the ship through the night. What would you like to do?");
-        actions = [
-          { label: "😴 Sleep in a cozy cabin", act: "nightSleep" },
-          { label: "⭐ Watch the stars", act: "nightStars" },
-          { label: "🚶 Explore the deck", act: "nightDeck" }
-        ];
-      }
-
-      else if (sc === "shipBreakfast") {
-        const food = state.breakfast || "🥞";
-        scene = morningHtml(food);
-        if (!state.breakfast) {
-          story = storyBox("Good morning! Breakfast time",
-            "You made it through the night, and now the sun is up. What do you want to eat?");
-          actions = [
-            { label: "🥞 Pancakes with syrup", act: "eatPancakes" },
-            { label: "🍓 Fresh fruit", act: "eatFruit" },
-            { label: "🥣 Cereal", act: "eatCereal" },
-            { label: "🍳 Eggs and toast", act: "eatEggs" }
-          ];
-        } else {
-          story = storyBox("Yum!",
-            "That was a tasty breakfast. The morning feels bright and happy. Before long, it will be lunchtime…");
-          actions = [{ label: "☀️ Wait until lunchtime", act: "goLunch", cls: "primary" }];
-        }
-      }
-
-      else if (sc === "tsunami") {
-        scene = tsunamiHtml();
-        if (!state.tsunamiChoice) {
-          story = storyBox("Lunchtime surprise!",
-            "It's lunchtime… but look at the ocean! A giant wave is rolling in! The ship is going for a wild ride. Let's stay safe — you've got this!");
-          actions = [
-            { label: "🛟 Grab a life ring", act: "grabRing", cls: "good" },
-            { label: "🙌 Hold onto a railing", act: "holdRail", cls: "good" },
-            { label: "🧑‍🤝‍🧑 Stay with the group", act: "stayGroup", cls: "good" }
-          ];
-        } else {
-          story = storyBox("You stayed safe!",
-            "The giant wave whooshes by and carries the ship all the way to land. Everyone is okay! Next stop: a cozy house.");
-          actions = [{ label: "🏠 Go to Level 2", act: "toTornado", cls: "primary" }];
-        }
-      }
-
-      else if (sc === "tornado") {
-        scene = tornadoHtml(false);
-        story = storyBox("Level 2 · Tornado",
-          "You're in a house, and a spinny tornado is swirling nearby. Time to be a safety superstar! Where do you go?",
-          meterHtml("Safety meter", state.safety, 3));
-        actions = [
-          { label: "⬇️ Go to the basement", act: "goBasement", cls: "good" },
-          { label: "🪟 Watch from the window", act: "watchWindow" },
-          { label: "🚪 Run outside", act: "runOutside" }
-        ];
-      }
-
-      else if (sc === "tornadoBasement") {
-        scene = tornadoHtml(true);
-        story = storyBox("Smart move! You're in the basement.",
-          "Great choice — the basement is a safer, lower spot. Grab something helpful while you wait.",
-          meterHtml("Safety meter", state.safety, 3));
-        actions = [
-          { label: "🔦 Grab a flashlight", act: "grabFlash" },
-          { label: "💧 Grab water", act: "grabWater" },
-          { label: "🧸 Grab a blanket", act: "grabBlanket" },
-          { label: "🪟 Go peek out a window", act: "peekWindow" }
-        ];
-      }
-
-      else if (sc === "tornadoCover") {
-        scene = tornadoHtml(true);
-        story = storyBox("The tornado is roaring outside!",
-          "The wind is very loud, but you are in a safer place. What do you do now?",
-          meterHtml("Safety meter", state.safety, 3));
-        actions = [
-          { label: "🪑 Cover your head under a sturdy table", act: "coverTable", cls: "good" },
-          { label: "🪟 Stand by a window to watch", act: "standWindow" },
-          { label: "🚪 Open the door to peek out", act: "openDoor" }
-        ];
-      }
-
-      else if (sc === "tornadoDone") {
-        scene = tornadoHtml(true);
-        story = storyBox("The tornado passed!",
-          "You stayed low, grabbed helpful supplies, and covered your head. The sky calms down. You did it — you're safe!",
-          meterHtml("Safety meter", 3, 3));
-        actions = [{ label: "🏠 Go to Level 3", act: "toQuake", cls: "primary" }];
-      }
-
-      else if (sc === "quake") {
-        scene = quakeHtml();
-        story = storyBox("Level 3 · Earthquake",
-          "You're at home, and the ground starts to wiggle and shake! A powerful earthquake is happening. What do you do first?",
-          meterHtml("Safety meter", state.safety, 3));
-        actions = [
-          { label: "⬇️ Drop, Cover, and Hold On", act: "dropCover", cls: "good" },
-          { label: "🏃 Run outside right away", act: "runOutQuake" },
-          { label: "🪟 Stand by a window", act: "standWinQuake" }
-        ];
-      }
-
-      else if (sc === "quakeCover") {
-        scene = quakeHtml();
-        story = storyBox("Drop, Cover, Hold On!",
-          "You drop to the floor and cover yourself. Where is the best place to take cover?",
-          meterHtml("Safety meter", state.safety, 3));
-        actions = [
-          { label: "🪑 Under a sturdy table, away from windows", act: "underTable", cls: "good" },
-          { label: "🪟 Next to a big window", act: "nearWindow" },
-          { label: "🧊 Right beside the fridge", act: "nearFridge" }
-        ];
-      }
-
-      else if (sc === "quakeAfter") {
-        scene = quakeHtml();
-        story = storyBox("The shaking stopped.",
-          "Nice work — you held on until the wiggles ended. What should you do next?",
-          meterHtml("Safety meter", state.safety, 3));
-        actions = [
-          { label: "✅ Stay put a moment, then check for hazards", act: "checkHazards", cls: "good" },
-          { label: "🛗 Run to use the elevator", act: "useElevator" },
-          { label: "🏃 Dash outside without looking", act: "dashOut" }
-        ];
-      }
-
-      else if (sc === "math") {
-        const m = state.math;
-        const p = m && m.items[m.i];
-        scene = mathSceneHtml();
-        if (p) {
-          const extra = `<div class="math-q" aria-live="polite">${p.a} ${p.op} ${p.b} = ?</div>` +
-            `<div class="math-progress">Puzzle ${m.i + 1} of ${m.items.length}</div>`;
-          story = storyBox(m.title || "Math power!",
-            m.blurb || "Solve this puzzle to keep going!",
-            extra);
-          actions = p.choices.map((n) => ({ label: String(n), act: "ans_" + n, cls: "math-ans" }));
-        }
-      }
-
-      else if (sc === "complete") {
-        scene = winSceneHtml();
-        story = storyBox("🎉 You survived all 3 levels!",
-          "You're a safety champion! You expanded an island, rode out a wild wave, stayed safe in a tornado, used Drop, Cover, and Hold On in an earthquake, and solved addition and subtraction puzzles. Stars earned: ⭐ " + state.stars + ".");
-        actions = [{ label: "🔁 Play again", act: "newGame", cls: "primary" }];
-      }
-
-      app.innerHTML = headerHtml() + scene + story + actionsHtml(actions);
-
-      if (sc === "island") startIslandTimer();
-      else stopIslandTimer();
-
-      if (sc === "complete") startConfetti();
-
-      app.querySelectorAll("button[data-act]").forEach((btn) => {
-        bindTap(btn, () => handle(btn.getAttribute("data-act"), btn));
-      });
-      const storyEl = app.querySelector(".story");
-      if (storyEl && state.hint) storyEl.scrollTop = storyEl.scrollHeight;
-    }
-
-    function gentleHint(text, btn) {
+    } else {
       sfx("bad");
-      state.hint = "💡 " + text;
+      state.danger = Math.min(0.72, state.danger + 0.12);
+      state.hint = "💡 " + (WRONG_HINT[state.scene] || "Not quite! Try another number. You can do it!");
       if (btn) {
         btn.classList.remove("shake-btn");
         void btn.offsetWidth;
         btn.classList.add("shake-btn");
       }
-      const box = app.querySelector(".story");
-      if (box) {
-        let hint = box.querySelector(".hint");
-        if (!hint) {
-          hint = document.createElement("div");
-          hint.className = "hint";
-          hint.setAttribute("role", "status");
-          box.appendChild(hint);
+      renderUI();
+    }
+  }
+
+  function bindTap(el, fn) {
+    let fromTouch = false;
+    el.addEventListener("touchend", function (ev) {
+      if (el.disabled) return;
+      ev.preventDefault();
+      fromTouch = true;
+      fn(ev);
+      setTimeout(function () { fromTouch = false; }, 400);
+    }, { passive: false });
+    el.addEventListener("click", function (ev) {
+      if (el.disabled) return;
+      if (fromTouch) { ev.preventDefault(); fromTouch = false; return; }
+      fn(ev);
+    });
+  }
+
+  function themeFor(sc) {
+    if (sc === "title" || sc === "island") return "theme-island";
+    if (sc === "ship") return state.ship.breakfast ? "theme-morning" : "theme-night";
+    if (sc === "tsunami") return "theme-tsunami";
+    if (sc === "tornado") return "theme-tornado";
+    if (sc === "quake") return "theme-quake";
+    if (sc === "complete") return "theme-win";
+    return "theme-island";
+  }
+
+  function progressHtml() {
+    const lvl = levelNum();
+    function badge(n) {
+      let cls = "badge";
+      if (lvl > n) cls += " done";
+      else if (lvl === n) cls += " on";
+      return '<div class="' + cls + '">' + LEVEL_META[n - 1].icon + "<span>" + n + "</span></div>";
+    }
+    function bar(n) { return '<div class="pbar' + (lvl > n ? " fill" : "") + '"><i></i></div>'; }
+    return '<div class="progress" aria-label="Level progress">' + badge(1) + bar(1) + badge(2) + bar(2) + badge(3) + "</div>";
+  }
+
+  function meterHtml(label, value, max) {
+    if (!max) return "";
+    const pct = Math.max(0, Math.min(100, (value / max) * 100));
+    return '<div class="meter-wrap"><div class="meter-label"><span>' + label + '</span><span>' + value + "/" + max + '</span></div><div class="meter" role="meter" aria-valuenow="' + value + '" aria-valuemin="0" aria-valuemax="' + max + '"><i style="width:' + pct + '%"></i></div></div>';
+  }
+
+  function renderUI() {
+    const sc = state.scene;
+    app.className = themeFor(sc);
+    const stars = '<div class="stars" aria-label="Stars">⭐ ' + state.stars + "</div>";
+    headerEl.innerHTML = '<div class="top-row"><div class="brand">Super Survival</div>' + stars + "</div>" + progressHtml();
+
+    let title = "", body = "", extra = "", btns = [];
+    if (sc === "title") {
+      title = "Super Survival Adventure";
+      body = "Help the hero stay safe through 3 wild levels: a tiny island, a spinny tornado, and a wobbly earthquake. Solve addition and subtraction puzzles (numbers 0–20) to gather, build, and survive. It's all a game — you'll be okay, and you'll have fun!";
+      btns = [{ label: "▶️ Play", act: "newGame", cls: "primary" }];
+      if (hasContinue()) btns.push({ label: "↪️ Continue", act: "continue" });
+    } else if (sc === "complete") {
+      title = "You survived all 3 levels!";
+      body = "You're a safety champion! You built a hut, rode a wild wave, stayed safe in a tornado, and used Drop, Cover, and Hold On in an earthquake — and you solved the puzzles along the way. Stars earned: ⭐ " + state.stars + ".";
+      btns = [{ label: "🔁 Play again", act: "newGame", cls: "primary" }];
+    } else {
+      const st = currentStep();
+      const p = state.problem;
+      title = st ? st.title : "";
+      body = st ? st.text : "";
+      if (p) extra += '<div class="math-q" aria-live="polite">' + p.a + " " + p.op + " " + p.b + " = ?</div>";
+      const label = sc === "island" ? "Island plan" : "Survival meter";
+      extra += meterHtml(label, state.survival, meterMax());
+      if (state.hint) extra += '<div class="hint" role="status">' + state.hint + "</div>";
+      if (p) btns = p.choices.map(function (n) { return { label: String(n), act: "ans_" + n, cls: "math-ans" }; });
+    }
+    storyWrap.innerHTML = '<div class="story">' + (title ? "<h2>" + title + "</h2>" : "") + "<p>" + body + "</p>" + extra + "</div>";
+    const isMath = btns.length && btns.every(function (b) { return (b.cls || "").indexOf("math-ans") !== -1; });
+    actionsEl.className = "actions" + (isMath ? " math-grid" : "");
+    actionsEl.innerHTML = btns.map(function (b) {
+      return '<button type="button" class="' + (b.cls || "") + '" data-act="' + b.act + '">' + b.label + "</button>";
+    }).join("");
+    actionsEl.querySelectorAll("button[data-act]").forEach(function (btn) {
+      bindTap(btn, function () {
+        const act = btn.getAttribute("data-act");
+        if (act === "newGame") startNew();
+        else if (act === "continue") continueGame();
+        else if (act && act.indexOf("ans_") === 0) onAnswer(Number(act.slice(4)), btn);
+      });
+    });
+    sizeCanvas();
+  }
+
+  /* ---------- canvas helpers ---------- */
+  function sizeCanvas() {
+    const wrap = canvas.parentElement;
+    const rect = wrap.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const w = Math.max(1, Math.round(rect.width));
+    const h = Math.max(1, Math.round(rect.height));
+    if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) {
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      canvas.style.width = w + "px";
+      canvas.style.height = h + "px";
+    }
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return { w: w, h: h };
+  }
+
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+
+  function fillRound(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+  function strokeFill(ctx, fill, stroke, lw) {
+    if (fill) { ctx.fillStyle = fill; ctx.fill(); }
+    if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = lw || 3; ctx.lineJoin = "round"; ctx.lineCap = "round"; ctx.stroke(); }
+  }
+
+  function drawCloud(ctx, x, y, s, alpha) {
+    ctx.save();
+    ctx.globalAlpha = alpha == null ? 0.9 : alpha;
+    ctx.fillStyle = "#fff";
+    ctx.beginPath();
+    ctx.arc(x, y, 16 * s, 0, Math.PI * 2);
+    ctx.arc(x + 18 * s, y - 8 * s, 18 * s, 0, Math.PI * 2);
+    ctx.arc(x + 38 * s, y, 16 * s, 0, Math.PI * 2);
+    ctx.arc(x + 20 * s, y + 6 * s, 14 * s, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function drawSun(ctx, x, y, r, t) {
+    ctx.save();
+    ctx.fillStyle = "rgba(253, 224, 71, 0.35)";
+    ctx.beginPath(); ctx.arc(x, y, r * 1.7, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = "#fde047";
+    ctx.strokeStyle = "#f59e0b";
+    ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    ctx.restore();
+  }
+
+  function drawMoon(ctx, x, y, r) {
+    ctx.save();
+    ctx.fillStyle = "#fef9c3";
+    ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = "rgba(15,23,42,0.15)";
+    ctx.beginPath(); ctx.arc(x - r * 0.3, y - r * 0.15, r * 0.28, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(x + r * 0.25, y + r * 0.2, r * 0.18, 0, Math.PI * 2); ctx.fill();
+    ctx.restore();
+  }
+
+  function drawWaves(ctx, w, h, baseY, t, amp, colors) {
+    colors.forEach(function (col, i) {
+      const y0 = baseY + i * 14;
+      const a = amp * (1 - i * 0.15);
+      ctx.beginPath();
+      ctx.moveTo(0, h);
+      ctx.lineTo(0, y0);
+      for (let x = 0; x <= w + 8; x += 6) {
+        const y = y0
+          + Math.sin(x * 0.018 + t * 1.8 + i) * a
+          + Math.sin(x * 0.05 + t * 2.4 + i * 0.7) * a * 0.35;
+        ctx.lineTo(x, y);
+      }
+      ctx.lineTo(w, h);
+      ctx.closePath();
+      ctx.fillStyle = col;
+      ctx.fill();
+    });
+  }
+
+  function drawPalm(ctx, x, y, scale, t, lean) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.scale(scale, scale);
+    ctx.rotate((lean || 0) + Math.sin(t * 1.4) * 0.03);
+    ctx.fillStyle = "#8b5a2b";
+    ctx.strokeStyle = "#5c3a1a";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(-7, 0);
+    ctx.quadraticCurveTo(-4, -50, 0, -96);
+    ctx.quadraticCurveTo(5, -50, 8, 0);
+    ctx.closePath();
+    ctx.fill(); ctx.stroke();
+    ctx.strokeStyle = "rgba(60,30,10,0.35)";
+    ctx.beginPath(); ctx.moveTo(-1, -8); ctx.quadraticCurveTo(2, -50, 1, -90); ctx.stroke();
+    const greens = ["#15803d", "#22c55e", "#16a34a", "#166534"];
+    for (let i = 0; i < 7; i++) {
+      const ang = -Math.PI / 2 + (i - 3) * 0.42 + Math.sin(t + i) * 0.04;
+      const len = 38 + (i % 2 ? 8 : 0);
+      ctx.save();
+      ctx.translate(0, -96);
+      ctx.rotate(ang);
+      ctx.fillStyle = greens[i % greens.length];
+      ctx.strokeStyle = "#14532d";
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.quadraticCurveTo(len * 0.5, -12, len, 0);
+      ctx.quadraticCurveTo(len * 0.5, 10, 0, 0);
+      ctx.fill(); ctx.stroke();
+      ctx.restore();
+    }
+    ctx.fillStyle = "#6b3f16";
+    ctx.beginPath(); ctx.arc(0, -96, 6, 0, Math.PI * 2); ctx.fill();
+    ctx.restore();
+  }
+
+  function drawHut(ctx, x, y, scale, stage, t) {
+    if (stage <= 0) return;
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.scale(scale, scale);
+    const outline = "#5c3a1a";
+    // platform
+    ctx.fillStyle = "#b45309";
+    ctx.strokeStyle = outline;
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(-48, 0); ctx.lineTo(48, 0); ctx.lineTo(40, 10); ctx.lineTo(-40, 10);
+    ctx.closePath(); ctx.fill(); ctx.stroke();
+    if (stage >= 1) {
+      // posts
+      ctx.fillStyle = "#92400e";
+      [[-36, 0, -32, -44], [32, 0, 36, -44], [-16, 0, -12, -44], [12, 0, 16, -44]].forEach(function (p) {
+        ctx.fillRect(p[0], p[3], 6, -p[3]);
+        ctx.strokeRect(p[0], p[3], 6, -p[3]);
+      });
+    }
+    if (stage >= 2) {
+      ctx.fillStyle = "#fde68a";
+      ctx.strokeStyle = outline;
+      ctx.lineWidth = 3;
+      fillRound(ctx, -38, -44, 76, 44, 2);
+      ctx.fill(); ctx.stroke();
+      // door hole
+      ctx.fillStyle = "#7c4a1e";
+      fillRound(ctx, -10, -28, 20, 28, 3);
+      ctx.fill(); ctx.stroke();
+      // window
+      ctx.fillStyle = "#7dd3fc";
+      fillRound(ctx, 16, -34, 14, 12, 2);
+      ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(23, -34); ctx.lineTo(23, -22); ctx.moveTo(16, -28); ctx.lineTo(30, -28); ctx.stroke();
+    }
+    if (stage >= 3) {
+      ctx.fillStyle = "#c2410c";
+      ctx.strokeStyle = outline;
+      ctx.beginPath();
+      ctx.moveTo(-48, -42);
+      ctx.lineTo(0, -78);
+      ctx.lineTo(48, -42);
+      ctx.closePath();
+      ctx.fill(); ctx.stroke();
+      // chimney
+      ctx.fillStyle = "#78716c";
+      ctx.fillRect(18, -70, 10, 16);
+      ctx.strokeRect(18, -70, 10, 16);
+      // puff
+      ctx.fillStyle = "rgba(148,163,184,0.7)";
+      ctx.beginPath();
+      ctx.arc(23 + Math.sin(t) * 3, -78 - (t * 12 % 16), 5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function drawWoodPile(ctx, x, y, n) {
+    if (n <= 0) return;
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.strokeStyle = "#5c3a1a";
+    ctx.lineWidth = 2;
+    const logs = Math.min(n, 3);
+    for (let i = 0; i < logs; i++) {
+      ctx.fillStyle = i % 2 ? "#b45309" : "#92400e";
+      ctx.beginPath();
+      ctx.ellipse(0, -i * 8, 22, 6, -0.15 + i * 0.08, 0, Math.PI * 2);
+      ctx.fill(); ctx.stroke();
+      ctx.fillStyle = "#fde68a";
+      ctx.beginPath(); ctx.arc(-20, -i * 8, 5, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawFish(ctx, x, y, t) {
+    const bob = Math.sin(t * 2.2) * 5;
+    ctx.save();
+    ctx.translate(x, y + bob);
+    ctx.fillStyle = "#0ea5e9";
+    ctx.strokeStyle = "#075985";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.ellipse(0, 0, 14, 7, 0, 0, Math.PI * 2);
+    ctx.fill(); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(12, 0); ctx.lineTo(22, -7); ctx.lineTo(22, 7); ctx.closePath();
+    ctx.fill(); ctx.stroke();
+    ctx.fillStyle = "#fff";
+    ctx.beginPath(); ctx.arc(-6, -1, 2.2, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = "#111";
+    ctx.beginPath(); ctx.arc(-5.5, -1, 1, 0, Math.PI * 2); ctx.fill();
+    ctx.restore();
+  }
+
+  /* Full-body boy — feet at (x,y), drawn upward. */
+  function drawBoy(ctx, x, y, scale, pose, t, extras) {
+    extras = extras || {};
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.scale(scale, scale);
+    const skin = "#f3c09a";
+    const outline = "#3f2a1c";
+    const shirt = "#f97316";
+    const shirtDk = "#ea6a0c";
+    const shorts = "#2563eb";
+    const hair = "#6b3a16";
+    const shoe = "#ef4444";
+
+    let bob = Math.sin(t * 3.1) * 1.8;
+    if (pose === "cheer") bob = -Math.abs(Math.sin(t * 7)) * 8;
+    const crouch = pose === "brace" ? 10 : 0;
+    ctx.translate(0, bob);
+
+    ctx.lineJoin = "round";
+    ctx.lineCap = "round";
+
+    ctx.fillStyle = "rgba(0,0,0,0.22)";
+    ctx.beginPath();
+    ctx.ellipse(0, 5, 22, 6, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    function capsule(x1, y1, x2, y2, width, fill) {
+      const dx = x2 - x1, dy = y2 - y1, len = Math.hypot(dx, dy) || 1;
+      ctx.save();
+      ctx.translate(x1, y1);
+      ctx.rotate(Math.atan2(dy, dx));
+      ctx.fillStyle = fill;
+      ctx.strokeStyle = outline;
+      ctx.lineWidth = 3;
+      fillRound(ctx, 0, -width / 2, len, width, width / 2);
+      ctx.fill(); ctx.stroke();
+      ctx.restore();
+    }
+
+    const hipY = -50 + crouch * 0.4;
+    const footY = 0;
+    const legSpread = pose === "cheer" ? 12 : (pose === "brace" ? 10 : 9);
+    capsule(-legSpread, hipY, -legSpread, footY - 8, 12, skin);
+    capsule(legSpread, hipY, legSpread, footY - 8, 12, skin);
+    ctx.fillStyle = "#f8fafc";
+    ctx.strokeStyle = outline;
+    ctx.lineWidth = 3;
+    [[-legSpread, footY - 10], [legSpread, footY - 10]].forEach(function (pt) {
+      ctx.beginPath(); ctx.ellipse(pt[0], pt[1], 7, 4, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    });
+    function shoeAt(sx, flip) {
+      ctx.fillStyle = shoe;
+      ctx.strokeStyle = outline;
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.ellipse(sx + flip * 4, footY - 3, 12, 6.5, 0, 0, Math.PI * 2);
+      ctx.fill(); ctx.stroke();
+      ctx.fillStyle = "#fff";
+      ctx.beginPath(); ctx.ellipse(sx + flip * 9, footY - 4, 4, 3, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = "#d1d5db";
+      ctx.beginPath(); ctx.ellipse(sx + flip * 2, footY + 1, 10, 2.2, 0, 0, Math.PI * 2); ctx.fill();
+    }
+    shoeAt(-legSpread, -1);
+    shoeAt(legSpread, 1);
+
+    ctx.fillStyle = shorts;
+    ctx.strokeStyle = outline;
+    ctx.lineWidth = 3;
+    fillRound(ctx, -18, hipY - 6, 36, 22, 8);
+    ctx.fill(); ctx.stroke();
+
+    const torsoTop = -96 + crouch * 0.15;
+    ctx.fillStyle = shirt;
+    fillRound(ctx, -20, torsoTop, 40, 50, 12);
+    ctx.fill(); ctx.stroke();
+    ctx.fillStyle = shirtDk;
+    ctx.fillRect(-17, torsoTop + 42, 34, 5);
+
+    if (extras.lifeJacket) {
+      ctx.fillStyle = "#facc15";
+      fillRound(ctx, -22, torsoTop + 6, 44, 30, 8);
+      ctx.fill(); ctx.stroke();
+      ctx.fillStyle = "#dc2626";
+      ctx.fillRect(-7, torsoTop + 8, 14, 26);
+      ctx.strokeRect(-7, torsoTop + 8, 14, 26);
+    }
+
+    const shY = torsoTop + 10;
+    const swing = Math.sin(t * 3.1) * 8;
+    let lHand, rHand;
+    if (pose === "cheer") {
+      lHand = [-30, torsoTop - 50];
+      rHand = [30, torsoTop - 50];
+    } else if (pose === "brace") {
+      lHand = [-14, torsoTop - 38];
+      rHand = [14, torsoTop - 38];
+    } else if (pose === "work") {
+      lHand = [-30, -40 + swing];
+      rHand = [28, -18 - swing];
+    } else {
+      lHand = [-28, -34 + swing];
+      rHand = [28, -34 - swing];
+    }
+    const lSh = [-18, shY], rSh = [18, shY];
+    const lEl = [(lSh[0] + lHand[0]) / 2 - (pose === "idle" ? 6 : 2), (lSh[1] + lHand[1]) / 2 + (pose === "idle" ? 10 : 2)];
+    const rEl = [(rSh[0] + rHand[0]) / 2 + (pose === "idle" ? 6 : 2), (rSh[1] + rHand[1]) / 2 + (pose === "idle" ? 10 : 2)];
+    capsule(lSh[0], lSh[1], lEl[0], lEl[1], 13, shirt);
+    capsule(rSh[0], rSh[1], rEl[0], rEl[1], 13, shirt);
+    capsule(lEl[0], lEl[1], lHand[0], lHand[1], 11, skin);
+    capsule(rEl[0], rEl[1], rHand[0], rHand[1], 11, skin);
+    ctx.fillStyle = skin;
+    ctx.beginPath(); ctx.arc(lHand[0], lHand[1], 7, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    ctx.beginPath(); ctx.arc(rHand[0], rHand[1], 7, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+
+    ctx.fillStyle = skin;
+    ctx.fillRect(-6, torsoTop - 8, 12, 12);
+    ctx.strokeRect(-6, torsoTop - 8, 12, 12);
+
+    const hx = 0, hy = torsoTop - 26;
+    // hair cap first
+    ctx.fillStyle = hair;
+    ctx.strokeStyle = outline;
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.arc(hx, hy - 4, 24, 0, Math.PI * 2);
+    ctx.fill(); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(hx - 16, hy - 16);
+    ctx.quadraticCurveTo(hx - 6, hy - 38, hx + 4, hy - 18);
+    ctx.quadraticCurveTo(hx + 14, hy - 36, hx + 20, hy - 14);
+    ctx.fill(); ctx.stroke();
+
+    // face
+    ctx.fillStyle = skin;
+    ctx.beginPath(); ctx.arc(hx, hy + 4, 20, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    ctx.beginPath(); ctx.arc(hx - 19, hy + 6, 5, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    ctx.beginPath(); ctx.arc(hx + 19, hy + 6, 5, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+
+    // bangs
+    ctx.fillStyle = hair;
+    ctx.beginPath();
+    ctx.moveTo(hx - 18, hy - 6);
+    ctx.quadraticCurveTo(hx - 10, hy + 2, hx - 4, hy - 8);
+    ctx.quadraticCurveTo(hx, hy + 4, hx + 6, hy - 8);
+    ctx.quadraticCurveTo(hx + 12, hy + 2, hx + 18, hy - 6);
+    ctx.quadraticCurveTo(hx, hy - 16, hx - 18, hy - 6);
+    ctx.fill();
+
+    const blink = !REDUCE && (Math.sin(t * 2.2) > 0.96);
+    ctx.strokeStyle = outline;
+    ctx.lineWidth = 2.5;
+    if (!blink) {
+      ctx.fillStyle = "#fff";
+      ctx.beginPath(); ctx.ellipse(hx - 7, hy + 4, 5, 5.5, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.ellipse(hx + 7, hy + 4, 5, 5.5, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = "#1e293b";
+      ctx.beginPath(); ctx.arc(hx - 6, hy + 4, 2.3, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(hx + 8, hy + 4, 2.3, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = "#fff";
+      ctx.beginPath(); ctx.arc(hx - 5, hy + 3, 0.9, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(hx + 9, hy + 3, 0.9, 0, Math.PI * 2); ctx.fill();
+    } else {
+      ctx.beginPath(); ctx.moveTo(hx - 12, hy + 4); ctx.lineTo(hx - 3, hy + 4); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(hx + 3, hy + 4); ctx.lineTo(hx + 12, hy + 4); ctx.stroke();
+    }
+    ctx.strokeStyle = outline;
+    ctx.lineWidth = 2.5;
+    if (pose === "brace") {
+      ctx.beginPath(); ctx.moveTo(hx - 12, hy - 4); ctx.lineTo(hx - 4, hy - 2); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(hx + 12, hy - 4); ctx.lineTo(hx + 4, hy - 2); ctx.stroke();
+    } else {
+      ctx.beginPath(); ctx.moveTo(hx - 12, hy - 4); ctx.lineTo(hx - 4, hy - 6); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(hx + 12, hy - 4); ctx.lineTo(hx + 4, hy - 6); ctx.stroke();
+    }
+    ctx.beginPath();
+    if (pose === "cheer") ctx.arc(hx, hy + 11, 8, 0.15, Math.PI - 0.15);
+    else if (pose === "brace") ctx.arc(hx, hy + 13, 5, 0.25, Math.PI - 0.25);
+    else ctx.arc(hx, hy + 12, 6.5, 0.15, Math.PI - 0.15);
+    ctx.stroke();
+    ctx.fillStyle = "rgba(244,114,182,0.35)";
+    ctx.beginPath(); ctx.ellipse(hx - 14, hy + 10, 4, 2.4, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(hx + 14, hy + 10, 4, 2.4, 0, 0, Math.PI * 2); ctx.fill();
+
+    ctx.restore();
+  }
+
+  function drawSky(ctx, w, h, kind, t, danger) {
+    let g = ctx.createLinearGradient(0, 0, 0, h);
+    if (kind === "day") {
+      g.addColorStop(0, "#7dd3fc"); g.addColorStop(1, "#38bdf8");
+    } else if (kind === "morning") {
+      g.addColorStop(0, "#fde68a"); g.addColorStop(0.45, "#fdba74"); g.addColorStop(1, "#7dd3fc");
+    } else if (kind === "night") {
+      g.addColorStop(0, "#0b1220"); g.addColorStop(1, "#1e3a5f");
+    } else if (kind === "storm") {
+      const d = danger || 0;
+      g.addColorStop(0, lerpColor("#64748b", "#1e293b", d));
+      g.addColorStop(1, lerpColor("#94a3b8", "#334155", d));
+    } else if (kind === "tsunami") {
+      g.addColorStop(0, "#1e3a5f"); g.addColorStop(1, "#0e7490");
+    } else if (kind === "win") {
+      g.addColorStop(0, "#f9a8d4"); g.addColorStop(0.5, "#fde047"); g.addColorStop(1, "#6ee7b7");
+    } else if (kind === "room") {
+      g.addColorStop(0, "#fed7aa"); g.addColorStop(1, "#fde68a");
+    }
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, w, h);
+  }
+
+  function lerpColor(a, b, t) {
+    function hex(h) { return [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)]; }
+    const A = hex(a), B = hex(b);
+    const r = Math.round(lerp(A[0], B[0], t));
+    const g = Math.round(lerp(A[1], B[1], t));
+    const bl = Math.round(lerp(A[2], B[2], t));
+    return "rgb(" + r + "," + g + "," + bl + ")";
+  }
+
+  function drawStarsSky(ctx, w, h, t) {
+    ctx.fillStyle = "#fde047";
+    for (let i = 0; i < 28; i++) {
+      const x = (i * 97) % w;
+      const y = 10 + (i * 53) % (h * 0.45);
+      const tw = 0.4 + 0.6 * (0.5 + 0.5 * Math.sin(t * 2 + i));
+      ctx.globalAlpha = tw;
+      ctx.beginPath(); ctx.arc(x, y, 1.4, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function drawShip(ctx, x, y, scale, t, night) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.scale(scale, scale);
+    const bob = Math.sin(t * 1.5) * 3;
+    ctx.translate(0, bob);
+    const outline = "#1e293b";
+    ctx.lineWidth = 3;
+    ctx.lineJoin = "round";
+
+    // hull
+    ctx.fillStyle = "#1e3a5f";
+    ctx.strokeStyle = outline;
+    ctx.beginPath();
+    ctx.moveTo(-130, 10);
+    ctx.lineTo(-110, 38);
+    ctx.lineTo(100, 38);
+    ctx.lineTo(130, 8);
+    ctx.lineTo(110, -8);
+    ctx.lineTo(-115, -8);
+    ctx.closePath();
+    ctx.fill(); ctx.stroke();
+    // red waterline
+    ctx.fillStyle = "#b91c1c";
+    ctx.fillRect(-108, 24, 210, 10);
+    ctx.strokeRect(-108, 24, 210, 10);
+
+    // decks / superstructure
+    ctx.fillStyle = "#f1f5f9";
+    fillRound(ctx, -70, -48, 150, 42, 4);
+    ctx.fill(); ctx.stroke();
+    ctx.fillStyle = "#e2e8f0";
+    fillRound(ctx, -30, -72, 90, 28, 4);
+    ctx.fill(); ctx.stroke();
+
+    // portholes
+    for (let i = 0; i < 6; i++) {
+      ctx.fillStyle = night ? "#fde047" : "#7dd3fc";
+      ctx.beginPath(); ctx.arc(-50 + i * 22, -24, 5, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = outline; ctx.lineWidth = 2; ctx.stroke();
+    }
+    for (let i = 0; i < 4; i++) {
+      ctx.fillStyle = night ? "#fde047" : "#7dd3fc";
+      ctx.beginPath(); ctx.arc(-10 + i * 20, -56, 4, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    }
+
+    // funnels (Titanic-style buff + black top)
+    function funnel(fx) {
+      ctx.fillStyle = "#d4a017";
+      ctx.strokeStyle = outline;
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(fx - 9, -72);
+      ctx.lineTo(fx - 7, -118);
+      ctx.lineTo(fx + 11, -118);
+      ctx.lineTo(fx + 9, -72);
+      ctx.closePath();
+      ctx.fill(); ctx.stroke();
+      ctx.fillStyle = "#111827";
+      ctx.fillRect(fx - 8, -118, 20, 14);
+      ctx.strokeRect(fx - 8, -118, 20, 14);
+    }
+    funnel(0); funnel(28); funnel(56); funnel(84);
+
+    // bow railing hint
+    ctx.strokeStyle = "#cbd5e1";
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(-115, -8); ctx.lineTo(-125, -22); ctx.stroke();
+
+    // flag
+    ctx.strokeStyle = outline;
+    ctx.beginPath(); ctx.moveTo(-40, -72); ctx.lineTo(-40, -128); ctx.stroke();
+    ctx.fillStyle = "#dc2626";
+    ctx.beginPath(); ctx.moveTo(-40, -128); ctx.lineTo(-18, -120); ctx.lineTo(-40, -112); ctx.closePath(); ctx.fill(); ctx.stroke();
+
+    ctx.restore();
+  }
+
+  function drawSmoke(ctx, t, ox, oy, scale) {
+    particles.forEach(function (p) {
+      ctx.save();
+      ctx.globalAlpha = p.life;
+      ctx.fillStyle = "rgba(148,163,184,1)";
+      ctx.beginPath();
+      ctx.arc(ox + p.x * scale, oy + p.y * scale, p.r * scale, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    });
+  }
+
+  function resetParticles(scene) {
+    particles = [];
+    debris = [];
+    rain = [];
+    if (scene === "complete") burstConfetti();
+    else confetti = [];
+    if (scene === "ship" || scene === "tsunami") {
+      for (let i = 0; i < 18; i++) {
+        particles.push({ x: (i % 4) * 28 + Math.random() * 8, y: -120 - Math.random() * 40, r: 5 + Math.random() * 6, life: 0.4 + Math.random() * 0.5, vy: -12 - Math.random() * 10, vx: 8 + Math.random() * 10 });
+      }
+    }
+    if (scene === "tornado") {
+      for (let i = 0; i < 70; i++) {
+        rain.push({ x: Math.random(), y: Math.random(), len: 8 + Math.random() * 10, sp: 1 + Math.random() });
+      }
+      for (let i = 0; i < 14; i++) {
+        debris.push({ a: Math.random() * Math.PI * 2, r: 30 + Math.random() * 80, z: Math.random(), s: 4 + Math.random() * 8, rot: Math.random() * 6, kind: i % 3 });
+      }
+    }
+    if (scene === "tsunami") {
+      for (let i = 0; i < 24; i++) {
+        debris.push({ x: Math.random(), y: Math.random() * 0.3, vx: -0.5 - Math.random(), life: 1, r: 2 + Math.random() * 4 });
+      }
+    }
+  }
+
+  function burstConfetti() {
+    confetti = [];
+    const cols = ["#ef4444", "#f59e0b", "#eab308", "#22c55e", "#3b82f6", "#a855f7", "#ec4899"];
+    for (let i = 0; i < 70; i++) {
+      confetti.push({
+        x: Math.random(), y: -0.1 - Math.random() * 0.3,
+        vx: (Math.random() - 0.5) * 0.15, vy: 0.15 + Math.random() * 0.25,
+        rot: Math.random() * 6, rv: (Math.random() - 0.5) * 6,
+        w: 6 + Math.random() * 6, h: 8 + Math.random() * 8,
+        c: cols[i % cols.length]
+      });
+    }
+  }
+
+  function updateParticles(dt, scene, t, w, h) {
+    if (scene === "ship" || scene === "tsunami") {
+      particles.forEach(function (p) {
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+        p.life -= dt * 0.35;
+        p.r += dt * 4;
+        if (p.life <= 0 || p.y < -200) {
+          p.x = (Math.random() * 90);
+          p.y = -120;
+          p.r = 5 + Math.random() * 5;
+          p.life = 0.8;
+          p.vx = 8 + Math.random() * 10;
+          p.vy = -12 - Math.random() * 8;
         }
-        hint.textContent = state.hint;
+      });
+    }
+    if (scene === "tornado") {
+      rain.forEach(function (r) {
+        r.y += dt * 1.3 * r.sp;
+        r.x += dt * 0.15;
+        if (r.y > 1) { r.y = -0.05; r.x = Math.random(); }
+      });
+      debris.forEach(function (d) { d.a += dt * (1.8 + d.z); d.rot += dt * 3; });
+    }
+    if (scene === "tsunami") {
+      debris.forEach(function (d) {
+        d.x += d.vx * dt * 0.4;
+        d.y += Math.sin(t * 4 + d.r) * dt * 0.05;
+        if (d.x < -0.1) d.x = 1.1;
+      });
+    }
+    confetti.forEach(function (c) {
+      c.x += c.vx * dt;
+      c.y += c.vy * dt;
+      c.rot += c.rv * dt;
+      if (c.y > 1.2) { c.y = -0.1; c.x = Math.random(); }
+    });
+  }
+
+  function drawIslandScene(ctx, w, h, t, teaser) {
+    const d = state.danger;
+    drawSky(ctx, w, h, "day", t, d);
+    drawSun(ctx, w * 0.82, h * 0.18, 22, t);
+    drawCloud(ctx, (w * 0.1 + t * 18) % (w + 80) - 40, h * 0.16, 1, 0.85);
+    drawCloud(ctx, (w * 0.55 + t * 12) % (w + 80) - 40, h * 0.22, 0.75, 0.75);
+
+    const waterY = h * 0.70;
+    const amp = 8 + d * 10;
+    drawWaves(ctx, w, h, waterY, t, amp, ["#38bdf8", "#0ea5e9", "#0284c7"]);
+
+    const progress = teaser ? 3 : state.island.hut;
+    const grow = 1 + (teaser ? 0.12 : (state.island.wood + state.island.hut + state.island.food) * 0.04);
+    const ix = w * 0.48, iy = waterY + 8;
+    const isc = Math.min(w, h) / 280 * grow;
+
+    // island sand
+    ctx.save();
+    ctx.translate(ix, iy);
+    ctx.scale(isc, isc);
+    ctx.fillStyle = "#e0b464";
+    ctx.strokeStyle = "#b45309";
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.ellipse(0, 10, 110, 28, 0, 0, Math.PI * 2);
+    ctx.fill(); ctx.stroke();
+    ctx.fillStyle = "#f4d19a";
+    ctx.beginPath();
+    ctx.ellipse(-6, 2, 96, 22, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    drawPalm(ctx, ix + 8 * isc, iy - 6 * isc, isc * 0.8, t, -0.05);
+    if (state.island.palms >= 2 || teaser) drawPalm(ctx, ix + 78 * isc, iy - 4 * isc, isc * 0.75, t, 0.1);
+
+    const hutX = ix + 42 * isc, hutY = iy - 8 * isc;
+    drawHut(ctx, hutX, hutY, isc * 0.95, teaser ? 3 : progress, t);
+    drawWoodPile(ctx, ix - 6 * isc, iy - 6 * isc, teaser ? 2 : state.island.wood);
+    if (state.island.food || teaser) drawFish(ctx, ix + 95 * isc, waterY + 18, t);
+
+    const boyX = ix - 44 * isc;
+    const boyY = iy - 6 * isc;
+    const pose = teaser ? "idle" : effectivePose();
+    drawBoy(ctx, boyX, boyY, isc * 0.98, pose, t, {});
+
+    if (!teaser && state.island.ship >= 1) {
+      const sx = state.island.ship >= 2 ? w * 0.22 : w * 0.14;
+      drawShip(ctx, sx, waterY - 4, Math.min(w, h) / 680, t, false);
+    }
+  }
+
+  function effectivePose() {
+    if (performance.now() < state.poseUntil) return state.pose;
+    if (state.scene === "quake") return "brace";
+    if (state.scene === "tsunami") return "brace";
+    if (state.scene === "tornado" && state.tornado.basement) return "brace";
+    if (state.scene === "complete") return "cheer";
+    return "idle";
+  }
+
+  function drawShipScene(ctx, w, h, t) {
+    const night = !state.ship.breakfast;
+    drawSky(ctx, w, h, night ? "night" : "morning", t);
+    if (night) {
+      drawStarsSky(ctx, w, h, t);
+      drawMoon(ctx, w * 0.84, h * 0.16, 20);
+    } else {
+      drawSun(ctx, w * 0.86, h * 0.16, 20, t);
+      drawCloud(ctx, (t * 14) % (w + 60) - 30, h * 0.18, 0.9, 0.8);
+    }
+    const waterY = h * 0.7;
+    drawWaves(ctx, w, h, waterY, t, 9 + state.danger * 6, night ? ["#164e63", "#0e7490", "#155e75"] : ["#38bdf8", "#0ea5e9", "#0284c7"]);
+
+    const sc = Math.min(w, h) / 360;
+    const sx = w * 0.55, sy = waterY - 4;
+    drawShip(ctx, sx, sy, sc, t, night);
+    // smoke from funnels
+    drawSmoke(ctx, t, sx, sy, sc);
+
+    // ropes on deck
+    if (state.ship.ropes) {
+      ctx.strokeStyle = "#b45309";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(sx - 40 * sc, sy - 10 * sc);
+      ctx.quadraticCurveTo(sx, sy - 50 * sc, sx + 80 * sc, sy - 12 * sc);
+      ctx.stroke();
+    }
+
+    const boyX = sx - 70 * sc;
+    const boyY = sy + 6 * sc;
+    drawBoy(ctx, boyX, boyY, sc * 1.05, effectivePose(), t, { lifeJacket: state.ship.jackets > 0 });
+
+    if (state.ship.breakfast >= 1) {
+      // little breakfast plate near boy
+      ctx.save();
+      ctx.translate(boyX + 32 * sc, boyY - 6 * sc);
+      ctx.scale(sc, sc);
+      ctx.fillStyle = "#fff";
+      ctx.strokeStyle = "#334155";
+      ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.ellipse(0, 0, 12, 6, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = "#f59e0b";
+      ctx.beginPath(); ctx.arc(0, -2, 5, 0, Math.PI * 2); ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  function drawTsunamiScene(ctx, w, h, t) {
+    drawSky(ctx, w, h, "tsunami", t, state.danger);
+    drawCloud(ctx, w * 0.2, h * 0.14, 1.1, 0.5);
+    const waterY = h * 0.68;
+    drawWaves(ctx, w, h, waterY, t, 12 + state.danger * 10, ["#0ea5e9", "#0369a1", "#155e75"]);
+
+    const sc = Math.min(w, h) / 380;
+    const sx = w * 0.34, sy = waterY - 2;
+    const tilt = -0.12 - state.danger * 0.15 - (state.step + 1) * 0.03;
+    ctx.save();
+    ctx.translate(sx, sy);
+    ctx.rotate(tilt + Math.sin(t * 3) * 0.04);
+    ctx.translate(-sx, -sy);
+    drawShip(ctx, sx, sy, sc, t, false);
+    drawSmoke(ctx, t, sx, sy, sc);
+    const boyX = sx - 70 * sc, boyY = sy + 6 * sc;
+    drawBoy(ctx, boyX, boyY, sc * 1.0, "brace", t, { lifeJacket: true });
+    ctx.restore();
+
+    // approaching wave — closer with steps and danger
+    const closeness = clamp((state.step + 1) / 3 + state.danger * 0.35, 0.25, 1.15);
+    const wx = w * (1.15 - closeness * 0.7);
+    drawTsunamiWave(ctx, wx, waterY, w, h, t, closeness);
+
+    // splash particles near wave
+    debris.forEach(function (d) {
+      ctx.fillStyle = "rgba(224,242,254,0.85)";
+      ctx.beginPath();
+      ctx.arc(wx - 20 + d.x * 80, waterY - 10 + d.y * 40 + Math.sin(t * 6) * 4, d.r, 0, Math.PI * 2);
+      ctx.fill();
+    });
+  }
+
+  function drawTsunamiWave(ctx, x, baseY, w, h, t, closeness) {
+    ctx.save();
+    const crestH = h * (0.42 + closeness * 0.12);
+    const face = x;
+    const back = Math.min(w + 20, x + w * 0.55);
+    const grd = ctx.createLinearGradient(face, baseY - crestH, back, baseY + 40);
+    grd.addColorStop(0, "#e0f2fe");
+    grd.addColorStop(0.18, "#bae6fd");
+    grd.addColorStop(0.4, "#38bdf8");
+    grd.addColorStop(0.75, "#0369a1");
+    grd.addColorStop(1, "#0c4a6e");
+    ctx.fillStyle = grd;
+    ctx.strokeStyle = "#164e63";
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(w + 8, h);
+    ctx.lineTo(w + 8, baseY);
+    ctx.lineTo(back, baseY - 8);
+    ctx.bezierCurveTo(back - 20, baseY - crestH * 0.45, face + 90, baseY - crestH * 0.95, face + 40, baseY - crestH);
+    // curling lip
+    ctx.bezierCurveTo(face + 10, baseY - crestH - 8, face - 30, baseY - crestH * 0.7, face - 10, baseY - crestH * 0.45);
+    ctx.bezierCurveTo(face + 30, baseY - crestH * 0.55, face + 20, baseY - crestH * 0.25, face - 50, baseY + 8);
+    ctx.quadraticCurveTo(face - 20, baseY + 18, face + 30, baseY + 14);
+    ctx.lineTo(back, h);
+    ctx.closePath();
+    ctx.fill(); ctx.stroke();
+    // foam
+    ctx.fillStyle = "#f8fafc";
+    const lipY = baseY - crestH + 6 + Math.sin(t * 5) * 3;
+    ctx.beginPath();
+    ctx.arc(face + 18, lipY, 16, 0, Math.PI * 2);
+    ctx.arc(face + 40, lipY + 10, 14, 0, Math.PI * 2);
+    ctx.arc(face - 6, lipY + 18, 12, 0, Math.PI * 2);
+    ctx.arc(face + 58, lipY + 4, 10, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function drawHouse(ctx, x, y, scale, opts) {
+    opts = opts || {};
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.scale(scale, scale);
+    const outline = "#3f2a1c";
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = outline;
+
+    if (opts.cutaway) {
+      // basement
+      ctx.fillStyle = "#57534e";
+      fillRound(ctx, -74, 18, 148, 100, 4);
+      ctx.fill(); ctx.stroke();
+      ctx.strokeStyle = "#292524";
+      ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(-74, 18); ctx.lineTo(74, 18); ctx.stroke();
+      // cutaway hash on earth
+      ctx.fillStyle = "#a8a29e";
+      ctx.fillRect(-88, 18, 14, 100);
+      ctx.fillRect(74, 18, 14, 100);
+      if (opts.supplies) {
+        ctx.fillStyle = "#facc15";
+        ctx.fillRect(-54, 70, 12, 22);
+        ctx.fillStyle = "#38bdf8";
+        ctx.fillRect(-36, 74, 10, 18);
+        ctx.fillStyle = "#f97316";
+        ctx.fillRect(-20, 78, 18, 12);
+        ctx.strokeStyle = outline;
+        ctx.strokeRect(-54, 70, 12, 22);
       }
     }
 
-    function clearHint() { state.hint = ""; }
+    // house body
+    ctx.fillStyle = "#fef3c7";
+    ctx.strokeStyle = outline;
+    fillRound(ctx, -70, -80, 140, 100, 3);
+    ctx.fill(); ctx.stroke();
 
-    function go(scene, stars) {
-      clearHint();
-      if (stars) addStars(stars);
-      state.scene = scene;
-      if (scene === "island" && state.islandTimeLeft <= 0) state.islandTimeLeft = ISLAND_SECONDS;
-      if (scene === "tornado") { state.safety = 0; state.supplies = []; }
-      if (scene === "quake") { state.safety = 0; state.shaking = true; }
-      if (scene === "complete") { state.shaking = false; state.level = 3; sfx("win"); }
-      if (scene !== "quake" && scene !== "quakeCover") state.shaking = false;
-      if (scene === "quakeCover") state.shaking = true;
-      save();
-      render();
-    }
+    // roof
+    ctx.fillStyle = "#c2410c";
+    ctx.beginPath();
+    ctx.moveTo(-84, -74);
+    ctx.lineTo(0, -130);
+    ctx.lineTo(84, -74);
+    ctx.closePath();
+    ctx.fill(); ctx.stroke();
 
-    function handle(act, btn) {
-      const i = state.island;
-      switch (act) {
-        case "newGame":
-          sfx("tap");
-          stopIslandTimer();
-          stopConfetti();
-          state = initial();
-          state.scene = "island";
-          state.level = 1;
-          state.mathBank = makeMathBank();
-          state.mathIndex = 0;
-          clearSave();
-          save();
-          sfx("good");
-          render();
-          break;
-        case "continue": {
-          sfx("tap");
-          const saved = loadSave();
-          if (saved) {
-            state = Object.assign(initial(), saved, { hint: "", shaking: saved.scene && String(saved.scene).startsWith("quake") && saved.scene !== "quakeAfter" && saved.scene !== "complete" });
-            if (state.scene === "title") state.scene = "island";
-            render();
-          }
-          break;
-        }
-        case "gatherWood":
-          sfx("good");
-          i.wood += 1;
-          addStars(1);
-          clearHint();
-          state.hint = "🪵 You found sturdy driftwood! Wood: " + i.wood + ".";
-          save(); render();
-          break;
-        case "buildHut":
-          if (i.hut) return;
-          if (i.wood < 2) {
-            gentleHint("You need 2 pieces of wood first. Try gathering a little more!", btn);
-            return;
-          }
-          sfx("good");
-          i.wood -= 2;
-          i.hut = true;
-          addStars(3);
-          clearHint();
-          state.hint = "🛖 Nice work! A cozy hut is up.";
-          save(); render();
-          break;
-        case "plantPalm":
-          sfx("good");
-          i.palms += 1;
-          addStars(1);
-          clearHint();
-          state.hint = "🌴 A new palm stretches toward the sun! Palms: " + i.palms + ".";
-          save(); render();
-          break;
-        case "fish":
-          sfx("good");
-          i.fish += 1;
-          addStars(1);
-          clearHint();
-          state.hint = "🐟 Splash! You caught a sparkly fish. Fish: " + i.fish + ".";
-          save(); render();
-          break;
-        case "skipIsland":
-          sfx("tap");
-          state.islandTimeLeft = 0;
-          go("shipArrive", 1);
-          break;
-        case "boardShip":
-          sfx("good");
-          go("shipNight", 2);
-          break;
-        case "nightSleep":
-          state.nightChoice = "sleep";
-          sfx("good");
-          go("shipBreakfast", 2);
-          state.hint = "😴 You snuggle into a soft bunk. Zzz. Morning is here!";
-          render();
-          break;
-        case "nightStars":
-          state.nightChoice = "stars";
-          sfx("good");
-          go("shipBreakfast", 2);
-          state.hint = "⭐ The stars look like glitter on the ocean. Now it's morning!";
-          render();
-          break;
-        case "nightDeck":
-          state.nightChoice = "deck";
-          sfx("good");
-          go("shipBreakfast", 2);
-          state.hint = "🚶 You tiptoe along the deck and hear friendly music and waves. Morning arrives!";
-          render();
-          break;
-        case "eatPancakes":
-        case "eatFruit":
-        case "eatCereal":
-        case "eatEggs": {
-          const foods = { eatPancakes: "🥞", eatFruit: "🍓", eatCereal: "🥣", eatEggs: "🍳" };
-          state.breakfast = foods[act];
-          addStars(2);
-          sfx("good");
-          clearHint();
-          save(); render();
-          break;
-        }
-        case "goLunch":
-          sfx("tap");
-          go("tsunami");
-          break;
-        case "grabRing":
-          state.tsunamiChoice = "ring";
-          sfx("good");
-          addStars(2);
-          clearHint();
-          state.hint = "🛟 Smart! You hold the bright life ring tight.";
-          save(); render();
-          break;
-        case "holdRail":
-          state.tsunamiChoice = "rail";
-          sfx("good");
-          addStars(2);
-          clearHint();
-          state.hint = "🙌 You hang on tight as the wave whooshes by.";
-          save(); render();
-          break;
-        case "stayGroup":
-          state.tsunamiChoice = "group";
-          sfx("good");
-          addStars(2);
-          clearHint();
-          state.hint = "🧑‍🤝‍🧑 You stay close to helpers. Teamwork feels great!";
-          save(); render();
-          break;
-        case "toTornado":
-          startMath("tornado", 2, "Math power!", "Before the next adventure, solve 2 puzzles. Some are addition, some are subtraction.");
-          break;
-        case "goBasement":
-          sfx("good");
-          state.safety = Math.max(state.safety, 1);
-          addStars(2);
-          go("tornadoBasement");
-          break;
-        case "watchWindow":
-          gentleHint("Windows can break in a storm. Let's pick a safer, lower spot!", btn);
-          break;
-        case "runOutside":
-          gentleHint("It's safer inside and low down during a tornado. Try again!", btn);
-          break;
-        case "grabFlash":
-        case "grabWater":
-        case "grabBlanket": {
-          const map = { grabFlash: "🔦", grabWater: "💧", grabBlanket: "🧸" };
-          const item = map[act];
-          if (!state.supplies.includes(item)) state.supplies.push(item);
-          sfx("good");
-          state.safety = Math.max(state.safety, 2);
-          addStars(2);
-          clearHint();
-          go("tornadoCover");
-          break;
-        }
-        case "peekWindow":
-          gentleHint("Stay away from windows during a storm. Grab a helpful supply instead!", btn);
-          break;
-        case "coverTable":
-          sfx("good");
-          state.safety = 3;
-          addStars(3);
-          go("tornadoDone");
-          break;
-        case "standWindow":
-          gentleHint("Stay away from windows. Cover your head under something sturdy!", btn);
-          break;
-        case "openDoor":
-          gentleHint("Keep the door closed and cover your head. You can do this!", btn);
-          break;
-        case "toQuake":
-          startMath("quake", 2, "Math power!", "Nice surviving! Warm up your brain with 2 more puzzles, then it's time for Level 3.");
-          break;
-        case "dropCover":
-          sfx("good");
-          state.safety = 1;
-          addStars(2);
-          go("quakeCover");
-          break;
-        case "runOutQuake":
-          gentleHint("During the shaking, stay inside and protect yourself first. Try Drop, Cover, and Hold On!", btn);
-          break;
-        case "standWinQuake":
-          gentleHint("Windows can be unsafe while the ground is shaking. Drop, Cover, and Hold On!", btn);
-          break;
-        case "underTable":
-          sfx("good");
-          state.safety = 2;
-          addStars(2);
-          go("quakeAfter");
-          break;
-        case "nearWindow":
-          gentleHint("Stay away from windows. A sturdy table is a safer cover spot!", btn);
-          break;
-        case "nearFridge":
-          gentleHint("Heavy things can tip during a quake. Cover under a sturdy table, away from windows!", btn);
-          break;
-        case "checkHazards":
-          state.safety = 3;
-          state.shaking = false;
-          addStars(3);
-          startMath("complete", 2, "One last math challenge!", "The shaking is over. Solve 2 last puzzles to finish your adventure!");
-          break;
-        case "useElevator":
-          gentleHint("Skip elevators after a quake. Stay put a moment, then look for hazards like fallen objects.", btn);
-          break;
-        case "dashOut":
-          gentleHint("Look first — things may have shifted. Stay put a moment, then check for hazards.", btn);
-          break;
-        default:
-          if (act && act.indexOf("ans_") === 0) {
-            const n = Number(act.slice(4));
-            const m = state.math;
-            const p = m && m.items[m.i];
-            if (!p || !isFinite(n)) break;
-            if (n === p.answer) {
-              sfx("good");
-              addStars(2);
-              clearHint();
-              m.i += 1;
-              if (m.i >= m.items.length) {
-                const next = m.nextScene;
-                state.math = null;
-                go(next, 0);
-              } else {
-                save();
-                render();
-              }
-            } else {
-              gentleHint("Not quite! Try another number. You can do it!", btn);
-            }
-          }
-          break;
+    // chimney
+    ctx.fillStyle = "#78716c";
+    ctx.fillRect(40, -120, 16, 28);
+    ctx.strokeRect(40, -120, 16, 28);
+
+    // door
+    ctx.fillStyle = "#92400e";
+    fillRound(ctx, -14, -20, 28, 40, 3);
+    ctx.fill(); ctx.stroke();
+    ctx.fillStyle = "#fde047";
+    ctx.beginPath(); ctx.arc(8, 0, 3, 0, Math.PI * 2); ctx.fill();
+
+    // windows
+    function windowPane(wx, wy, boarded) {
+      ctx.save();
+      ctx.translate(wx, wy);
+      ctx.fillStyle = boarded ? "#92400e" : "#7dd3fc";
+      fillRound(ctx, -16, -14, 32, 28, 2);
+      ctx.fill(); ctx.strokeStyle = outline; ctx.lineWidth = 3; ctx.stroke();
+      if (boarded) {
+        ctx.strokeStyle = "#5c3a1a";
+        ctx.lineWidth = 4;
+        ctx.beginPath(); ctx.moveTo(-14, -12); ctx.lineTo(14, 12);
+        ctx.moveTo(14, -12); ctx.lineTo(-14, 12); ctx.stroke();
+      } else {
+        ctx.beginPath(); ctx.moveTo(0, -14); ctx.lineTo(0, 14);
+        ctx.moveTo(-16, 0); ctx.lineTo(16, 0); ctx.stroke();
       }
+      ctx.restore();
+    }
+    windowPane(-42, -48, opts.windows);
+    windowPane(42, -48, opts.windows);
+
+    ctx.restore();
+  }
+
+  function drawTornadoFunnel(ctx, x, y, t, danger) {
+    ctx.save();
+    ctx.translate(x, y);
+    const h = 220 + danger * 40;
+    for (let i = 0; i < 18; i++) {
+      const p = i / 18;
+      const yy = -h + p * h;
+      const rr = 8 + p * (42 + danger * 18);
+      const ox = Math.sin(t * 4 + p * 8) * (10 + p * 16);
+      ctx.fillStyle = "rgba(" + Math.round(80 + p * 30) + "," + Math.round(70 + p * 20) + "," + Math.round(110 + p * 20) + "," + (0.5 + p * 0.4) + ")";
+      ctx.beginPath();
+      ctx.ellipse(ox, yy, rr, 10 + p * 6, Math.sin(t * 2 + p) * 0.2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    // swirling cloud cap
+    ctx.fillStyle = "rgba(71,85,105,0.75)";
+    ctx.beginPath();
+    ctx.ellipse(0, -h + 10, 80, 22, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function drawTornadoScene(ctx, w, h, t) {
+    drawSky(ctx, w, h, "storm", t, state.danger + state.step * 0.08);
+    // rain
+    ctx.strokeStyle = "rgba(226,232,240,0.55)";
+    ctx.lineWidth = 1.4;
+    rain.forEach(function (r) {
+      const x = r.x * w, y = r.y * h;
+      ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + 4, y + r.len); ctx.stroke();
+    });
+
+    const ground = h * 0.78;
+    ctx.fillStyle = "#4d7c0f";
+    ctx.fillRect(0, ground, w, h - ground);
+    ctx.fillStyle = "#3f6212";
+    ctx.fillRect(0, ground, w, 8);
+
+    const closeness = 0.55 + state.danger * 0.2 + state.step * 0.05;
+    const tx = w * (0.72 - state.danger * 0.08);
+    const ty = ground - 10;
+    drawTornadoFunnel(ctx, tx, ty, t, state.danger);
+    debris.forEach(function (d) {
+      const x = tx + Math.cos(d.a) * d.r * closeness;
+      const y = ty - 80 + Math.sin(d.a * 2) * 50 - d.r * 0.4;
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(d.rot);
+      ctx.fillStyle = d.kind === 0 ? "#92400e" : (d.kind === 1 ? "#64748b" : "#a3a3a3");
+      ctx.fillRect(-d.s, -3, d.s * 2, 6);
+      ctx.restore();
+    });
+
+    const hs = Math.min(w, h) / 420;
+    const hx = w * 0.32, hy = ground;
+    const cutaway = state.tornado.basement > 0;
+    drawHouse(ctx, hx, hy, hs, {
+      windows: state.tornado.windows > 0,
+      supplies: state.tornado.supplies > 0,
+      cutaway: cutaway
+    });
+
+    if (cutaway) {
+      drawBoy(ctx, hx - 6 * hs, hy + 82 * hs, hs * 0.62, "brace", t, {});
+    } else {
+      drawBoy(ctx, hx - 95 * hs, hy - 2 * hs, hs * 1.05, effectivePose(), t, {});
+    }
+  }
+
+  function drawQuakeScene(ctx, w, h, t) {
+    const shakeAmt = (0.25 + state.danger * 0.7 + (state.quake.checked ? 0.05 : 0.35)) * (REDUCE ? 0 : 1);
+    const sx = Math.sin(t * 22) * 5 * shakeAmt;
+    const sy = Math.cos(t * 19) * 3 * shakeAmt;
+    ctx.save();
+    ctx.translate(sx, sy);
+
+    drawSky(ctx, w, h, "room", t);
+    // interior walls
+    ctx.fillStyle = "#ffedd5";
+    ctx.fillRect(0, 0, w, h);
+    // back wall
+    ctx.fillStyle = "#fed7aa";
+    ctx.fillRect(0, 0, w, h * 0.62);
+    // floor
+    ctx.fillStyle = "#b45309";
+    ctx.fillRect(0, h * 0.7, w, h * 0.3);
+    ctx.fillStyle = "#92400e";
+    for (let i = 0; i < 8; i++) {
+      ctx.fillRect(0, h * 0.7 + i * 10, w, 2);
     }
 
-    function startConfetti() {
-      stopConfetti();
-      const colors = ["#ef4444", "#f59e0b", "#eab308", "#22c55e", "#3b82f6", "#a855f7", "#ec4899"];
-      for (let i = 0; i < 64; i++) {
-        const p = document.createElement("div");
-        p.className = "confetti-piece";
-        p.style.left = Math.random() * 100 + "%";
-        p.style.background = colors[i % colors.length];
-        p.style.animationDuration = (2.4 + Math.random() * 2.2) + "s";
-        p.style.animationDelay = (Math.random() * 0.8) + "s";
-        p.style.width = (8 + Math.random() * 8) + "px";
-        p.style.height = (10 + Math.random() * 10) + "px";
-        p.style.transform = "rotate(" + (Math.random() * 360) + "deg)";
-        app.appendChild(p);
-      }
-      confettiTimer = setTimeout(stopConfetti, 7000);
+    // window
+    ctx.fillStyle = "#7dd3fc";
+    ctx.strokeStyle = "#3f2a1c";
+    ctx.lineWidth = 4;
+    fillRound(ctx, w * 0.62, h * 0.14, w * 0.28, h * 0.32, 4);
+    ctx.fill(); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(w * 0.76, h * 0.14); ctx.lineTo(w * 0.76, h * 0.46);
+    ctx.moveTo(w * 0.62, h * 0.3); ctx.lineTo(w * 0.9, h * 0.3);
+    ctx.stroke();
+
+    // cracks
+    const cracks = state.danger * 3 + state.step;
+    ctx.strokeStyle = "rgba(69,26,3,0.65)";
+    ctx.lineWidth = 2;
+    if (cracks > 0.3) {
+      ctx.beginPath();
+      ctx.moveTo(w * 0.12, h * 0.1);
+      ctx.lineTo(w * 0.18, h * 0.22);
+      ctx.lineTo(w * 0.14, h * 0.34);
+      ctx.lineTo(w * 0.2, h * 0.5);
+      ctx.stroke();
     }
-    function stopConfetti() {
-      if (confettiTimer) { clearTimeout(confettiTimer); confettiTimer = null; }
-      app.querySelectorAll(".confetti-piece").forEach((el) => el.remove());
+    if (cracks > 0.8) {
+      ctx.beginPath();
+      ctx.moveTo(w * 0.5, h * 0.08);
+      ctx.lineTo(w * 0.47, h * 0.2);
+      ctx.lineTo(w * 0.52, h * 0.3);
+      ctx.stroke();
     }
 
-    // Public test hook (also handy for debugging)
-    window.__SURVIVAL_GAME__ = {
-      getState() { return JSON.parse(JSON.stringify(state)); },
-      getScene() { return state.scene; },
-      skipIslandTimer() { state.islandTimeLeft = 0; go("shipArrive", 1); },
-      startNew() { handle("newGame"); },
-      goto(scene) { go(scene); },
-      handle,
-      makeMathBank,
-      solveCurrentMath() {
-        const p = state.math && state.math.items[state.math.i];
-        if (!p) return false;
-        handle("ans_" + p.answer);
-        return true;
-      },
-      ISLAND_SECONDS
-    };
+    // swinging lamp
+    const lampX = w * 0.4;
+    const lampAng = Math.sin(t * 4.2) * (0.25 + shakeAmt * 0.5);
+    ctx.save();
+    ctx.translate(lampX, 0);
+    ctx.rotate(lampAng);
+    ctx.strokeStyle = "#3f2a1c";
+    ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(0, h * 0.2); ctx.stroke();
+    ctx.fillStyle = "#fbbf24";
+    ctx.beginPath();
+    ctx.moveTo(-16, h * 0.18);
+    ctx.lineTo(16, h * 0.18);
+    ctx.lineTo(12, h * 0.22);
+    ctx.lineTo(-12, h * 0.22);
+    ctx.closePath();
+    ctx.fill(); ctx.stroke();
+    ctx.fillStyle = "rgba(253, 224, 71, 0.45)";
+    ctx.beginPath(); ctx.ellipse(0, h * 0.255, 18, 8, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = "#fde68a";
+    ctx.beginPath(); ctx.ellipse(0, h * 0.235, 8, 6, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    ctx.restore();
 
-    render();
-  })();
+    // sturdy table (large enough for the boy to sit under)
+    const tblX = w * 0.34, tblY = h * 0.78;
+    const ts = Math.min(w, h) / 340;
+    ctx.fillStyle = "#92400e";
+    ctx.strokeStyle = "#3f2a1c";
+    ctx.lineWidth = 3;
+    ctx.fillRect(tblX - 90 * ts, tblY - 100 * ts, 180 * ts, 16 * ts);
+    ctx.strokeRect(tblX - 90 * ts, tblY - 100 * ts, 180 * ts, 16 * ts);
+    ctx.fillRect(tblX - 80 * ts, tblY - 84 * ts, 16 * ts, 84 * ts);
+    ctx.fillRect(tblX + 64 * ts, tblY - 84 * ts, 16 * ts, 84 * ts);
+    ctx.strokeRect(tblX - 80 * ts, tblY - 84 * ts, 16 * ts, 84 * ts);
+    ctx.strokeRect(tblX + 64 * ts, tblY - 84 * ts, 16 * ts, 84 * ts);
+
+    // shelf + items
+    ctx.fillStyle = "#78350f";
+    ctx.fillRect(w * 0.08, h * 0.36, w * 0.22, 8);
+    const fall = !state.quake.secured && (state.danger > 0.15 || state.step >= 1);
+    const itemY = fall ? h * 0.36 + clamp((t * 40) % 120, 0, h * 0.34) : h * 0.36 - 4;
+    if (!state.quake.secured) {
+      ctx.fillStyle = "#dc2626";
+      ctx.fillRect(w * 0.12, itemY - 16, 14, 16);
+      ctx.fillStyle = "#2563eb";
+      ctx.fillRect(w * 0.18, itemY - 12, 18, 12);
+    } else {
+      ctx.fillStyle = "#dc2626";
+      ctx.fillRect(w * 0.12, h * 0.36 - 16, 14, 16);
+      ctx.fillStyle = "#2563eb";
+      ctx.fillRect(w * 0.18, h * 0.36 - 12, 18, 12);
+    }
+
+    // picture frame swinging
+    ctx.save();
+    ctx.translate(w * 0.5, h * 0.18);
+    ctx.rotate(Math.sin(t * 5) * 0.2 * (0.4 + shakeAmt));
+    ctx.fillStyle = "#fef3c7";
+    ctx.strokeStyle = "#92400e";
+    ctx.lineWidth = 5;
+    ctx.strokeRect(-18, 0, 36, 28);
+    ctx.fillRect(-18, 0, 36, 28);
+    ctx.fillStyle = "#86efac";
+    ctx.fillRect(-12, 6, 24, 16);
+    ctx.restore();
+
+    // boy under table — feet on the floor, head under the tabletop
+    drawBoy(ctx, tblX, tblY - 2, ts * 0.82, "brace", t, {});
+
+    ctx.restore();
+  }
+
+  function drawCompleteScene(ctx, w, h, t) {
+    drawSky(ctx, w, h, "win", t);
+    drawSun(ctx, w * 0.82, h * 0.18, 24, t);
+    drawCloud(ctx, (t * 16) % (w + 80) - 40, h * 0.2, 1, 0.85);
+    const ground = h * 0.72;
+    ctx.fillStyle = "#4d7c0f";
+    ctx.fillRect(0, ground, w, h - ground);
+    ctx.fillStyle = "#65a30d";
+    ctx.beginPath();
+    ctx.ellipse(w * 0.5, ground + 8, w * 0.4, 18, 0, 0, Math.PI * 2);
+    ctx.fill();
+    drawPalm(ctx, w * 0.18, ground, Math.min(w, h) / 380, t, -0.05);
+    drawHut(ctx, w * 0.72, ground, Math.min(w, h) / 380, 3, t);
+    drawBoy(ctx, w * 0.42, ground - 4, Math.min(w, h) / 240, "cheer", t, {});
+    // trophy
+    ctx.save();
+    ctx.translate(w * 0.58, ground - 8);
+    ctx.fillStyle = "#f59e0b";
+    ctx.strokeStyle = "#b45309";
+    ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.arc(0, 0, 16, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    ctx.fillRect(-6, 10, 12, 10);
+    ctx.fillRect(-12, 20, 24, 6);
+    ctx.restore();
+
+    confetti.forEach(function (c) {
+      ctx.save();
+      ctx.translate(c.x * w, c.y * h);
+      ctx.rotate(c.rot);
+      ctx.fillStyle = c.c;
+      ctx.fillRect(-c.w / 2, -c.h / 2, c.w, c.h);
+      ctx.restore();
+    });
+  }
+
+  function drawTitleScene(ctx, w, h, t) {
+    drawIslandScene(ctx, w, h, t, true);
+  }
+
+  let lastFrame = performance.now();
+  function tick(ts) {
+    const dt = Math.min(0.05, (ts - lastFrame) / 1000);
+    lastFrame = ts;
+    const dim = sizeCanvas();
+    const w = dim.w, h = dim.h;
+    const t = animT();
+    const sc = state.scene;
+    ctx.clearRect(0, 0, w, h);
+    updateParticles(dt, sc, t, w, h);
+    if (sc === "title") drawTitleScene(ctx, w, h, t);
+    else if (sc === "island") drawIslandScene(ctx, w, h, t, false);
+    else if (sc === "ship") drawShipScene(ctx, w, h, t);
+    else if (sc === "tsunami") drawTsunamiScene(ctx, w, h, t);
+    else if (sc === "tornado") drawTornadoScene(ctx, w, h, t);
+    else if (sc === "quake") drawQuakeScene(ctx, w, h, t);
+    else if (sc === "complete") drawCompleteScene(ctx, w, h, t);
+    else drawIslandScene(ctx, w, h, t, true);
+    requestAnimationFrame(tick);
+  }
+
+  function setupShot(name) {
+    state = initial();
+    lastScene = "";
+    if (name === "level1") {
+      state.scene = "island";
+      state.step = 3;
+      state.survival = 3;
+      state.island = { wood: 2, hut: 2, food: 0, ship: 0, palms: 2 };
+      state.problems = makeProblems(6);
+      state.problem = state.problems[3];
+      state.pose = "work";
+    } else if (name === "level1-ship") {
+      state.scene = "ship";
+      state.step = 1;
+      state.survival = 1;
+      state.ship = { jackets: 2, ropes: 1, breakfast: 0 };
+      state.problems = makeProblems(3);
+      state.problem = state.problems[1];
+    } else if (name === "level1-tsunami") {
+      state.scene = "tsunami";
+      state.step = 1;
+      state.survival = 1;
+      state.danger = 0.25;
+      state.ship = { jackets: 2, ropes: 2, breakfast: 2 };
+      state.problems = makeProblems(3);
+      state.problem = state.problems[1];
+      state.pose = "brace";
+    } else if (name === "level2-tornado") {
+      state.scene = "tornado";
+      state.step = 2;
+      state.survival = 2;
+      state.tornado = { windows: 2, supplies: 2, basement: 1 };
+      state.problems = makeProblems(4);
+      state.problem = state.problems[2];
+      state.pose = "brace";
+    } else if (name === "level3-quake") {
+      state.scene = "quake";
+      state.step = 1;
+      state.survival = 1;
+      state.danger = 0.3;
+      state.quake = { underTable: 1, secured: 0, checked: 0 };
+      state.problems = makeProblems(4);
+      state.problem = state.problems[1];
+      state.pose = "brace";
+    } else if (name === "complete") {
+      state.scene = "complete";
+      state.stars = 40;
+      state.pose = "cheer";
+      burstConfetti();
+    }
+    resetParticles(state.scene);
+    renderUI();
+  }
+
+  window.__SURVIVAL_GAME__ = {
+    getState: function () { return JSON.parse(JSON.stringify(state)); },
+    getScene: function () { return state.scene; },
+    startNew: startNew,
+    handle: function (act, btn) {
+      if (act === "newGame") startNew();
+      else if (act === "continue") continueGame();
+      else if (act && act.indexOf("ans_") === 0) onAnswer(Number(act.slice(4)), btn);
+    },
+    solveCurrent: function () {
+      if (!state.problem) return false;
+      onAnswer(state.problem.answer);
+      return true;
+    },
+    setupShot: setupShot,
+    makeProblems: makeProblems
+  };
+
+  window.addEventListener("resize", function () { sizeCanvas(); });
+  renderUI();
+  resetParticles("title");
+  requestAnimationFrame(tick);
+})();
   </script>
 </body>
 </html>
