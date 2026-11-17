@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Survival Adventure">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-transparent">
+  <meta name="theme-color" content="#0d9488">
+  <title>Super Survival Adventure</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏝️</text></svg>">
+  <style>
+    :root {
+      --teal: #0d9488;
+      --teal-dark: #0f766e;
+      --sky: #7dd3fc;
+      --sand: #fde7c3;
+      --ink: #134e4a;
+      --card: #fffdf8;
+      --good: #16a34a;
+      --warn: #d97706;
+      --btn-shadow: 0 5px 0 #0f766e;
+      --radius: 22px;
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bot: env(safe-area-inset-bottom, 0px);
+    }
+
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      height: 100vh;
+      height: 100dvh;
+      min-height: 100vh;
+      min-height: -webkit-fill-available;
+      overflow: hidden;
+      font-family: "Trebuchet MS", "Segoe UI", "Avenir Next", system-ui, sans-serif;
+      color: var(--ink);
+      background: #0e7490;
+      overscroll-behavior: none;
+    }
+    body {
+      position: fixed;
+      inset: 0;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+    }
+
+    #app {
+      width: 100%;
+      max-width: 430px;
+      height: 100%;
+      height: 100vh;
+      height: 100dvh;
+      height: 100svh;
+      min-height: -webkit-fill-available;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(180deg, #7dd3fc 0%, #22d3ee 40%, #14b8a6 100%);
+      box-shadow: 0 0 0 1px rgba(0,0,0,.08);
+    }
+    @media (min-width: 700px) {
+      #app { max-width: 560px; }
+    }
+    #app.theme-title { background: linear-gradient(180deg, #67e8f9 0%, #2dd4bf 45%, #14b8a6 100%); }
+    #app.theme-island { background: linear-gradient(180deg, #7dd3fc 0%, #38bdf8 35%, #22d3ee 100%); }
+    #app.theme-night { background: linear-gradient(180deg, #0f172a 0%, #1e3a5f 55%, #164e63 100%); color: #f8fafc; }
+    #app.theme-morning { background: linear-gradient(180deg, #fde68a 0%, #fdba74 40%, #38bdf8 100%); }
+    #app.theme-tsunami { background: linear-gradient(180deg, #1e3a5f 0%, #0e7490 40%, #0369a1 100%); color: #f8fafc; }
+    #app.theme-tornado { background: linear-gradient(180deg, #64748b 0%, #94a3b8 40%, #cbd5e1 100%); }
+    #app.theme-quake { background: linear-gradient(180deg, #fdba74 0%, #fbbf24 35%, #fde68a 100%); }
+    #app.theme-win { background: linear-gradient(180deg, #f472b6 0%, #fbbf24 40%, #34d399 100%); }
+
+    .header {
+      flex: 0 0 auto;
+      padding: calc(10px + var(--safe-top)) 14px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 5;
+    }
+    .top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .brand {
+      font-weight: 800;
+      font-size: 13px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      opacity: .85;
+    }
+    .stars {
+      background: rgba(255,255,255,.85);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 15px;
+      color: #92400e;
+      box-shadow: 0 2px 0 rgba(0,0,0,.08);
+    }
+    .theme-night .stars, .theme-tsunami .stars { background: rgba(15,23,42,.7); color: #fde68a; }
+
+    .progress {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: rgba(255,255,255,.78);
+      border-radius: 999px;
+      padding: 6px 10px;
+      box-shadow: 0 2px 0 rgba(0,0,0,.08);
+    }
+    .theme-night .progress, .theme-tsunami .progress { background: rgba(15,23,42,.7); }
+    .badge {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      line-height: 1;
+      background: #e2e8f0;
+      border: 3px solid #94a3b8;
+      opacity: .55;
+      position: relative;
+      transition: transform .25s ease, opacity .25s ease, border-color .25s ease, background .25s ease;
+    }
+    .badge span {
+      font-size: 9px;
+      font-weight: 800;
+      color: #334155;
+      margin-top: -1px;
+    }
+    .badge.on {
+      opacity: 1;
+      background: #fef9c3;
+      border-color: #f59e0b;
+      transform: scale(1.08);
+      box-shadow: 0 0 0 3px rgba(245,158,11,.25);
+    }
+    .badge.done {
+      opacity: 1;
+      background: #bbf7d0;
+      border-color: #16a34a;
+    }
+    .pbar {
+      width: 28px;
+      height: 6px;
+      border-radius: 99px;
+      background: #cbd5e1;
+      overflow: hidden;
+    }
+    .pbar i {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: #16a34a;
+      border-radius: 99px;
+      transition: width .4s ease;
+    }
+    .pbar.fill i { width: 100%; }
+
+    .scene {
+      flex: 0 0 auto;
+      height: 28vh;
+      min-height: 168px;
+      max-height: 250px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .story-wrap {
+      flex: 1 1 auto;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      justify-content: flex-start;
+    }
+    .story {
+      margin: 0 14px;
+      background: var(--card);
+      color: var(--ink);
+      border-radius: var(--radius);
+      padding: 14px 16px 12px;
+      box-shadow: 0 8px 0 rgba(15,118,110,.18);
+      flex: 0 1 auto;
+      overflow-y: auto;
+      min-height: 0;
+      max-height: 100%;
+    }
+    .story h1, .story h2 {
+      margin: 0 0 8px;
+      line-height: 1.15;
+      font-size: 1.45rem;
+    }
+    .story p {
+      margin: 0;
+      font-size: 1.05rem;
+      line-height: 1.4;
+    }
+    .story h1, .story h2 { color: #134e4a; }
+    .hint {
+      margin-top: 8px;
+      background: #fef3c7;
+      border-radius: 14px;
+      padding: 8px 10px;
+      font-weight: 700;
+      color: #92400e;
+      font-size: 0.98rem;
+      animation: pop .35s ease;
+    }
+    .meter-wrap {
+      margin-top: 12px;
+    }
+    .meter-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      margin-bottom: 4px;
+      color: #0f766e;
+    }
+    .meter {
+      height: 16px;
+      background: #e2e8f0;
+      border-radius: 99px;
+      overflow: hidden;
+      border: 2px solid #0f766e;
+    }
+    .meter > i {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, #34d399, #16a34a);
+      border-radius: 99px;
+      transition: width .45s ease;
+    }
+    .timer {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-weight: 800;
+      color: #0f766e;
+      font-size: 1rem;
+    }
+    .timer .clock {
+      background: #ccfbf1;
+      border-radius: 999px;
+      padding: 4px 10px;
+    }
+
+    .actions {
+      flex: 0 0 auto;
+      padding: 10px 14px calc(14px + var(--safe-bot));
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .actions.grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .actions.grid button.primary,
+    .actions.grid button.ghost,
+    .actions.grid button.span2 {
+      grid-column: 1 / -1;
+    }
+    button {
+      font-family: inherit;
+      font-weight: 800;
+      font-size: 1.12rem;
+      line-height: 1.2;
+      border: 3px solid var(--teal-dark);
+      background: #fff;
+      color: var(--teal-dark);
+      border-radius: 18px;
+      min-height: 56px;
+      padding: 12px 14px;
+      box-shadow: var(--btn-shadow);
+      cursor: pointer;
+      appearance: none;
+      width: 100%;
+      transition: transform .08s ease, box-shadow .08s ease;
+    }
+    button:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--teal-dark); }
+    button.primary {
+      background: #fbbf24;
+      border-color: #b45309;
+      color: #78350f;
+      box-shadow: 0 5px 0 #b45309;
+      font-size: 1.25rem;
+    }
+    button.primary:active { box-shadow: 0 1px 0 #b45309; }
+    button.good {
+      background: #bbf7d0;
+      border-color: #15803d;
+      color: #14532d;
+      box-shadow: 0 5px 0 #15803d;
+    }
+    button.good:active { box-shadow: 0 1px 0 #15803d; }
+    button.ghost {
+      background: rgba(255,255,255,.7);
+      border-color: #0f766e;
+      font-size: .95rem;
+      min-height: 44px;
+      box-shadow: 0 3px 0 #0f766e;
+    }
+    button:disabled { opacity: .55; pointer-events: none; }
+    button.shake-btn { animation: wiggle .4s ease; }
+
+    /* Scenes */
+    .sky, .layer { position: absolute; inset: 0; pointer-events: none; }
+    .sun {
+      position: absolute;
+      top: 12px;
+      right: 24px;
+      font-size: 48px;
+      animation: bob 3s ease-in-out infinite;
+      filter: drop-shadow(0 0 12px #fde047);
+    }
+    .cloud {
+      position: absolute;
+      font-size: 36px;
+      animation: drift 10s linear infinite;
+      opacity: .9;
+    }
+    .cloud.c2 { top: 36px; animation-duration: 14s; animation-delay: -4s; font-size: 28px; }
+    .island-wrap {
+      position: absolute;
+      left: 50%;
+      bottom: 38px;
+      transform: translateX(-50%);
+      transform-origin: center bottom;
+      transition: transform .6s ease;
+    }
+    .island-visual { position: relative; width: 220px; height: 120px; text-align: center; }
+    .palms { position: absolute; left: 0; right: 0; bottom: 42px; font-size: 42px; letter-spacing: -8px; }
+    .hut { position: absolute; left: 50%; bottom: 40px; transform: translateX(-10px); font-size: 44px; }
+    .woodpile { position: absolute; left: 12px; bottom: 36px; font-size: 22px; }
+    .fishies { position: absolute; right: -16px; bottom: 20px; font-size: 22px; animation: bob 2s ease-in-out infinite; z-index: 3; }
+    .sand {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 54px;
+      background: radial-gradient(ellipse at center, #fde68a 0%, #f4b942 70%, #d97706 100%);
+      border-radius: 50% 50% 40% 40%;
+      box-shadow: 0 8px 0 rgba(14,116,144,.25);
+    }
+    .hero {
+      position: absolute;
+      left: 50%;
+      bottom: 46px;
+      transform: translateX(-50%);
+      font-size: 36px;
+      animation: bob 2.4s ease-in-out infinite;
+      z-index: 2;
+    }
+    .waves {
+      position: absolute;
+      left: -10%;
+      right: -10%;
+      bottom: -8px;
+      height: 54px;
+      background:
+        radial-gradient(ellipse at 20% 0, #38bdf8 0 40%, transparent 42%) 0 10px / 80px 40px repeat-x,
+        radial-gradient(ellipse at 20% 0, #0ea5e9 0 40%, transparent 42%) 40px 18px / 80px 40px repeat-x,
+        #0284c7;
+      animation: wave 3s linear infinite;
+      border-radius: 100% 100% 0 0;
+    }
+    .ship {
+      position: absolute;
+      bottom: 28px;
+      left: -40%;
+      font-size: 72px;
+      animation: sail-in 2.2s ease forwards;
+      filter: drop-shadow(0 6px 0 rgba(0,0,0,.15));
+      z-index: 3;
+    }
+    .stars-sky span {
+      position: absolute;
+      color: #fef08a;
+      animation: twinkle 2s ease-in-out infinite;
+      font-size: 16px;
+    }
+    .moon { position: absolute; top: 16px; right: 28px; font-size: 48px; }
+    .deck {
+      position: absolute;
+      left: 50%;
+      bottom: 10px;
+      transform: translateX(-50%);
+      font-size: 88px;
+      text-align: center;
+      width: 180px;
+      height: 140px;
+    }
+    .deck .big-ship { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); }
+    .deck .night-hero {
+      position: absolute;
+      left: 50%;
+      bottom: 44px;
+      transform: translateX(-50%);
+      font-size: 40px;
+      z-index: 2;
+    }
+    .breakfast {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 84px;
+      animation: pop .45s ease;
+    }
+    .tsunami-wave {
+      position: absolute;
+      right: -20%;
+      bottom: 0;
+      font-size: 140px;
+      animation: crash 1.8s ease-in-out infinite;
+      z-index: 4;
+    }
+    .ship-tilt {
+      position: absolute;
+      left: 18%;
+      bottom: 30px;
+      font-size: 80px;
+      animation: tilt 1.6s ease-in-out infinite;
+      z-index: 3;
+    }
+    .tornado {
+      position: absolute;
+      left: 50%;
+      top: 18px;
+      transform: translateX(-50%);
+      font-size: 100px;
+      animation: spin 1.1s linear infinite, storm-drift 2.8s ease-in-out infinite;
+      filter: drop-shadow(0 8px 0 rgba(15,23,42,.2));
+    }
+    .house {
+      position: absolute;
+      left: 50%;
+      bottom: 16px;
+      transform: translateX(-50%);
+      font-size: 90px;
+    }
+    .house.hidden-up { opacity: .35; filter: grayscale(.3); }
+    .basement-icon {
+      position: absolute;
+      left: 50%;
+      bottom: 10px;
+      transform: translateX(-50%);
+      font-size: 70px;
+    }
+    .shake .scene, #app.shaking .scene, #app.shaking .story {
+      animation: quake .35s linear infinite;
+    }
+    .confetti-piece {
+      position: absolute;
+      top: -12px;
+      width: 10px;
+      height: 16px;
+      border-radius: 2px;
+      animation: fall linear forwards;
+      z-index: 20;
+      pointer-events: none;
+    }
+    .win-burst {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 112px;
+      animation: pop .5s ease;
+      filter: drop-shadow(0 6px 0 rgba(0,0,0,.18)) drop-shadow(0 0 18px #fde047);
+    }
+    .supplies {
+      position: absolute;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      font-size: 42px;
+      letter-spacing: 2px;
+      white-space: nowrap;
+    }
+
+    @keyframes bob {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-8px); }
+    }
+    @keyframes drift {
+      0% { transform: translateX(-40px); }
+      100% { transform: translateX(320px); }
+    }
+    @keyframes wave {
+      0% { background-position: 0 10px, 40px 18px, 0 0; }
+      100% { background-position: 80px 10px, 120px 18px, 0 0; }
+    }
+    @keyframes sail-in {
+      0% { left: 6%; transform: translateY(12px) rotate(-6deg); }
+      100% { left: 20%; transform: translateY(0) rotate(0); }
+    }
+    @keyframes twinkle {
+      0%,100% { opacity: .3; transform: scale(.8); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+    @keyframes crash {
+      0%,100% { transform: translateX(0) translateY(8px) rotate(-8deg); }
+      50% { transform: translateX(-30px) translateY(-6px) rotate(-2deg); }
+    }
+    @keyframes tilt {
+      0%,100% { transform: rotate(-12deg); }
+      50% { transform: rotate(10deg) translateY(8px); }
+    }
+    @keyframes spin { to { transform: translateX(-50%) rotate(360deg); } }
+    @keyframes storm-drift {
+      0%,100% { margin-left: -20px; }
+      50% { margin-left: 20px; }
+    }
+    @keyframes quake {
+      0%,100% { transform: translate(0,0) rotate(0); }
+      20% { transform: translate(-7px, 3px) rotate(-1deg); }
+      40% { transform: translate(6px, -2px) rotate(1deg); }
+      60% { transform: translate(-4px, -3px) rotate(0deg); }
+      80% { transform: translate(5px, 2px) rotate(1deg); }
+    }
+    @keyframes pop {
+      0% { transform: scale(.9); }
+      100% { transform: scale(1); }
+    }
+    .story h1, .story h2 { animation: pop .35s ease; }
+    @keyframes wiggle {
+      0%,100% { transform: translateX(0); }
+      25% { transform: translateX(-8px); }
+      75% { transform: translateX(8px); }
+    }
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(540deg); opacity: .9; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app" class="theme-title"></div>
+  <script>
+  (function () {
+    const SAVE_KEY = "superSurvivalAdventure_v1";
+    const ISLAND_SECONDS = 120;
+    const app = document.getElementById("app");
+
+    const LEVELS = [
+      { id: 1, icon: "🏝️", name: "Island" },
+      { id: 2, icon: "🌪️", name: "Tornado" },
+      { id: 3, icon: "🏠", name: "Quake" }
+    ];
+
+    const initial = () => ({
+      scene: "title",
+      level: 0,
+      stars: 0,
+      safety: 0,
+      island: { wood: 0, palms: 0, hut: false, fish: 0 },
+      islandTimeLeft: ISLAND_SECONDS,
+      supplies: [],
+      breakfast: "",
+      nightChoice: "",
+      tsunamiChoice: "",
+      hint: "",
+      shaking: false
+    });
+
+    let state = initial();
+    let islandTimer = null;
+    let confettiTimer = null;
+
+    const $ = (html) => html;
+
+    function save() {
+      try {
+        const copy = { ...state, hint: "", shaking: false };
+        localStorage.setItem(SAVE_KEY, JSON.stringify(copy));
+      } catch (e) { /* ignore */ }
+    }
+    function loadSave() {
+      try {
+        const raw = localStorage.getItem(SAVE_KEY);
+        if (!raw) return null;
+        const data = JSON.parse(raw);
+        if (!data || !data.scene) return null;
+        return data;
+      } catch (e) { return null; }
+    }
+    function clearSave() {
+      try { localStorage.removeItem(SAVE_KEY); } catch (e) { /* ignore */ }
+    }
+    function hasContinue() {
+      const s = loadSave();
+      return s && s.scene && s.scene !== "title" && s.scene !== "complete";
+    }
+
+    function addStars(n) {
+      state.stars += n;
+    }
+
+    function playTone(freq, dur, type) {
+      try {
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        if (!Ctx) return;
+        if (!playTone.ctx || playTone.ctx.state === "closed") {
+          playTone.ctx = new Ctx();
+        }
+        const ctx = playTone.ctx;
+        const beep = () => {
+          try {
+            if (ctx.state === "closed") return;
+            const o = ctx.createOscillator();
+            const g = ctx.createGain();
+            o.type = type || "triangle";
+            o.frequency.value = freq;
+            g.gain.setValueAtTime(0.0001, ctx.currentTime);
+            g.gain.exponentialRampToValueAtTime(0.08, ctx.currentTime + 0.02);
+            g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + dur);
+            o.connect(g); g.connect(ctx.destination);
+            o.start();
+            o.stop(ctx.currentTime + dur + 0.02);
+          } catch (err) { /* ignore audio device errors */ }
+        };
+        if (ctx.state === "suspended") {
+          ctx.resume().then(beep).catch(() => {});
+        } else {
+          beep();
+        }
+      } catch (e) { /* ignore */ }
+    }
+    function sfx(kind) {
+      if (kind === "tap") playTone(520, 0.08, "triangle");
+      if (kind === "good") { playTone(660, 0.1); setTimeout(() => playTone(880, 0.14), 90); }
+      if (kind === "bad") playTone(240, 0.16, "sine");
+      if (kind === "win") {
+        [523, 659, 784, 1046].forEach((f, i) => setTimeout(() => playTone(f, 0.18), i * 120));
+      }
+    }
+
+    function formatTime(sec) {
+      const s = Math.max(0, Math.ceil(sec));
+      const m = Math.floor(s / 60);
+      const r = s % 60;
+      return m + ":" + String(r).padStart(2, "0");
+    }
+
+    function startIslandTimer() {
+      stopIslandTimer();
+      const started = Date.now();
+      const remainingAtStart = state.islandTimeLeft;
+      islandTimer = setInterval(() => {
+        const elapsed = (Date.now() - started) / 1000;
+        state.islandTimeLeft = Math.max(0, remainingAtStart - elapsed);
+        const clock = document.getElementById("island-clock");
+        if (clock) clock.textContent = "⏱️ " + formatTime(state.islandTimeLeft);
+        if (state.islandTimeLeft <= 0) {
+          stopIslandTimer();
+          go("shipArrive");
+        }
+      }, 200);
+    }
+    function stopIslandTimer() {
+      if (islandTimer) { clearInterval(islandTimer); islandTimer = null; }
+    }
+
+    function islandScale() {
+      const i = state.island;
+      const s = 0.72 + i.palms * 0.08 + (i.hut ? 0.12 : 0) + Math.min(i.wood, 6) * 0.03 + Math.min(i.fish, 4) * 0.02;
+      return Math.min(1.35, s);
+    }
+
+    function progressHtml() {
+      const lvl = state.level;
+      const b = (n) => {
+        let cls = "badge";
+        if (lvl > n) cls += " done";
+        else if (lvl === n) cls += " on";
+        return `<div class="${cls}" data-level="${n}" title="${LEVELS[n-1].name}">${LEVELS[n-1].icon}<span>${n}</span></div>`;
+      };
+      const bar = (n) => `<div class="pbar${lvl > n ? " fill" : ""}"><i></i></div>`;
+      return `<div class="progress" role="navigation" aria-label="Level progress">${b(1)}${bar(1)}${b(2)}${bar(2)}${b(3)}</div>`;
+    }
+
+    function headerHtml() {
+      if (state.scene === "title") {
+        return `<div class="header"><div class="top-row"><div class="brand">Adventure Game</div><div class="stars">⭐ 0</div></div>${progressHtml()}</div>`;
+      }
+      return `<div class="header"><div class="top-row"><div class="brand">Super Survival</div><div class="stars" aria-label="Stars">⭐ ${state.stars}</div></div>${progressHtml()}</div>`;
+    }
+
+    function storyBox(title, body, extra) {
+      return `<div class="story-wrap"><div class="story">${title ? `<h2>${title}</h2>` : ""}<p>${body}</p>${extra || ""}${state.hint ? `<div class="hint" role="status">${state.hint}</div>` : ""}</div></div>`;
+    }
+
+    function actionsHtml(btns) {
+      const grid = btns.length >= 4 ? " grid" : "";
+      return `<div class="actions${grid}">${btns.map((b) =>
+        `<button type="button" class="${b.cls || ""}" data-act="${b.act}" ${b.disabled ? "disabled" : ""}>${b.label}</button>`
+      ).join("")}</div>`;
+    }
+
+    function meterHtml(label, value, max) {
+      const pct = Math.max(0, Math.min(100, (value / max) * 100));
+      return `<div class="meter-wrap"><div class="meter-label"><span>${label}</span><span>${value}/${max}</span></div><div class="meter" role="meter" aria-valuenow="${value}" aria-valuemin="0" aria-valuemax="${max}"><i style="width:${pct}%"></i></div></div>`;
+    }
+
+    function islandSceneHtml() {
+      const i = state.island;
+      const palms = "🌴".repeat(Math.max(1, i.palms)) + (i.palms === 0 ? "" : "");
+      return `
+        <div class="scene" aria-hidden="true">
+          <div class="sun">☀️</div>
+          <div class="cloud" style="top:8px">☁️</div>
+          <div class="cloud c2" style="top:48px">☁️</div>
+          <div class="island-wrap" style="transform: translateX(-50%) scale(${islandScale()})">
+            <div class="island-visual">
+              <div class="palms">${i.palms > 0 ? "🌴".repeat(Math.min(i.palms, 5)) : "🌱"}</div>
+              ${i.hut ? `<div class="hut">🛖</div>` : ""}
+              ${i.wood > 0 ? `<div class="woodpile">${"🪵".repeat(Math.min(i.wood, 3))}</div>` : ""}
+              ${i.fish > 0 ? `<div class="fishies">${"🐟".repeat(Math.min(i.fish, 3))}</div>` : ""}
+              <div class="hero">🧒</div>
+              <div class="sand"></div>
+            </div>
+          </div>
+          <div class="waves"></div>
+        </div>`;
+    }
+
+    function shipArriveHtml() {
+      return `<div class="scene"><div class="sun">☀️</div><div class="cloud">☁️</div><div class="ship">🛳️</div><div class="waves"></div></div>`;
+    }
+    function nightHtml() {
+      const stars = Array.from({ length: 12 }, (_, i) => {
+        const left = 8 + (i * 7.5) % 90;
+        const top = 8 + (i * 13) % 55;
+        const delay = (i * 0.2).toFixed(1);
+        return `<span style="left:${left}%;top:${top}%;animation-delay:${delay}s">✨</span>`;
+      }).join("");
+      return `<div class="scene"><div class="stars-sky">${stars}</div><div class="moon">🌙</div><div class="deck"><span class="big-ship">🛳️</span><span class="night-hero">🧒</span></div></div>`;
+    }
+    function morningHtml(food) {
+      return `<div class="scene"><div class="sun">☀️</div><div class="cloud">☁️</div><div class="breakfast">${food || "🥞"}</div><div class="waves" style="height:36px;opacity:.7"></div></div>`;
+    }
+    function tsunamiHtml() {
+      return `<div class="scene"><div class="ship-tilt">🛳️</div><div class="tsunami-wave">🌊</div><div class="waves"></div></div>`;
+    }
+    function tornadoHtml(inBasement) {
+      return `<div class="scene"><div class="tornado">🌪️</div>${inBasement ? `<div class="basement-icon">🧒📦</div>` : `<div class="house">🏠</div>`}<div class="supplies">${state.supplies.join(" ")}</div></div>`;
+    }
+    function quakeHtml() {
+      return `<div class="scene"><div class="house">🏠</div><div class="hero" style="bottom:28px;font-size:48px">🧒</div></div>`;
+    }
+    function titleSceneHtml() {
+      return `<div class="scene"><div class="sun">☀️</div><div class="cloud">☁️</div><div class="cloud c2">☁️</div>
+        <div class="island-wrap" style="transform:translateX(-50%) scale(1.05)">
+          <div class="island-visual">
+            <div class="palms">🌴🌴</div>
+            <div class="hut">🛖</div>
+            <div class="hero">🧒</div>
+            <div class="sand"></div>
+          </div>
+        </div>
+        <div class="waves"></div></div>`;
+    }
+    function winSceneHtml() {
+      return `<div class="scene"><div class="win-burst">🏆</div></div>`;
+    }
+
+    function themeFor(scene) {
+      const map = {
+        title: "theme-title",
+        island: "theme-island",
+        shipArrive: "theme-island",
+        shipNight: "theme-night",
+        shipBreakfast: "theme-morning",
+        tsunami: "theme-tsunami",
+        tornado: "theme-tornado",
+        tornadoBasement: "theme-tornado",
+        tornadoCover: "theme-tornado",
+        tornadoDone: "theme-tornado",
+        quake: "theme-quake",
+        quakeCover: "theme-quake",
+        quakeAfter: "theme-quake",
+        complete: "theme-win"
+      };
+      return map[scene] || "theme-island";
+    }
+
+    function levelFor(scene) {
+      if (scene === "title") return 0;
+      if (["island", "shipArrive", "shipNight", "shipBreakfast", "tsunami"].includes(scene)) return 1;
+      if (String(scene).startsWith("tornado")) return 2;
+      if (String(scene).startsWith("quake") || scene === "complete") return 3;
+      return 0;
+    }
+
+    function bindTap(el, fn) {
+      let fromTouch = false;
+      el.addEventListener("touchend", (ev) => {
+        if (el.disabled) return;
+        ev.preventDefault();
+        fromTouch = true;
+        fn(ev);
+        setTimeout(() => { fromTouch = false; }, 400);
+      }, { passive: false });
+      el.addEventListener("click", (ev) => {
+        if (el.disabled) return;
+        if (fromTouch) {
+          ev.preventDefault();
+          fromTouch = false;
+          return;
+        }
+        fn(ev);
+      });
+    }
+
+    function render() {
+      stopConfetti();
+      const sc = state.scene;
+      state.level = sc === "complete" ? 4 : levelFor(sc);
+      app.className = themeFor(sc) + (state.shaking ? " shaking" : "");
+
+      let scene = "";
+      let story = "";
+      let actions = [];
+
+      if (sc === "title") {
+        scene = titleSceneHtml();
+        story = storyBox("🏝️ Super Survival Adventure",
+          "Help the hero stay safe through 3 wild levels: a tiny island, a spinny tornado, and a wobbly earthquake. It's all a game — you'll be okay, and you'll have fun!");
+        actions = [{ label: "▶️ Play", act: "newGame", cls: "primary" }];
+        if (hasContinue()) actions.push({ label: "↪️ Continue", act: "continue" });
+      }
+
+      else if (sc === "island") {
+        scene = islandSceneHtml();
+        const i = state.island;
+        const extra = meterHtml("Island cozy-meter", Math.min(10, i.wood + i.palms + i.fish + (i.hut ? 3 : 0)), 10) +
+          `<div class="timer"><span>The rescue ship is on the way!</span><span class="clock" id="island-clock">⏱️ ${formatTime(state.islandTimeLeft)}</span></div>`;
+        story = storyBox("Level 1 · Island",
+          "You are on a tiny island. Let's make it bigger and cozier while you wait for a ship to pick you up!",
+          extra);
+        actions = [
+          { label: "🪵 Gather wood", act: "gatherWood" },
+          { label: "🛖 Build a hut" + (i.hut ? " ✓" : " (needs 2 wood)"), act: "buildHut", disabled: i.hut },
+          { label: "🌴 Plant a palm", act: "plantPalm" },
+          { label: "🎣 Go fishing", act: "fish" },
+          { label: "⏭️ Skip ahead", act: "skipIsland", cls: "ghost" }
+        ];
+      }
+
+      else if (sc === "shipArrive") {
+        scene = shipArriveHtml();
+        story = storyBox("A ship is here!",
+          "Look! A giant ship sails in to pick you up. You did a great job on the island. All aboard!");
+        actions = [{ label: "🛳️ Climb aboard!", act: "boardShip", cls: "primary" }];
+      }
+
+      else if (sc === "shipNight") {
+        scene = nightHtml();
+        story = storyBox("Nighttime on the ship",
+          "The sky turns sparkly and dark. You stay on the ship through the night. What would you like to do?");
+        actions = [
+          { label: "😴 Sleep in a cozy cabin", act: "nightSleep" },
+          { label: "⭐ Watch the stars", act: "nightStars" },
+          { label: "🚶 Explore the deck", act: "nightDeck" }
+        ];
+      }
+
+      else if (sc === "shipBreakfast") {
+        const food = state.breakfast || "🥞";
+        scene = morningHtml(food);
+        if (!state.breakfast) {
+          story = storyBox("Good morning! Breakfast time",
+            "You made it through the night, and now the sun is up. What do you want to eat?");
+          actions = [
+            { label: "🥞 Pancakes with syrup", act: "eatPancakes" },
+            { label: "🍓 Fresh fruit", act: "eatFruit" },
+            { label: "🥣 Cereal", act: "eatCereal" },
+            { label: "🍳 Eggs and toast", act: "eatEggs" }
+          ];
+        } else {
+          story = storyBox("Yum!",
+            "That was a tasty breakfast. The morning feels bright and happy. Before long, it will be lunchtime…");
+          actions = [{ label: "☀️ Wait until lunchtime", act: "goLunch", cls: "primary" }];
+        }
+      }
+
+      else if (sc === "tsunami") {
+        scene = tsunamiHtml();
+        if (!state.tsunamiChoice) {
+          story = storyBox("Lunchtime surprise!",
+            "It's lunchtime… but look at the ocean! A giant wave is rolling in! The ship is going for a wild ride. Let's stay safe — you've got this!");
+          actions = [
+            { label: "🛟 Grab a life ring", act: "grabRing", cls: "good" },
+            { label: "🙌 Hold onto a railing", act: "holdRail", cls: "good" },
+            { label: "🧑‍🤝‍🧑 Stay with the group", act: "stayGroup", cls: "good" }
+          ];
+        } else {
+          story = storyBox("You stayed safe!",
+            "The giant wave whooshes by and carries the ship all the way to land. Everyone is okay! Next stop: a cozy house.");
+          actions = [{ label: "🏠 Go to Level 2", act: "toTornado", cls: "primary" }];
+        }
+      }
+
+      else if (sc === "tornado") {
+        scene = tornadoHtml(false);
+        story = storyBox("Level 2 · Tornado",
+          "You're in a house, and a spinny tornado is swirling nearby. Time to be a safety superstar! Where do you go?",
+          meterHtml("Safety meter", state.safety, 3));
+        actions = [
+          { label: "⬇️ Go to the basement", act: "goBasement", cls: "good" },
+          { label: "🪟 Watch from the window", act: "watchWindow" },
+          { label: "🚪 Run outside", act: "runOutside" }
+        ];
+      }
+
+      else if (sc === "tornadoBasement") {
+        scene = tornadoHtml(true);
+        story = storyBox("Smart move! You're in the basement.",
+          "Great choice — the basement is a safer, lower spot. Grab something helpful while you wait.",
+          meterHtml("Safety meter", state.safety, 3));
+        actions = [
+          { label: "🔦 Grab a flashlight", act: "grabFlash" },
+          { label: "💧 Grab water", act: "grabWater" },
+          { label: "🧸 Grab a blanket", act: "grabBlanket" },
+          { label: "🪟 Go peek out a window", act: "peekWindow" }
+        ];
+      }
+
+      else if (sc === "tornadoCover") {
+        scene = tornadoHtml(true);
+        story = storyBox("The tornado is roaring outside!",
+          "The wind is very loud, but you are in a safer place. What do you do now?",
+          meterHtml("Safety meter", state.safety, 3));
+        actions = [
+          { label: "🪑 Cover your head under a sturdy table", act: "coverTable", cls: "good" },
+          { label: "🪟 Stand by a window to watch", act: "standWindow" },
+          { label: "🚪 Open the door to peek out", act: "openDoor" }
+        ];
+      }
+
+      else if (sc === "tornadoDone") {
+        scene = tornadoHtml(true);
+        story = storyBox("The tornado passed!",
+          "You stayed low, grabbed helpful supplies, and covered your head. The sky calms down. You did it — you're safe!",
+          meterHtml("Safety meter", 3, 3));
+        actions = [{ label: "🏠 Go to Level 3", act: "toQuake", cls: "primary" }];
+      }
+
+      else if (sc === "quake") {
+        scene = quakeHtml();
+        story = storyBox("Level 3 · Earthquake",
+          "You're at home, and the ground starts to wiggle and shake! A powerful earthquake is happening. What do you do first?",
+          meterHtml("Safety meter", state.safety, 3));
+        actions = [
+          { label: "⬇️ Drop, Cover, and Hold On", act: "dropCover", cls: "good" },
+          { label: "🏃 Run outside right away", act: "runOutQuake" },
+          { label: "🪟 Stand by a window", act: "standWinQuake" }
+        ];
+      }
+
+      else if (sc === "quakeCover") {
+        scene = quakeHtml();
+        story = storyBox("Drop, Cover, Hold On!",
+          "You drop to the floor and cover yourself. Where is the best place to take cover?",
+          meterHtml("Safety meter", state.safety, 3));
+        actions = [
+          { label: "🪑 Under a sturdy table, away from windows", act: "underTable", cls: "good" },
+          { label: "🪟 Next to a big window", act: "nearWindow" },
+          { label: "🧊 Right beside the fridge", act: "nearFridge" }
+        ];
+      }
+
+      else if (sc === "quakeAfter") {
+        scene = quakeHtml();
+        story = storyBox("The shaking stopped.",
+          "Nice work — you held on until the wiggles ended. What should you do next?",
+          meterHtml("Safety meter", state.safety, 3));
+        actions = [
+          { label: "✅ Stay put a moment, then check for hazards", act: "checkHazards", cls: "good" },
+          { label: "🛗 Run to use the elevator", act: "useElevator" },
+          { label: "🏃 Dash outside without looking", act: "dashOut" }
+        ];
+      }
+
+      else if (sc === "complete") {
+        scene = winSceneHtml();
+        story = storyBox("🎉 You survived all 3 levels!",
+          "You're a safety champion! You expanded an island, rode out a wild wave, stayed safe in a tornado, and used Drop, Cover, and Hold On in an earthquake. Stars earned: ⭐ " + state.stars + ".");
+        actions = [{ label: "🔁 Play again", act: "newGame", cls: "primary" }];
+      }
+
+      app.innerHTML = headerHtml() + scene + story + actionsHtml(actions);
+
+      if (sc === "island") startIslandTimer();
+      else stopIslandTimer();
+
+      if (sc === "complete") startConfetti();
+
+      app.querySelectorAll("button[data-act]").forEach((btn) => {
+        bindTap(btn, () => handle(btn.getAttribute("data-act"), btn));
+      });
+      const storyEl = app.querySelector(".story");
+      if (storyEl && state.hint) storyEl.scrollTop = storyEl.scrollHeight;
+    }
+
+    function gentleHint(text, btn) {
+      sfx("bad");
+      state.hint = "💡 " + text;
+      if (btn) {
+        btn.classList.remove("shake-btn");
+        void btn.offsetWidth;
+        btn.classList.add("shake-btn");
+      }
+      const box = app.querySelector(".story");
+      if (box) {
+        let hint = box.querySelector(".hint");
+        if (!hint) {
+          hint = document.createElement("div");
+          hint.className = "hint";
+          hint.setAttribute("role", "status");
+          box.appendChild(hint);
+        }
+        hint.textContent = state.hint;
+      }
+    }
+
+    function clearHint() { state.hint = ""; }
+
+    function go(scene, stars) {
+      clearHint();
+      if (stars) addStars(stars);
+      state.scene = scene;
+      if (scene === "island" && state.islandTimeLeft <= 0) state.islandTimeLeft = ISLAND_SECONDS;
+      if (scene === "tornado") { state.safety = 0; state.supplies = []; }
+      if (scene === "quake") { state.safety = 0; state.shaking = true; }
+      if (scene === "complete") { state.shaking = false; state.level = 3; sfx("win"); }
+      if (scene !== "quake" && scene !== "quakeCover") state.shaking = false;
+      if (scene === "quakeCover") state.shaking = true;
+      save();
+      render();
+    }
+
+    function handle(act, btn) {
+      const i = state.island;
+      switch (act) {
+        case "newGame":
+          sfx("tap");
+          stopIslandTimer();
+          stopConfetti();
+          state = initial();
+          state.scene = "island";
+          state.level = 1;
+          clearSave();
+          save();
+          sfx("good");
+          render();
+          break;
+        case "continue": {
+          sfx("tap");
+          const saved = loadSave();
+          if (saved) {
+            state = Object.assign(initial(), saved, { hint: "", shaking: saved.scene && String(saved.scene).startsWith("quake") && saved.scene !== "quakeAfter" && saved.scene !== "complete" });
+            if (state.scene === "title") state.scene = "island";
+            render();
+          }
+          break;
+        }
+        case "gatherWood":
+          sfx("good");
+          i.wood += 1;
+          addStars(1);
+          clearHint();
+          state.hint = "🪵 You found sturdy driftwood! Wood: " + i.wood + ".";
+          save(); render();
+          break;
+        case "buildHut":
+          if (i.hut) return;
+          if (i.wood < 2) {
+            gentleHint("You need 2 pieces of wood first. Try gathering a little more!", btn);
+            return;
+          }
+          sfx("good");
+          i.wood -= 2;
+          i.hut = true;
+          addStars(3);
+          clearHint();
+          state.hint = "🛖 Nice work! A cozy hut is up.";
+          save(); render();
+          break;
+        case "plantPalm":
+          sfx("good");
+          i.palms += 1;
+          addStars(1);
+          clearHint();
+          state.hint = "🌴 A new palm stretches toward the sun! Palms: " + i.palms + ".";
+          save(); render();
+          break;
+        case "fish":
+          sfx("good");
+          i.fish += 1;
+          addStars(1);
+          clearHint();
+          state.hint = "🐟 Splash! You caught a sparkly fish. Fish: " + i.fish + ".";
+          save(); render();
+          break;
+        case "skipIsland":
+          sfx("tap");
+          state.islandTimeLeft = 0;
+          go("shipArrive", 1);
+          break;
+        case "boardShip":
+          sfx("good");
+          go("shipNight", 2);
+          break;
+        case "nightSleep":
+          state.nightChoice = "sleep";
+          sfx("good");
+          go("shipBreakfast", 2);
+          state.hint = "😴 You snuggle into a soft bunk. Zzz. Morning is here!";
+          render();
+          break;
+        case "nightStars":
+          state.nightChoice = "stars";
+          sfx("good");
+          go("shipBreakfast", 2);
+          state.hint = "⭐ The stars look like glitter on the ocean. Now it's morning!";
+          render();
+          break;
+        case "nightDeck":
+          state.nightChoice = "deck";
+          sfx("good");
+          go("shipBreakfast", 2);
+          state.hint = "🚶 You tiptoe along the deck and hear friendly music and waves. Morning arrives!";
+          render();
+          break;
+        case "eatPancakes":
+        case "eatFruit":
+        case "eatCereal":
+        case "eatEggs": {
+          const foods = { eatPancakes: "🥞", eatFruit: "🍓", eatCereal: "🥣", eatEggs: "🍳" };
+          state.breakfast = foods[act];
+          addStars(2);
+          sfx("good");
+          clearHint();
+          save(); render();
+          break;
+        }
+        case "goLunch":
+          sfx("tap");
+          go("tsunami");
+          break;
+        case "grabRing":
+          state.tsunamiChoice = "ring";
+          sfx("good");
+          addStars(2);
+          clearHint();
+          state.hint = "🛟 Smart! You hold the bright life ring tight.";
+          save(); render();
+          break;
+        case "holdRail":
+          state.tsunamiChoice = "rail";
+          sfx("good");
+          addStars(2);
+          clearHint();
+          state.hint = "🙌 You hang on tight as the wave whooshes by.";
+          save(); render();
+          break;
+        case "stayGroup":
+          state.tsunamiChoice = "group";
+          sfx("good");
+          addStars(2);
+          clearHint();
+          state.hint = "🧑‍🤝‍🧑 You stay close to helpers. Teamwork feels great!";
+          save(); render();
+          break;
+        case "toTornado":
+          sfx("good");
+          go("tornado");
+          break;
+        case "goBasement":
+          sfx("good");
+          state.safety = Math.max(state.safety, 1);
+          addStars(2);
+          go("tornadoBasement");
+          break;
+        case "watchWindow":
+          gentleHint("Windows can break in a storm. Let's pick a safer, lower spot!", btn);
+          break;
+        case "runOutside":
+          gentleHint("It's safer inside and low down during a tornado. Try again!", btn);
+          break;
+        case "grabFlash":
+        case "grabWater":
+        case "grabBlanket": {
+          const map = { grabFlash: "🔦", grabWater: "💧", grabBlanket: "🧸" };
+          const item = map[act];
+          if (!state.supplies.includes(item)) state.supplies.push(item);
+          sfx("good");
+          state.safety = Math.max(state.safety, 2);
+          addStars(2);
+          clearHint();
+          go("tornadoCover");
+          break;
+        }
+        case "peekWindow":
+          gentleHint("Stay away from windows during a storm. Grab a helpful supply instead!", btn);
+          break;
+        case "coverTable":
+          sfx("good");
+          state.safety = 3;
+          addStars(3);
+          go("tornadoDone");
+          break;
+        case "standWindow":
+          gentleHint("Stay away from windows. Cover your head under something sturdy!", btn);
+          break;
+        case "openDoor":
+          gentleHint("Keep the door closed and cover your head. You can do this!", btn);
+          break;
+        case "toQuake":
+          sfx("good");
+          go("quake");
+          break;
+        case "dropCover":
+          sfx("good");
+          state.safety = 1;
+          addStars(2);
+          go("quakeCover");
+          break;
+        case "runOutQuake":
+          gentleHint("During the shaking, stay inside and protect yourself first. Try Drop, Cover, and Hold On!", btn);
+          break;
+        case "standWinQuake":
+          gentleHint("Windows can be unsafe while the ground is shaking. Drop, Cover, and Hold On!", btn);
+          break;
+        case "underTable":
+          sfx("good");
+          state.safety = 2;
+          addStars(2);
+          go("quakeAfter");
+          break;
+        case "nearWindow":
+          gentleHint("Stay away from windows. A sturdy table is a safer cover spot!", btn);
+          break;
+        case "nearFridge":
+          gentleHint("Heavy things can tip during a quake. Cover under a sturdy table, away from windows!", btn);
+          break;
+        case "checkHazards":
+          sfx("win");
+          state.safety = 3;
+          state.shaking = false;
+          addStars(3);
+          go("complete");
+          break;
+        case "useElevator":
+          gentleHint("Skip elevators after a quake. Stay put a moment, then look for hazards like fallen objects.", btn);
+          break;
+        case "dashOut":
+          gentleHint("Look first — things may have shifted. Stay put a moment, then check for hazards.", btn);
+          break;
+        default:
+          break;
+      }
+    }
+
+    function startConfetti() {
+      stopConfetti();
+      const colors = ["#ef4444", "#f59e0b", "#eab308", "#22c55e", "#3b82f6", "#a855f7", "#ec4899"];
+      for (let i = 0; i < 64; i++) {
+        const p = document.createElement("div");
+        p.className = "confetti-piece";
+        p.style.left = Math.random() * 100 + "%";
+        p.style.background = colors[i % colors.length];
+        p.style.animationDuration = (2.4 + Math.random() * 2.2) + "s";
+        p.style.animationDelay = (Math.random() * 0.8) + "s";
+        p.style.width = (8 + Math.random() * 8) + "px";
+        p.style.height = (10 + Math.random() * 10) + "px";
+        p.style.transform = "rotate(" + (Math.random() * 360) + "deg)";
+        app.appendChild(p);
+      }
+      confettiTimer = setTimeout(stopConfetti, 7000);
+    }
+    function stopConfetti() {
+      if (confettiTimer) { clearTimeout(confettiTimer); confettiTimer = null; }
+      app.querySelectorAll(".confetti-piece").forEach((el) => el.remove());
+    }
+
+    // Public test hook (also handy for debugging)
+    window.__SURVIVAL_GAME__ = {
+      getState() { return JSON.parse(JSON.stringify(state)); },
+      getScene() { return state.scene; },
+      skipIslandTimer() { state.islandTimeLeft = 0; go("shipArrive", 1); },
+      startNew() { handle("newGame"); },
+      goto(scene) { go(scene); },
+      handle,
+      ISLAND_SECONDS
+    };
+
+    render();
+  })();
+  </script>
+</body>
+</html>
